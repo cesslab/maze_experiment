@@ -1,0 +1,39 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+    <div class="grid-container">
+        <div>
+            {% include 'preference/lottery_template.html' with op="V" high=l.high_prize low=l.low_prize rate=l.completion_rate p_high=l.prob_high_completed p_low=l.prob_low_incomplete %}
+        </div>
+        <div>
+            {% include 'preference/lottery_template.html' with op="W" high=r.high_prize low=r.low_prize rate=r.completion_rate p_high=r.prob_high_completed p_low=r.prob_low_incomplete %}
+        </div>
+    </div>
+    <div class="container mt-4 mb-4">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-success" id="id-preference-1" data-auction-id="{{ l.id_number }}">
+                        <input type="radio" name="preference" value="{{ l.id_number }}" id="left_auction" autocomplete="off">
+                        Option V
+                    </label>
+                    <label class="btn btn-success" id="id-preference-0" data-auction-id="-1">
+                        <input type="radio" name="preference" value="-1" autocomplete="off" id="neither_auction">
+                        Either V or W
+                    </label>
+                    <label class="btn btn-success" id="id-preference-2" data-auction-id="{{ r.id_number }}">
+                        <input type="radio" name="preference" value="{{ r.id_number }}" id="right_auction" autocomplete="off">
+                        Option W
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% next_button %}
+
+{% endblock %}
