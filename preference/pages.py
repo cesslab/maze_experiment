@@ -3,8 +3,21 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
-class MyPage(Page):
-    pass
+class ChoicePage(Page):
+    form_model = 'player'
+    form_fields = ['preference']
+
+    def vars_for_template(self):
+        lottery_pair = self.participant.vars['lotteries'][self.round_number - 1]
+        return {
+            'l': lottery_pair[0],
+            'r': lottery_pair[1],
+        }
+
+    def before_next_page(self):
+        lottery_pair = self.participant.vars['lotteries'][self.round_number - 1]
+        self.player.left_lottery_id = lottery_pair[0].id_number
+        self.player.right_lottery_id = lottery_pair[1].id_number
 
 
 class ResultsWaitPage(WaitPage):
@@ -18,7 +31,5 @@ class Results(Page):
 
 
 page_sequence = [
-    MyPage,
-    ResultsWaitPage,
-    Results
+    ChoicePage,
 ]
