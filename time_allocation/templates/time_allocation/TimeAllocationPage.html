@@ -4,6 +4,10 @@
 {% block title %}
 {% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'time_allocation/allocation.css' %}">
+{% endblock %}
+
 {% block content %}
     <div class="grid-container">
         <div>
@@ -13,7 +17,40 @@
             {% include 'preference/lottery_template.html' with op="W" high=r.high_prize low=r.low_prize rate=r.completion_rate p_high=r.prob_high_completed p_low=r.prob_low_incomplete %}
         </div>
     </div>
+    <div class="grid-container">
+        <div>
+            <input
+                    type="text"
+                    onkeypress="return updateRightLotteryAllocation(this,event);"
+                    id="id_bid"
+                    name="bid"
+                    class="center-input form-control"
+                    value="{{ form.left_lottery_time.value|default_if_none:"" }}"
+                    placeholder="Enter Your Bid" required>
+
+            <small id="help" class="form-text text-muted">Your the time you would like to spend on V
+            </small>
+            {% if form.left_lottery_time.errors %}
+                <div class="alert alert-danger">
+                    {{ form.left_lottery_time.errors }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div>
+            <input type="number" id="left_time" name="right_lottery_time" min="0" max="60">
+        </div>
+    </div>
 
     {% next_button %}
 
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function updateRightLotteryAllocation(el, evt) {
+            let maxAllocation = 60;
+        }
+
+    </script>
 {% endblock %}
