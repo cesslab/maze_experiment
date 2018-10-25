@@ -2,10 +2,17 @@
 {% load otree static %}
 
 {% block title %}
-    Page title
 {% endblock %}
 
 {% block content %}
+    <div class="grid-container">
+        <div>
+            {% include 'preference/lottery_template.html' with op="V" high=l.high_prize low=l.low_prize rate=l.completion_rate p_high=l.prob_high_completed p_low=l.prob_low_incomplete %}
+        </div>
+        <div>
+            {% include 'preference/lottery_template.html' with op="W" high=r.high_prize low=r.low_prize rate=r.completion_rate p_high=r.prob_high_completed p_low=r.prob_low_incomplete %}
+        </div>
+    </div>
 
     {% next_button %}
 
