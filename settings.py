@@ -16,7 +16,7 @@ SESSION_CONFIGS = [
        'name': 'maze_experiment',
        'display_name': "Maze Experiment",
        'num_demo_participants': 1,
-       'app_sequence': ['preference'],
+       'app_sequence': ['preference', 'time_allocation'],
     },
 ]
 
