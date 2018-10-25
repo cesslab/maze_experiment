@@ -1,3 +1,5 @@
+import random
+
 from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
     Currency as c, currency_range
@@ -18,7 +20,13 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    def creating_session(self):
+        for player in self.get_players():
+            lotteries = player.participant.vars['lotteries']
+            random.shuffle(lotteries)
+            for pair in lotteries:
+                random.shuffle(pair)
+            player.participant.vars['lotteries'] = lotteries
 
 
 class Group(BaseGroup):
@@ -26,4 +34,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    pass
+    left_lottery_time = models.IntegerField()
+    left_lottery_id = models.IntegerField()
+    right_lottery_time = models.IntegerField()
+    right_lottery_id = models.IntegerField()
