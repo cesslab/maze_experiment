@@ -3,6 +3,10 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
+class InstructionsPage(Page):
+    pass
+
+
 class ChoicePage(Page):
     form_model = 'player'
     form_fields = ['preference']
