@@ -20,13 +20,13 @@
     <div class="grid-container">
         <div>
             <input
-                    type="text"
+                    type="number"
                     onkeypress="return updateRightLotteryAllocation(this,event);"
-                    id="id_bid"
-                    name="bid"
+                    id="left_lottery_time"
+                    name="left_lottery_time"
                     class="center-input form-control"
                     value="{{ form.left_lottery_time.value|default_if_none:"" }}"
-                    placeholder="Enter Your Bid" required>
+                    placeholder="Enter Time for V" required>
 
             <small id="help" class="form-text text-muted">Your the time you would like to spend on V
             </small>
@@ -38,7 +38,13 @@
         </div>
 
         <div>
-            <input type="number" id="left_time" name="right_lottery_time" min="0" max="60">
+            <input
+                    type="number"
+                    id="right_lottery_time"
+                    name="right_lottery_time"
+                    placeholder="Enter Time for W" required
+                    class="center-input form-control"
+            >
         </div>
     </div>
 
@@ -50,6 +56,7 @@
     <script>
         function updateRightLotteryAllocation(el, evt) {
             let maxAllocation = 60;
+            
         }
 
     </script>
