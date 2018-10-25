@@ -3,7 +3,7 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
-class MyPage(Page):
+class TimeAllocationPage(Page):
     pass
 
 
@@ -17,8 +17,4 @@ class Results(Page):
     pass
 
 
-page_sequence = [
-    MyPage,
-    ResultsWaitPage,
-    Results
-]
+page_sequence = [TimeAllocationPage]
