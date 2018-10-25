@@ -21,7 +21,7 @@
         <div>
             <input
                     type="number"
-                    onkeypress="return updateRightLotteryAllocation(this,event);"
+                    onkeyup="return updateRightLotteryAllocation(this,event);"
                     id="left_lottery_time"
                     name="left_lottery_time"
                     class="center-input form-control"
@@ -54,9 +54,22 @@
 
 {% block scripts %}
     <script>
+    document.getElementById().addEventListener('keyup', (event) => {
+      const keyName = event.key;
+
+      // As the user releases the Ctrl key, the key is no longer active,
+      // so event.ctrlKey is false.
+      if (keyName === 'Control') {
+        alert('Control key was released');
+      }
+    }, false);
         function updateRightLotteryAllocation(el, evt) {
             let maxAllocation = 60;
-            
+            let input = document.getElementById('left_lottery_time').value;
+            if (input) {
+                let leftAllocation = parseInt(input);
+                document.getElementById('right_lottery_time').value = maxAllocation - leftAllocation;
+            }
         }
 
     </script>
