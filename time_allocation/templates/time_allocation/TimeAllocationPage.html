@@ -23,7 +23,7 @@
                     name="left_lottery_time"
                     class="center-input form-control"
                     value="{{ form.left_lottery_time.value|default_if_none:"" }}"
-                    placeholder="Enter Time for V" required>
+                    placeholder="Enter time in seconds for option V" required>
             {# <small id="help" class="form-text text-muted">Your the time you would like to spend on V</small> #}
 
             {% if form.left_lottery_time.errors %}
@@ -38,7 +38,7 @@
                     type="number"
                     id="right_lottery_time"
                     name="right_lottery_time"
-                    placeholder="Enter Time for W" required
+                    placeholder="Enter time in seconds for option V" required
                     class="center-input form-control"
                     value="{{ form.right_lottery_time.value|default_if_none:"" }}"
             >
