@@ -12,6 +12,7 @@ class TimeAllocationPage(Page):
         return {
             'l': lottery_pair[0],
             'r': lottery_pair[1],
+            'max_time_seconds': self.session.config['max_time_seconds'],
         }
 
 
