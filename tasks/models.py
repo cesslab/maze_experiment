@@ -26,4 +26,4 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    pass
+    task_one_choice = models.IntegerField(choices=[1, 2, 3], blank=False)
