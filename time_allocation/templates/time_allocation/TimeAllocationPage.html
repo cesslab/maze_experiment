@@ -16,20 +16,16 @@
         <div>
             {% include 'preference/lottery_template.html' with op="W" high=r.high_prize low=r.low_prize rate=r.completion_rate p_high=r.prob_high_completed p_low=r.prob_low_incomplete %}
         </div>
-    </div>
-    <div class="grid-container">
         <div>
             <input
                     type="number"
-                    onkeyup="return updateRightLotteryAllocation(this,event);"
                     id="left_lottery_time"
                     name="left_lottery_time"
                     class="center-input form-control"
                     value="{{ form.left_lottery_time.value|default_if_none:"" }}"
                     placeholder="Enter Time for V" required>
+            {# <small id="help" class="form-text text-muted">Your the time you would like to spend on V</small> #}
 
-            <small id="help" class="form-text text-muted">Your the time you would like to spend on V
-            </small>
             {% if form.left_lottery_time.errors %}
                 <div class="alert alert-danger">
                     {{ form.left_lottery_time.errors }}
@@ -49,28 +45,28 @@
     </div>
 
     {% next_button %}
-
 {% endblock %}
 
 {% block scripts %}
     <script>
-    document.getElementById().addEventListener('keyup', (event) => {
-      const keyName = event.key;
+        const max = {{ max_time_seconds|json }};
 
-      // As the user releases the Ctrl key, the key is no longer active,
-      // so event.ctrlKey is false.
-      if (keyName === 'Control') {
-        alert('Control key was released');
-      }
-    }, false);
-        function updateRightLotteryAllocation(el, evt) {
-            let maxAllocation = 60;
-            let input = document.getElementById('left_lottery_time').value;
-            if (input) {
-                let leftAllocation = parseInt(input);
-                document.getElementById('right_lottery_time').value = maxAllocation - leftAllocation;
+        function updateInputPair(source, other) {
+            if (!source.value) {
+                other.value = "";
+                return;
             }
+
+            other.value = max - parseInt(source.value);
         }
 
+        function timeAllocationHandler(event) {
+            let source = event.target;
+            let other = (source.id === "left_lottery_time") ? document.getElementById("right_lottery_time") : document.getElementById("left_lottery_time");
+            updateInputPair(source, other)
+        }
+
+        document.getElementById("left_lottery_time").addEventListener('keyup', timeAllocationHandler);
+        document.getElementById("right_lottery_time").addEventListener('keyup', timeAllocationHandler);
     </script>
 {% endblock %}
