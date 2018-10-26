@@ -40,7 +40,13 @@
                     name="right_lottery_time"
                     placeholder="Enter Time for W" required
                     class="center-input form-control"
+                    value="{{ form.right_lottery_time.value|default_if_none:"" }}"
             >
+            {% if form.right_lottery_time.errors %}
+                <div class="alert alert-danger">
+                    {{ form.right_lottery_time.errors }}
+                </div>
+            {% endif %}
         </div>
     </div>
 
