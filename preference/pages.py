@@ -3,8 +3,9 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
-class InstructionsPage(Page):
-    pass
+class Instructions(Page):
+    def is_displayed(self):
+        return self.round_number == 1
 
 
 class ChoicePage(Page):
@@ -34,6 +35,4 @@ class Results(Page):
     pass
 
 
-page_sequence = [
-    ChoicePage,
-]
+page_sequence = [Instructions, ChoicePage]

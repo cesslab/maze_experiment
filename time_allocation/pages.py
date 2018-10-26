@@ -3,6 +3,11 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
+class Instructions(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
+
 class TimeAllocationPage(Page):
     form_model = 'player'
     form_fields = ['left_lottery_time', 'right_lottery_time']
@@ -44,4 +49,4 @@ class Results(Page):
     pass
 
 
-page_sequence = [TimeAllocationPage]
+page_sequence = [Instructions, TimeAllocationPage]
