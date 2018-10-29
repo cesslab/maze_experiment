@@ -1,0 +1,56 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'tasks/tasks.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div>
+        <p>
+            Bag A contains 10 red and 10 blue chips. We drew one chip from the bag and recorded the extracted color.
+            By choosing one of the buttons bellow bet on the color of the chip that has been extracted from the bags.
+        </p>
+    </div>
+    <div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Case</th>
+                <th>Option A</th>
+                <th>Option B</th>
+                <th>A</th>
+                <th>B</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for case in cases %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        {% for option in case %}
+                            <td>
+                                {{ option.0 }}% chance of getting ${{ option.1 }} and {{ option.2 }}% of getting ${{ option.3 }}
+                            </td>
+                        {% endfor %}
+                        <td>
+                            <label class="radio-inline">
+                                  <input type="radio" value="1" name="task_two_{{ forloop.counter }}">
+                            </label>
+                        </td>
+                        <td>
+                            <label class="radio-inline">
+                              <input type="radio" value="2" name="task_two_{{ forloop.counter }}">
+                            </label>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% next_button %}
+
+{% endblock %}
