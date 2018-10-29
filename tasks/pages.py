@@ -36,6 +36,7 @@ class TaskTwo(Page):
             ],
         }
 
+
 class TaskThree(Page):
     form_model = 'player'
     form_fields = [
@@ -46,9 +47,32 @@ class TaskThree(Page):
 
     def vars_for_template(self):
         return {
-            'b_options': [75, 100, 125, 150, 175, 200, 225, 250, 275, 300],
+            'cases': [75, 100, 125, 150, 175, 200, 225, 250, 275, 300],
         }
 
 
+class TaskFour(Page):
+    form_model = 'player'
+    form_fields = [
+        'task_four_1', 'task_four_2', 'task_four_3', 'task_four_4', 'task_four_5',
+        'task_four_6', 'task_four_7', 'task_four_8', 'task_four_9', 'task_four_10',
+        'task_four_bet',
+    ]
 
-page_sequence = [Instructions, TaskOne, TaskTwo]
+    def vars_for_template(self):
+        return {
+            'cases': [75, 100, 125, 150, 175, 200, 225, 250, 275, 300],
+        }
+
+
+class TaskFive(Page):
+    form_model = 'player'
+    form_fields = ['task_five_invested']
+
+
+class TaskSix(Page):
+    form_model = 'player'
+    form_fields = ['task_six_invested']
+
+
+page_sequence = [Instructions, TaskOne, TaskTwo, TaskThree, TaskFour, TaskFive, TaskSix]

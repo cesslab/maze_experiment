@@ -11,8 +11,7 @@
 {% block content %}
     <div>
         <p>
-            Bag A contains 10 red and 10 blue chips. We drew one chip from the bag and recorded the extracted color.
-            By choosing one of the buttons bellow bet on the color of the chip that has been extracted from the bags.
+            Bag B contains a total of 20 chips, each of which can be either red or blue in unknown proportions. We drew one chip from the Bag B and recorded the extracted color. By choosing one of the buttons bellow bet on the color of the chip that has been extracted from the bags.
         </p>
     </div>
     <div>
@@ -21,11 +20,11 @@
                 <div class="col-md-auto">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-danger" id="left_button" data-auction-id="1">
-                            <input type="radio" name="task_three_bet" value="1" autocomplete="off">
+                            <input type="radio" name="task_four_bet" value="1" autocomplete="off">
                            I bet on red color
                         </label>
                         <label class="btn btn-primary" data-auction-id="2">
-                            <input type="radio" name="task_three_bet" value="2" autocomplete="off">
+                            <input type="radio" name="task_four_bet" value="2" autocomplete="off">
                            I bet on blue color
                         </label>
                     </div>
@@ -35,10 +34,7 @@
     </div>
     <div>
     <p>
-       The choice you made above defines your gamble. If the color extracted from bag A was the color you
-        placed your bet on, you win 4 dollars, if we extracted the other color you win 0 dollars.
-        Next you are presented with a list of questions where you have the option to trade your gamble for a
-        sure payment.
+        The choice you made above defines your gamble. If the color extracted from bag A was the color you placed your bet on, you win 4 dollars, if we extracted the other color you win 0 dollars. Next you are presented with a list of questions where you have the option to trade your gamble for a sure payment.
     </p>
     </div>
     <div>
@@ -60,12 +56,12 @@
                     <td>${{ case }}</td>
                     <td>
                         <label class="radio-inline">
-                            <input type="radio" value="1" name="task_three_{{ forloop.counter }}">
+                            <input type="radio" value="1" name="task_four_{{ forloop.counter }}">
                         </label>
                     </td>
                     <td>
                         <label class="radio-inline">
-                            <input type="radio" value="2" name="task_three_{{ forloop.counter }}">
+                            <input type="radio" value="2" name="task_four_{{ forloop.counter }}">
                         </label>
                     </td>
                 </tr>

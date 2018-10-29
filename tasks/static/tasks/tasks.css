@@ -43,8 +43,12 @@ output {
     grid-template-rows: auto auto auto;
 }
 
-input[type=number].form-control {
+input[type=number].full-width {
     max-width: 100%;
+    text-align: center
+}
+input[type=number].investment {
+    max-width: 300px;
     text-align: center
 }
 
@@ -56,6 +60,10 @@ input[type=number].form-control {
 
 .otree-btn-next {
     margin-top: 1em;
+}
+
+label#left_button {
+    margin-right: 40px;
 }
 
 label#left_label {

@@ -1,0 +1,49 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'tasks/tasks.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div>
+        <p>
+            You are endowed with 100 tokens and asked to choose the portion of this amount (between 0 and 100 tokens, inclusive) that you wish to invest in a risky option. Those tokens not invested are yours to keep.
+        </p>
+        <p>
+            If the investment is successful, you receive 2.5 times the amount you chose to invest; if the investment is unsuccessful, you lose the amount invested.
+        </p>
+        <p>
+            To determine if the investment is successful or not, we roll a four-faced die, with faces A, B, C, D.
+        </p>
+        <ul>
+            <li>If we get face A or D the investment is successful.</li>
+            <li>If we get faces B or C the investment is unsuccessful.</li>
+        </ul>
+    <p>
+        We now ask you to indicate the number of tokens that you wish to invest by entering it to the box below (1 token is converted to 1 cent).
+    </p>
+    </div>
+    <div>
+        <input
+                type="number"
+                name="task_five_invested"
+                min="0"
+                max="100"
+                placeholder="Enter Your Investment Amount" required
+                class="center-input form-control investment"
+                value="{{ form.task_five_invested.value|default_if_none:"" }}"
+        >
+        {% if form.task_five_invested.errors %}
+        <div class="alert alert-danger">
+            {{ form.task_five_invested.errors }}
+        </div>
+        {% endif %}
+    </div>
+
+    {% next_button %}
+
+{% endblock %}
