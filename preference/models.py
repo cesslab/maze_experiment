@@ -25,10 +25,10 @@ class Subsession(BaseSubsession):
 
         for player in self.get_players():
             lotteries = [
-                [Lottery(1, 800, 400, [.5], .5, .5), Lottery(2, 800, 400, [.5], .6, .4)],
-                [Lottery(3, 800, 400, [.5], .8, .2), Lottery(4, 800, 400, [.5], .8, .2)],
-                [Lottery(5, 800, 400, [.4, .6], .8, .2), Lottery(6, 1000, 200, [.5], .6, .4)],
-                [Lottery(7, 1044, 200, [.3], .6, .4), Lottery(8, 800, 400, [.8], .6, .4)],
+                [Lottery(1, c(8), c(4), [.5], .5, .5), Lottery(2, c(8), c(4), [.5], .6, .4)],
+                [Lottery(3, c(8), c(4), [.5], .8, .2), Lottery(4, c(8), c(4), [.5], .8, .2)],
+                [Lottery(5, c(8), c(4), [.4, .6], .8, .2), Lottery(6, c(10), c(2), [.5], .6, .4)],
+                [Lottery(7, c(10.44), c(2), [.3], .6, .4), Lottery(8, c(8), c(4), [.8], .6, .4)],
             ]
             random.shuffle(lotteries)
             for pair in lotteries:

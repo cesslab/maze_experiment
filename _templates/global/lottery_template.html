@@ -1,3 +1,5 @@
+{% load otree %}
+
 <table class="table table-bordered">
     <thead>
     <tr>
@@ -7,7 +9,7 @@
     <tbody>
     <tr>
         <td>High Prize<br>Low Prize</td>
-        <td>{{ high }}<br>{{ low }}</td>
+        <td>{{ high|c }}<br>{{ low|c }}</td>
     </tr>
     <tr>
         <td>Completion Rate</td>
