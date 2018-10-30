@@ -64,3 +64,7 @@ label#id-preference-1 {
 label#id-preference-2 {
     margin-left: 40px;
 }
+
+label.btn.btn-success.active {
+    font-weight: bold;
+}

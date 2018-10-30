@@ -65,6 +65,9 @@ input[type=number].investment {
 label#left_button {
     margin-right: 40px;
 }
+label.left-pair {
+    margin-right: 20px;
+}
 
 label#left_label {
     margin-right: 40px;
@@ -75,4 +78,8 @@ label#right_label {
 
 .otree-body {
     max-width: 1000px;
+}
+
+label.btn.active {
+   font-weight: bold;
 }

@@ -16,21 +16,15 @@
         </p>
     </div>
     <div>
-        <div class="container mt-4 mb-4">
-            <div class="row justify-content-md-center">
-                <div class="col-md-auto">
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-danger" id="left_button" data-auction-id="1">
-                            <input type="radio" name="task_three_bet" value="1" autocomplete="off">
-                           I bet on red color
-                        </label>
-                        <label class="btn btn-primary" data-auction-id="2">
-                            <input type="radio" name="task_three_bet" value="2" autocomplete="off">
-                           I bet on blue color
-                        </label>
-                    </div>
-                </div>
-            </div>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-danger" id="left_button">
+                <input type="radio" name="task_three_bet" id="option1" value="1" autocomplete="off">
+                I bet on red color
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" name="task_three_bet" id="option2" value="2" autocomplete="off">
+                I bet on blue color
+            </label>
         </div>
     </div>
     <div>
@@ -48,8 +42,7 @@
                 <th>Case</th>
                 <th>Option A</th>
                 <th>Option B</th>
-                <th>A</th>
-                <th>B</th>
+                <th>A or B</th>
             </tr>
             </thead>
             <tbody>
@@ -59,14 +52,14 @@
                     <td>Gamble</td>
                     <td>${{ case }}</td>
                     <td>
-                        <label class="radio-inline">
-                            <input type="radio" value="1" name="task_three_{{ forloop.counter }}">
-                        </label>
-                    </td>
-                    <td>
-                        <label class="radio-inline">
-                            <input type="radio" value="2" name="task_three_{{ forloop.counter }}">
-                        </label>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary left-pair">
+                                <input type="radio" value="1" name="task_three_{{ forloop.counter }}" autocomplete="off">A
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" value="2" name="task_three_{{ forloop.counter }}" autocomplete="off">B
+                            </label>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}

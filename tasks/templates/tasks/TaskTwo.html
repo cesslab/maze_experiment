@@ -18,8 +18,7 @@
                 <th>Case</th>
                 <th>Option A</th>
                 <th>Option B</th>
-                <th>A</th>
-                <th>B</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -32,14 +31,14 @@
                             </td>
                         {% endfor %}
                         <td>
-                            <label class="radio-inline">
-                                  <input type="radio" value="1" name="task_two_{{ forloop.counter }}">
-                            </label>
-                        </td>
-                        <td>
-                            <label class="radio-inline">
-                              <input type="radio" value="2" name="task_two_{{ forloop.counter }}">
-                            </label>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-secondary left-pair">
+                                    <input type="radio" value="1" name="task_two_{{ forloop.counter }}" autocomplete="off">A
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" value="2" name="task_two_{{ forloop.counter }}" autocomplete="off">B
+                                </label>
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}
