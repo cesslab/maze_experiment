@@ -4,17 +4,10 @@ from otree.api import (
 )
 
 
-author = 'Your name here'
-
-doc = """
-Your app description
-"""
-
-
 class Constants(BaseConstants):
     name_in_url = 'play_maze_fixed_time'
     players_per_group = None
-    num_rounds = 1
+    num_rounds = 4
 
 
 class Subsession(BaseSubsession):
@@ -26,4 +19,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    pass
+    maze_id = models.CharField(max_length=255)
+    solved = models.IntegerField(default=0)
+    solve_time_seconds = models.IntegerField()
+
