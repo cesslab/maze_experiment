@@ -6,7 +6,6 @@ from .models import Constants
 from experiment.lottery import Lottery
 
 
-
 class Instructions(Page):
     def is_displayed(self):
         return self.round_number == 1
@@ -17,14 +16,14 @@ class ChoicePage(Page):
     form_fields = ['preference']
 
     def vars_for_template(self):
-        lottery_pair = self.participant.vars['lotteries'][self.round_number - 1]
+        lottery_pair = self.participant.vars['preferred_lotteries'][self.round_number - 1]
         return {
             'l': lottery_pair[0],
             'r': lottery_pair[1],
         }
 
     def before_next_page(self):
-        lottery_pair = self.participant.vars['lotteries'][self.round_number - 1]
+        lottery_pair = self.participant.vars['preferred_lotteries'][self.round_number - 1]
         left_lottery: Lottery = lottery_pair[0]
         right_lottery: Lottery = lottery_pair[1]
 
