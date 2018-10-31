@@ -44,3 +44,4 @@ class Player(BasePlayer):
     left_lottery_id = models.IntegerField()
     right_lottery_id = models.IntegerField()
     preference = models.IntegerField()
+    chosen_lottery = models.BooleanField(default=False)

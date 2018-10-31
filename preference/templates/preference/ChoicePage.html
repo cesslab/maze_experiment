@@ -22,15 +22,15 @@
             <div class="col-md-auto">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                     <label class="btn btn-success" id="id-preference-1" data-auction-id="{{ l.id_number }}">
-                        <input type="radio" name="preference" value="{{ l.id_number }}" id="left_auction" autocomplete="off">
+                        <input type="radio" name="preference" value="1" id="left_auction" autocomplete="off">
                         Option V
                     </label>
                     <label class="btn btn-success" id="id-preference-0" data-auction-id="-1">
-                        <input type="radio" name="preference" value="-1" autocomplete="off" id="neither_auction">
+                        <input type="radio" name="preference" value="2" autocomplete="off" id="neither_auction">
                         Either V or W
                     </label>
                     <label class="btn btn-success" id="id-preference-2" data-auction-id="{{ r.id_number }}">
-                        <input type="radio" name="preference" value="{{ r.id_number }}" id="right_auction" autocomplete="off">
+                        <input type="radio" name="preference" value="3" id="right_auction" autocomplete="off">
                         Option W
                     </label>
                 </div>
