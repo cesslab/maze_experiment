@@ -16,8 +16,9 @@ SESSION_CONFIGS = [
        'name': 'maze_experiment',
        'display_name': "Maze Experiment",
        'num_demo_participants': 1,
-       'app_sequence': ['preference', 'time_allocation', 'tasks'],
+       'app_sequence': ['preference', 'time_allocation', 'tasks', 'play_maze_fixed_time'],
        'max_time_seconds': 120,
+       'max_maze_solve_time': 240,
     },
 ]
 

@@ -36,7 +36,7 @@ class ChoicePage(Page):
         either = 2
         right = 3
         if player_preference == either:
-            player_preference = random.choice(left, right)
+            player_preference = random.choice([left, right])
 
         if player_preference == left:
             self.player.chosen_lottery = left_lottery.id_number
