@@ -6,3 +6,6 @@ class Lottery:
         self.completion_rate = completion_rate
         self.prob_completed = prob_completed
         self.prob_incomplete = prob_incomplete
+        self.is_preference = False
+        self.time_limit = None
+
