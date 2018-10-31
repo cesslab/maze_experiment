@@ -1,6 +1,7 @@
 from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
+from experiment.lottery import Lottery
 
 
 class Instructions(Page):
@@ -22,8 +23,14 @@ class TimeAllocationPage(Page):
 
     def before_next_page(self):
         lottery_pair = self.participant.vars['lotteries'][self.round_number - 1]
-        self.player.left_lottery_id = lottery_pair[0].id_number
-        self.player.right_lottery_id = lottery_pair[1].id_number
+        left_lottery: Lottery = lottery_pair[0]
+        right_lottery: Lottery = lottery_pair[1]
+
+        self.player.left_lottery_id = left_lottery.id_number
+        self.player.right_lottery_id = right_lottery.id_number
+
+        left_lottery.time_limit = self.player.left_lottery_time
+        right_lottery.time_limit = self.player.right_lottery_time
 
     def error_message(self, values):
         max_time = self.session.config['max_time_seconds']
