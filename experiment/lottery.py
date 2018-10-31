@@ -1,5 +1,5 @@
 class Lottery:
-    def __init__(self, id_number, high_prize, low_prize, completion_rate, prob_completed, prob_incomplete):
+    def __init__(self, id_number, high_prize, low_prize, completion_rate, prob_completed, prob_incomplete, maze):
         self.id_number = id_number
         self.low_prize = low_prize
         self.high_prize = high_prize
@@ -8,4 +8,5 @@ class Lottery:
         self.prob_incomplete = prob_incomplete
         self.is_preference = False
         self.time_limit = None
+        self.maze = maze
 
