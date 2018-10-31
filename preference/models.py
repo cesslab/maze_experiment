@@ -47,7 +47,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    left_lottery_id = models.IntegerField()
-    right_lottery_id = models.IntegerField()
-    preference = models.IntegerField()
-    chosen_lottery = models.BooleanField(default=False)
+    left_lottery_id = models.IntegerField(default=False)
+    right_lottery_id = models.IntegerField(default=False)
+    preference = models.IntegerField(default=False)
+    chosen_lottery = models.IntegerField(default=False)
