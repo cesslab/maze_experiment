@@ -36,4 +36,4 @@ class MazePage(Page):
         }
 
 
-page_sequence = [MazePage]
+page_sequence = [Instructions, MazePage]
