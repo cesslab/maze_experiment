@@ -2,6 +2,7 @@
 {% load otree static %}
 
 {% block title %}
+    Instructions for Maze Play with Fixed Time
 {% endblock %}
 
 {% block content %}
@@ -9,4 +10,16 @@
     {% next_button %}
 {% endblock %}
 
-
+{% block scripts %}
+    <script src={% static 'play_maze_fixed_time/js/js.cookie.js' %}></script>
+    <script>
+        let maze_ids = {{ maze_ids|safe }};
+        for (let maze of maze_ids) {
+            Cookies.remove(maze);
+        }
+        Cookies.remove('x');
+        Cookies.remove('y');
+        Cookies.remove('secondsToSolve');
+        Cookies.remove('solved');
+    </script>
+{% endblock scripts %}

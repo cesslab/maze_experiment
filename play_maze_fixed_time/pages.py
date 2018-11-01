@@ -9,6 +9,16 @@ class Instructions(Page):
     def is_displayed(self):
         return self.round_number == 1
 
+    def vars_for_template(self):
+        maze_ids = []
+        for lottery_pair in self.participant.vars['preferred_lotteries']:
+            for lottery in lottery_pair:
+                maze_ids.append(lottery.maze.name)
+
+        return {
+            'maze_ids': maze_ids,
+        }
+
 
 class MazePage(Page):
     form_model = 'player'
