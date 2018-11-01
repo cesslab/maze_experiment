@@ -4,6 +4,12 @@ from .models import Constants
 
 from experiment.lottery import Lottery
 
+
+class Instructions(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
+
 class MazePage(Page):
     form_model = 'player'
     form_fields = ['solved', 'solve_time_seconds', 'maze_id']
