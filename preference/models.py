@@ -40,6 +40,7 @@ class Subsession(BaseSubsession):
             for pair in lotteries:
                 random.shuffle(pair)
             player.participant.vars['preferred_lotteries'] = lotteries
+            player.participant.vars['rand_lottery_pair_preference_phase'] = random.randint(0, 3)
 
 
 class Group(BaseGroup):
