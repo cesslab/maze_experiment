@@ -5,3 +5,5 @@ class Maze:
         self.start_y = start_y
         self.end_x = end_x
         self.end_y = end_y
+        self.solved = False
+        self.solve_time = 0
