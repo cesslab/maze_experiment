@@ -1,8 +1,12 @@
+from typing import List
+
 from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
     Currency as c, currency_range
 )
 
+from experiment.lottery import Lottery
+from experiment.mazes import Maze
 
 author = 'Your name here'
 
@@ -26,4 +30,11 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    pass
+    phase_one_left_lottery = models.IntegerField()
+    phase_one_right_lottery = models.IntegerField()
+    phase_one_payoff = models.CurrencyField()
+
+    def set_phase_one_payoff(self):
+        pair: List[Lottery] = self.participant.vars['rand_pair_phase_1']
+        left_maze: Maze = pair[0].maze
+

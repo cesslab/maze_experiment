@@ -52,6 +52,9 @@ class LeftMazePage(Page):
             'round': self.round_number,
         }
 
+    def before_next_page(self):
+        pass
+
 
 class RightMazePage(Page):
     form_model = 'player'
