@@ -12,6 +12,10 @@ class Instructions(Page):
 
 
 class ChoicePage(Page):
+    LEFT = 1
+    EITHER = 2
+    RIGHT = 3
+
     form_model = 'player'
     form_fields = ['preference']
 
@@ -32,18 +36,18 @@ class ChoicePage(Page):
 
         player_preference = self.player.preference
 
-        left = 1
-        either = 2
-        right = 3
-        if player_preference == either:
-            player_preference = random.choice([left, right])
+        # Randomly choose the player preference if either was selected
+        if player_preference == ChoicePage.EITHER:
+            player_preference = random.choice([ChoicePage.LEFT, ChoicePage.RIGHT])
 
-        if player_preference == left:
+        if player_preference == ChoicePage.LEFT:
             self.player.chosen_lottery = left_lottery.id_number
             left_lottery.is_preference = True
+            self.player.participant.vars["phase_1_chosen_lottery_side"] = 0
         else:
             self.player.chosen_lottery = right_lottery.id_number
             right_lottery.is_preference = True
+            self.player.participant.vars["phase_1_chosen_lottery_side"] = 1
 
 
 class ResultsWaitPage(WaitPage):

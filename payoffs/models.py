@@ -1,3 +1,4 @@
+import random
 from typing import List
 
 from otree.api import (
@@ -30,11 +31,32 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    phase_one_left_lottery = models.IntegerField()
-    phase_one_right_lottery = models.IntegerField()
-    phase_one_payoff = models.CurrencyField()
+    p1_chosen_lottery = models.IntegerField()
+    p1_payoff = models.CurrencyField()
+    p1_won_high_prize = models.BooleanField()
+    p1_won_low_prize = models.BooleanField()
 
     def set_phase_one_payoff(self):
-        pair: List[Lottery] = self.participant.vars['rand_pair_phase_1']
-        left_maze: Maze = pair[0].maze
+        random_round = self.participant.vars['random_round_phase_1']
+        pair: List[Lottery] = self.participant.vars['preferred_lotteries'][random_round - 1]
 
+        chosen_lottery_side = self.player.participant.vars["phase_1_chosen_lottery_side"]
+        chosen_lottery: Lottery = pair[chosen_lottery_side]
+
+        self.p1_chosen_lottery = chosen_lottery.id_number
+        chosen_maze: Maze = chosen_lottery.maze
+        r = random.random()
+        if chosen_maze.solved:
+            if r <= chosen_lottery.prob_completed:
+                self.p1_won_high_prize = True
+                self.p1_payoff = chosen_lottery.high_prize
+            else:
+                self.p1_won_low_prize = True
+                self.p1_payoff = chosen_lottery.low_prize
+        else:
+            if r <= chosen_lottery.prob_incomplete:
+                self.p1_won_high_prize = True
+                self.p1_payoff = chosen_lottery.high_prize
+            else:
+                self.p1_won_low_prize = True
+                self.p1_payoff = chosen_lottery.low_prize
