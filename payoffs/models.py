@@ -35,6 +35,7 @@ class Player(BasePlayer):
     p1_payoff = models.CurrencyField()
     p1_won_high_prize = models.BooleanField()
     p1_won_low_prize = models.BooleanField()
+    solved_maze = models.BooleanField()
 
     def set_phase_one_payoff(self):
         random_round = self.participant.vars['random_round_phase_1']
@@ -45,7 +46,10 @@ class Player(BasePlayer):
 
         self.p1_chosen_lottery = chosen_lottery.id_number
         chosen_maze: Maze = chosen_lottery.maze
-        r = random.random()
+
+        self.solved_maze = chosen_maze.solved
+
+        r = random.randint(0, 100)
         if chosen_maze.solved:
             if r <= chosen_lottery.prob_completed:
                 self.p1_won_high_prize = True

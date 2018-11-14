@@ -13,11 +13,19 @@
     </tr>
     <tr>
         <td>Completion Rate</td>
-        <td>{{ rate }}</td>
+        <td>
+            {% for r in rate %}
+                {% if forloop.last %}
+                    {{ r }}%
+                {% else %}
+                    {{ r }}%,
+                {% endif %}
+            {% endfor %}
+        </td>
     </tr>
     <tr>
         <td>High Prize | Complete<br>High Prize | Incomplete</td>
-        <td>{{ p_complete }}<br>{{ p_incomplete }}</td>
+        <td>{{ p_complete }}%<br>{{ p_incomplete }}%</td>
     </tr>
     </tbody>
 </table>

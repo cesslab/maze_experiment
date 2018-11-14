@@ -19,20 +19,20 @@ class Subsession(BaseSubsession):
         for player in self.get_players():
             lotteries = [
                 [
-                    Lottery(1, c(8), c(4), [.5], .5, .5, Maze('hard3', 147, 2, 169, 314)),
-                    Lottery(2, c(8), c(4), [.5], .6, .4, Maze('hardV1', 147, 2, 169, 314))
+                    Lottery(1, c(8), c(4), [50], 50, 50, Maze('easy1', 147, 2, 169, 314)),
+                    Lottery(2, c(8), c(4), [50], 60, 40, Maze('easy2', 147, 2, 169, 314))
                 ],
                 [
-                    Lottery(3, c(8), c(4), [.5], .8, .2, Maze('hardV2', 147, 2, 169, 314)),
-                    Lottery(4, c(8), c(4), [.5], .8, .2, Maze('hardV3', 147, 2, 169, 314))
+                    Lottery(3, c(8), c(4), [50], 80, 20, Maze('easy3', 147, 2, 169, 314)),
+                    Lottery(4, c(8), c(4), [50], 80, 20, Maze('easyM1', 147, 2, 169, 314))
                 ],
                 [
-                    Lottery(5, c(8), c(4), [.4, .6], .8, .2, Maze('medium1', 147, 2, 169, 314)),
-                    Lottery(6, c(10), c(2), [.5], .6, .4, Maze('medium2', 147, 2, 169, 314))
+                    Lottery(5, c(8), c(4), [40, 60], 80, 20, Maze('easyM2', 147, 2, 169, 314)),
+                    Lottery(6, c(10), c(2), [50], 60, 40, Maze('easyM3', 147, 2, 169, 314))
                 ],
                 [
-                    Lottery(7, c(10.44), c(2), [.3], .6, .4, Maze('medium3', 147, 2, 169, 314)),
-                    Lottery(8, c(8), c(4), [.8], .6, .4, Maze('hard2', 147, 2, 169, 314))
+                    Lottery(7, c(10.44), c(2), [30], 60, 40, Maze('hard1', 147, 2, 169, 314)),
+                    Lottery(8, c(8), c(4), [80], 60, 40, Maze('hard2', 147, 2, 169, 314))
                 ],
             ]
             random.shuffle(lotteries)
