@@ -1,0 +1,36 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Final Payoffs
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h3>Phase 1</h3>
+    </div>
+
+    <div>
+        {% include 'global/lottery_template.html' with op=lottery_label  high=l.high_prize low=l.low_prize rate=l.completion_rate p_complete=l.prob_completed p_incomplete=l.prob_incomplete %}
+    </div>
+    <div>
+        <h3>Outcome</h3>
+        <p>
+            {% if solved_maze %}
+                You solved the maze.
+            {% else %}
+                You did not solve the maze.
+            {% endif %}
+
+            {% if won_low %}
+                The Low prize was chosen.
+            {% else %}
+                <p>The High Prize Chosen.
+            {% endif %}
+             Your payoff for phase 1 is {{ payoff|c }}.
+        </p>
+    </div>
+
+    {% next_button %}
+
+{% endblock %}
