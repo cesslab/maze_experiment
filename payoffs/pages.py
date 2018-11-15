@@ -34,6 +34,6 @@ class Payoffs(Page):
 
 
 page_sequence = [
-    PayoffCalculationWaitPage,
+    Instructions,
     Payoffs
 ]

@@ -21,6 +21,8 @@
                     type="number"
                     id="left_lottery_time"
                     name="left_lottery_time"
+                    min="0"
+                    max="{{ max_time_seconds }}"
                     class="center-input form-control"
                     value="{{ form.left_lottery_time.value|default_if_none:"" }}"
                     placeholder="Enter time in seconds for option V" required>
@@ -37,6 +39,8 @@
             <input
                     type="number"
                     id="right_lottery_time"
+                    min="0"
+                    max="{{ max_time_seconds }}"
                     name="right_lottery_time"
                     placeholder="Enter time in seconds for option V" required
                     class="center-input form-control"
@@ -55,7 +59,7 @@
 
 {% block scripts %}
     <script>
-        const max = {{ max_time_seconds|json }};
+        var max = {{ max_time_seconds|json }};
 
         function updateInputPair(source, other) {
             if (!source.value) {
