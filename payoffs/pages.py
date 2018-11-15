@@ -5,10 +5,9 @@ from experiment.lottery import Lottery
 from .models import Player
 
 
-class PayoffCalculationWaitPage(WaitPage):
-    def after_all_players_arrive(self):
-        for p in self.group.get_players():  # type: Player
-            p.set_phase_one_payoff()
+class Instructions(Page):
+    def before_next_page(self):
+        self.player.set_phase_one_payoff()
 
 
 class Payoffs(Page):
