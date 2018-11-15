@@ -18,7 +18,7 @@ Your app description
 
 class Constants(BaseConstants):
     name_in_url = 'payoffs'
-    players_per_group = None
+    players_per_group = 1
     num_rounds = 1
 
 
@@ -38,10 +38,10 @@ class Player(BasePlayer):
     solved_maze = models.BooleanField()
 
     def set_phase_one_payoff(self):
-        random_round = self.participant.vars['random_round_phase_1']
+        random_round = self.participant.vars['rand_round_phase_1']
         pair: List[Lottery] = self.participant.vars['preferred_lotteries'][random_round - 1]
 
-        chosen_lottery_side = self.player.participant.vars["phase_1_chosen_lottery_side"]
+        chosen_lottery_side = self.participant.vars["phase_1_chosen_lottery_side"]
         chosen_lottery: Lottery = pair[chosen_lottery_side]
 
         self.p1_chosen_lottery = chosen_lottery.id_number

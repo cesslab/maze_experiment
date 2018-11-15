@@ -42,7 +42,6 @@ class TimeAllocationPage(Page):
         left_val = int(left)
         right_val = int(right)
         if left_val + right_val != max_time:
-            print("Error: Invalid time allocation - {}".format)
             return "The time in seconds for V and W must add up to exactly {}".format(max_time)
 
 

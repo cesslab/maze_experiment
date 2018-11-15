@@ -7,7 +7,8 @@
 
 {% block content %}
     <div>
-        <h3>Phase 1</h3>
+        <h3>Phase 1:</h3>
+        <p>The following lottery was selected for payment</p>
     </div>
 
     <div>
@@ -25,9 +26,9 @@
             {% if won_low %}
                 The Low prize was chosen.
             {% else %}
-                <p>The High Prize Chosen.
+                <p>The High Prize was Chosen.
             {% endif %}
-             Your payoff for phase 1 is {{ payoff|c }}.
+             Your payoff for phase 1 is {{ payoff }}.
         </p>
     </div>
 

@@ -1,24 +1,40 @@
-from otree.api import Currency as c, currency_range
+from typing import List
 from ._builtin import Page, WaitPage
-from .models import Constants
+
+from experiment.lottery import Lottery
+from .models import Player
 
 
-class MyPage(Page):
-    pass
-
-
-class ResultsWaitPage(WaitPage):
-
+class PayoffCalculationWaitPage(WaitPage):
     def after_all_players_arrive(self):
-        pass
+        for p in self.group.get_players():  # type: Player
+            p.set_phase_one_payoff()
 
 
-class Results(Page):
-    pass
+class Payoffs(Page):
+    def vars_for_template(self):
+        random_round = self.player.participant.vars['rand_round_phase_1']
+        pair: List[Lottery] = self.player.participant.vars['preferred_lotteries'][random_round - 1]
+
+        chosen_lottery_side = self.player.participant.vars["phase_1_chosen_lottery_side"]
+        chosen_lottery: Lottery = pair[chosen_lottery_side]
+        if chosen_lottery_side == 0:
+            lottery_label = 'V'
+        else:
+            lottery_label = 'W'
+
+        return {
+            'l': chosen_lottery,
+            'lottery_label': lottery_label,
+            'random_round': random_round,
+            'won_low': self.player.p1_won_low_prize,
+            'won_high': self.player.p1_won_high_prize,
+            'payoff': self.player.p1_payoff,
+            'solved_maze': self.player.solved_maze,
+        }
 
 
 page_sequence = [
-    MyPage,
-    ResultsWaitPage,
-    Results
+    PayoffCalculationWaitPage,
+    Payoffs
 ]
