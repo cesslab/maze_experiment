@@ -2,6 +2,7 @@
 {% load otree static %}
 
 {% block title %}
+    Task 3
 {% endblock %}
 
 {% block styles %}
@@ -29,10 +30,13 @@
     </div>
     <div>
     <p>
-       The choice you made above defines your gamble. If the color extracted from bag A was the color you
+        The choice you made above defines <b>your gamble</b>. If the color extracted from bag A was the color you
         placed your bet on, you win 4 dollars, if we extracted the other color you win 0 dollars.
         Next you are presented with a list of questions where you have the option to trade your gamble for a
         sure payment.
+    </p>
+    <p>
+        If this task is chosen for payment one of your 10 choices will be selected for payment.
     </p>
     </div>
     <div>
@@ -49,7 +53,7 @@
             {% for case in cases %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>Gamble</td>
+                    <td>Your Gamble</td>
                     <td>{{ case|c }}</td>
                     <td>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">

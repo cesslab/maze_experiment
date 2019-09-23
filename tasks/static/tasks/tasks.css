@@ -80,6 +80,7 @@ label#right_label {
     max-width: 1000px;
 }
 
-label.btn.active {
+label.btn-secondary.ab-btn.active {
    font-weight: bold;
+    background-color: black !important;
 }

@@ -2,6 +2,7 @@
 {% load otree static %}
 
 {% block title %}
+    Task 2
 {% endblock %}
 
 {% block styles %}
@@ -10,7 +11,11 @@
 
 {% block content %}
     <div><p>You are presented with 10 questions and in each question you choose, between two lotteries.
-        Choose the one that you prefer in each of 10 cases.</p></div>
+        Choose the one that you prefer in each of 10 cases.</p>
+        <p>
+            If this task is chosen for payment one of your 10 choices will be selected for payment.
+        </p>
+    </div>
     <div>
         <table class="table table-bordered">
             <thead>
@@ -32,10 +37,10 @@
                         {% endfor %}
                         <td>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-secondary left-pair" id="a_row_{{ forloop.counter }}">
+                                <label class="btn btn-secondary left-pair ab-btn" id="a_row_{{ forloop.counter }}">
                                     <input type="radio" value="1" name="task_two_{{ forloop.counter }}" autocomplete="off">A
                                 </label>
-                                <label class="btn btn-secondary" id="b_row_{{ forloop.counter }}">
+                                <label class="btn btn-secondary ab-btn" id="b_row_{{ forloop.counter }}">
                                     <input type="radio" value="2" name="task_two_{{ forloop.counter }}" autocomplete="off">B
                                 </label>
                             </div>
