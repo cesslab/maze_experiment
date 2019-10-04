@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'tasks/tasks.css' %}">
+    <link rel="stylesheet" href="{% static 'tasks/task2.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -37,10 +37,10 @@
                         {% endfor %}
                         <td>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-secondary left-pair ab-btn" id="a_row_{{ forloop.counter }}">
+                                <label class="btn btn-secondary left-pair btn-ab" id="a_row_{{ forloop.counter }}">
                                     <input type="radio" value="1" name="task_two_{{ forloop.counter }}" autocomplete="off">A
                                 </label>
-                                <label class="btn btn-secondary ab-btn" id="b_row_{{ forloop.counter }}">
+                                <label class="btn btn-secondary btn-ab" id="b_row_{{ forloop.counter }}">
                                     <input type="radio" value="2" name="task_two_{{ forloop.counter }}" autocomplete="off">B
                                 </label>
                             </div>

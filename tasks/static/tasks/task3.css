@@ -89,3 +89,36 @@ label.btn-secondary.active {
 .btn-ab {
     border-width: 3px;
 }
+
+#ab-selection {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+#bid-blue {
+    margin-top: 15px;
+    color: blue;
+}
+#bid-red {
+    margin-top: 15px;
+    color: red;
+}
+
+.btn-container {
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: 50% 50%;
+}
+
+#left_button.active {
+    font-weight: bold;
+    background-color: #a51d2a;
+}
+#right_button.active {
+    font-weight: bold;
+    background-color: #003873;
+}

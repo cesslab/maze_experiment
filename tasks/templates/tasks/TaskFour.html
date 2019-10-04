@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'tasks/tasks.css' %}">
+    <link rel="stylesheet" href="{% static 'tasks/task3.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -15,18 +15,26 @@
             Bag B contains a total of 20 chips, each of which can be either red or blue in unknown proportions. We drew one chip from the Bag B and recorded the extracted color. By choosing one of the buttons bellow bet on the color of the chip that has been extracted from the bags.
         </p>
     </div>
-    <div>
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-danger" id="left_button">
-                <input type="radio" name="task_four_bet" id="option1" value="1" autocomplete="off">
-               I bet on red color
-            </label>
-            <label class="btn btn-primary" id="right_button">
-                <input type="radio" name="task_four_bet" id="option2" value="2" autocomplete="off">
-               I bet on blue color
-            </label>
+
+    <div class="btn-container">
+        <div class="text-center" id="ab-selection">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-danger" id="left_button">
+                    <input type="radio" name="task_four_bet" id="option1" value="1" autocomplete="off">
+                    I bet on red color
+                </label>
+                <label class="btn btn-primary" id="right_button">
+                    <input type="radio" name="task_four_bet" id="option2" value="2" autocomplete="off">
+                    I bet on blue color
+                </label>
+            </div>
+        </div>
+        <div id="bid-message" class="hidden align-middle">
+            <h3 class="text-center" id="bid-red">You bet on red</h3>
+            <h3 class="text-center" id="bid-blue">You bet on blue</h3>
         </div>
     </div>
+
     <div>
     <p>
         The choice you made above defines <b>your gamble</b>. If the color extracted from bag A was the color you placed your bet on, you win 4 dollars, if we extracted the other color you win 0 dollars. Next you are presented with a list of questions where you have the option to trade your gamble for a sure payment.
@@ -70,6 +78,27 @@
 
 
     {% next_button %}
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $('#ab-selection :input').change(function(){
+            let betId = parseInt(this.value);
+            if (betId === 1) {
+                $('#bid-message').removeClass('hidden');
+                $('#bid-red').show();
+                $('#bid-blue').hide();
+                console.log('bet on red');
+            }
+            else {
+                $('#bid-message').removeClass('hidden');
+                $('#bid-red').hide();
+                $('#bid-blue').show();
+                console.log('bet on blue');
+            }
+        });
+    </script>
 
 {% endblock %}
 

@@ -1,4 +1,5 @@
 import random
+import argparse
 import os
 import glob
 from os import environ
@@ -107,8 +108,15 @@ def bet_case_select_task(browser, browser_tab, task_id):
         element.click()
     browser.find_element(By.XPATH, '//button').click()
 
+
 # Run with python -m selenium.simulator
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Parse arguments to the selenium simulator')
+    parser.add_argument('part', metavar='N', type=int, help='list of experiment parts to run')
+    args = parser.parse_args()
+    part = args.part
+    print(part)
+
     chrome_options = Options()
     chrome_options.add_argument("--disable-infobars")
     chrome_options.add_argument('--window-size=1200,900')
@@ -125,33 +133,36 @@ if __name__ == "__main__":
         driver.switch_to.window(driver.window_handles[0])
         player_links[player-1].send_keys(Keys.COMMAND + Keys.ENTER)
 
-    # Preference selection phase
-    lottery_pairs = 4
-    for round_id in range(1, lottery_pairs + 1):
-        for player in range(1, len(player_links) + 1):
-            # switch to new tab
-            driver.switch_to.window(driver.window_handles[player])
-            if round_id == 1:
-                instructions(driver)
-            choose_lottery(driver, round_id, player)
+    # Part 1: Preference selection phase
+    if 1 <= part:
+        lottery_pairs = 4
+        for round_id in range(1, lottery_pairs + 1):
+            for player in range(1, len(player_links) + 1):
+                # switch to new tab
+                driver.switch_to.window(driver.window_handles[player])
+                if round_id == 1:
+                    instructions(driver)
+                choose_lottery(driver, round_id, player)
 
-    for round_id in range(1, lottery_pairs + 1):
-        for player in range(1, len(player_links) + 1):
-            # switch to new tab
-            driver.switch_to.window(driver.window_handles[player])
-            if round_id == 1:
-                instructions(driver)
-            allocate_lottery_pair_time(driver, round_id, player)
+    if 2 <= part:
+        for round_id in range(1, lottery_pairs + 1):
+            for player in range(1, len(player_links) + 1):
+                # switch to new tab
+                driver.switch_to.window(driver.window_handles[player])
+                if round_id == 1:
+                    instructions(driver)
+                allocate_lottery_pair_time(driver, round_id, player)
 
-    for round_id in range(1, lottery_pairs + 1):
-        for player in range(1, len(player_links) + 1):
-            # switch to new tab
-            driver.switch_to.window(driver.window_handles[player])
-            if round_id == 1:
-                instructions(driver)
-            task_one(driver, player)
-            task_two(driver, player)
-            bet_case_select_task(driver, player, 3)
-            # Task 4 is the same as three
-            bet_case_select_task(driver, player, 4)
-            single_entry_task(driver, player)
+    if 3 <= part:
+        for round_id in range(1, lottery_pairs + 1):
+            for player in range(1, len(player_links) + 1):
+                # switch to new tab
+                driver.switch_to.window(driver.window_handles[player])
+                if round_id == 1:
+                    instructions(driver)
+                task_one(driver, player)
+                task_two(driver, player)
+                bet_case_select_task(driver, player, 3)
+                # Task 4 is the same as three
+                bet_case_select_task(driver, player, 4)
+                single_entry_task(driver, player)

@@ -80,12 +80,21 @@ label#right_label {
     max-width: 1000px;
 }
 
-label.btn-secondary.active {
+#left_label.active {
     font-weight: bold;
-    border-color: #393d40 !important;
-    background-color: #3a3f44 !important;
+    border-color: #134d20;
 }
 
-.btn-ab {
+#middle_label.active {
+    font-weight: bold;
+    border-color: #134d20;
+}
+
+#right_label.active {
+    font-weight: bold;
+    border-color: #134d20;
+}
+
+label.btn {
     border-width: 3px;
 }
