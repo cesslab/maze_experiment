@@ -10,10 +10,10 @@ from otree.api import (
 )
 
 
-author = 'Your name here'
+author = 'Anwar A. Ruff'
 
 doc = """
-Your app description
+Practice Maze
 """
 
 
@@ -32,4 +32,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    pass
+    maze_id = models.CharField(max_length=255)
+    solved = models.IntegerField(default=0)
+    solve_time_seconds = models.IntegerField()
+
