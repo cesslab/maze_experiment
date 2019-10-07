@@ -88,6 +88,15 @@ def task_two(browser, browser_tab):
     browser.find_element(By.XPATH, '//button').click()
 
 
+def task_five(browser, browser_tab, task_id):
+    input_field = browser.find_element_by_id('task_input')
+    max_value = int(input_field.get_attribute('max'))
+    entry = random.randint(0, max_value)
+    input_field.send_keys(str(entry))
+    print('Browser Tab {}: For task {}, value {} was entered.'.format(browser_tab, task_id, entry))
+    browser.find_element(By.XPATH, '//button').click()
+
+
 def bet_case_select_task(browser, browser_tab, task_id):
     cases = 10
     button_ids = ['left_button', 'right_button']
@@ -165,4 +174,6 @@ if __name__ == "__main__":
                 bet_case_select_task(driver, player, 3)
                 # Task 4 is the same as three
                 bet_case_select_task(driver, player, 4)
-                single_entry_task(driver, player)
+                task_five(driver, player, 5)
+                # Task 6
+                task_five(driver, player, 6)
