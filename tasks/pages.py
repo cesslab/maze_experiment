@@ -75,4 +75,9 @@ class TaskSix(Page):
     form_fields = ['task_six_invested']
 
 
-page_sequence = [Instructions, TaskOne, TaskTwo, TaskThree, TaskFour, TaskFive, TaskSix]
+class TaskSeven(Page):
+    form_model = 'player'
+    form_fields = ['distance', 'unit']
+
+
+page_sequence = [Instructions, TaskOne, TaskTwo, TaskThree, TaskFour, TaskFive, TaskSix, TaskSeven]

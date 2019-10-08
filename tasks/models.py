@@ -62,3 +62,7 @@ class Player(BasePlayer):
     task_four_10 = models.IntegerField(choices=[1, 2], blank=False)
     task_five_invested = models.IntegerField(min=0, max=100, blank=False)
     task_six_invested = models.IntegerField(min=0, max=100, blank=False)
+    distance = models.IntegerField(blank=False)
+    # miles = 1, km = 2
+    unit = models.IntegerField(choices=[1, 2], blank=False)
+    percent = models.IntegerField(choices=[1, 2], blank=False)
