@@ -38,7 +38,7 @@ class Player(BasePlayer):
     solved_maze = models.BooleanField()
 
     def set_phase_one_payoff(self):
-        random_round = self.participant.vars['rand_round_phase_1']
+        random_round = self.participant.vars['preferred_pair_id']
         pair: List[Lottery] = self.participant.vars['preferred_lotteries'][random_round - 1]
 
         chosen_lottery_side = self.participant.vars["phase_1_chosen_lottery_side"]

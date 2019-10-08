@@ -41,7 +41,8 @@ class Subsession(BaseSubsession):
                     random.shuffle(pair)
                 player.participant.vars['preferred_lotteries'] = lotteries
                 # randomly choose one of the pairs for payment
-                player.participant.vars['rand_round_phase_1'] = random.randint(1, Constants.num_rounds)
+                player.participant.vars['preferred_pair_id'] = random.randint(1, Constants.num_rounds)
+                player.participant.vars['timed_pair_id'] = random.randint(1, Constants.num_rounds)
 
 
 class Group(BaseGroup):
