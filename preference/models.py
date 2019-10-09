@@ -43,6 +43,7 @@ class Subsession(BaseSubsession):
                 # randomly choose one of the pairs for payment
                 player.participant.vars['preferred_pair_id'] = random.randint(0, Constants.num_rounds-1)
                 player.participant.vars['timed_pair_id'] = random.randint(0, Constants.num_rounds-1)
+                player.participant.vars["preferred_lottery"] = None
 
 
 class Group(BaseGroup):

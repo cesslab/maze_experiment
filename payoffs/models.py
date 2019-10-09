@@ -41,7 +41,7 @@ class Player(BasePlayer):
         random_round = self.participant.vars['preferred_pair_id']
         pair: List[Lottery] = self.participant.vars['preferred_lotteries'][random_round - 1]
 
-        chosen_lottery_side = self.participant.vars["phase_1_chosen_lottery_side"]
+        chosen_lottery_side = self.participant.vars["preferred_lottery"]
         chosen_lottery: Lottery = pair[chosen_lottery_side]
 
         self.p1_chosen_lottery = chosen_lottery.id_number

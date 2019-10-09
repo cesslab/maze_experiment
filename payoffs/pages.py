@@ -15,7 +15,7 @@ class Payoffs(Page):
         random_round = self.player.participant.vars['preferred_pair_id']
         pair: List[Lottery] = self.player.participant.vars['preferred_lotteries'][random_round - 1]
 
-        chosen_lottery_side = self.player.participant.vars["phase_1_chosen_lottery_side"]
+        chosen_lottery_side = self.player.participant.vars["preferred_lottery"]
         chosen_lottery: Lottery = pair[chosen_lottery_side]
         if chosen_lottery_side == 0:
             lottery_label = 'V'

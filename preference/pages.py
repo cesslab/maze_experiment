@@ -42,11 +42,11 @@ class ChoicePage(Page):
         if player_preference == LEFT:
             self.player.chosen_lottery = left_lottery.id_number
             left_lottery.is_preference = True
-            self.player.participant.vars["phase_1_chosen_lottery_side"] = 0
+            self.player.participant.vars["preferred_lottery"] = 0
         else:
             self.player.chosen_lottery = right_lottery.id_number
             right_lottery.is_preference = True
-            self.player.participant.vars["phase_1_chosen_lottery_side"] = 1
+            self.player.participant.vars["preferred_lottery"] = 1
 
 
 class ResultsWaitPage(WaitPage):
