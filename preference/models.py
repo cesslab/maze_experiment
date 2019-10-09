@@ -18,6 +18,7 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         if self.round_number == 1:
             for player in self.get_players():
+                # TODO: Create a LotteryPair class that will store the players preferred lottery, if any
                 lotteries = [
                     [
                         Lottery(1, c(8), c(4), [50], 50, 50, Maze('40_40_1', 147, 2, 169, 314)),
@@ -41,9 +42,12 @@ class Subsession(BaseSubsession):
                     random.shuffle(pair)
                 player.participant.vars['preferred_lotteries'] = lotteries
                 # randomly choose one of the pairs for payment
-                player.participant.vars['preferred_pair_id'] = random.randint(0, Constants.num_rounds-1)
+                random_preferred_lottery_pair_id = random.randint(0, Constants.num_rounds-1)
+                player.participant.vars['preferred_pair_id'] = random_preferred_lottery_pair_id
                 player.participant.vars['timed_pair_id'] = random.randint(0, Constants.num_rounds-1)
+                player.participant.vars["preferred_lottery_pair"] = lotteries[random_preferred_lottery_pair_id]
                 player.participant.vars["preferred_lottery"] = None
+
 
 
 class Group(BaseGroup):
