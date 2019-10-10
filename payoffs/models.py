@@ -39,7 +39,7 @@ class Player(BasePlayer):
 
     def set_phase_one_payoff(self):
         random_round = self.participant.vars['preferred_pair_id']
-        pair: List[Lottery] = self.participant.vars['preferred_lottery_pairs'][random_round - 1]
+        pair: List[Lottery] = self.participant.vars['preferred_lottery_collection'][random_round - 1]
 
         chosen_lottery_side = self.participant.vars["preferred_lottery"]
         chosen_lottery: Lottery = pair[chosen_lottery_side]
