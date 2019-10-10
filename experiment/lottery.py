@@ -26,7 +26,30 @@ class LotteryPreferencePair:
         random.shuffle(pair)
         self.left_lottery = pair[0]
         self.right_lottery = pair[1]
-        self.preference = None
+        self._preference = None
+        self.realized_lottery = None
+
+    def maze_names(self):
+        return [self.left_lottery.maze.name, self.right_lottery.maze.name]
+
+    @property
+    def preference(self):
+        if self._preference == self.LEFT:
+            return "Left"
+        elif self._preference == self.RIGHT:
+            return "Right"
+        else:
+            return "Either"
+
+    @preference.setter
+    def preference(self, p: int):
+        self._preference = p
+        if p == self.LEFT:
+            self.realized_lottery = self.left_lottery
+        elif p == self.RIGHT:
+            self.realized_lottery = self.right_lottery
+        else:
+            self.realized_lottery = self.right_lottery
 
 
 class LotteryTimedPair:
