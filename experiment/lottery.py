@@ -13,8 +13,6 @@ class Lottery:
         self.completion_rate: List[int] = completion_rate
         self.prob_completed: int = prob_completed
         self.prob_incomplete: int = prob_incomplete
-        self.is_preference = False
-        self.time_limit = None
         self.maze: Maze = maze
 
 
@@ -39,3 +37,21 @@ class LotteryTimedPair:
         self.right_lottery = pair[1]
         self.left_time_seconds = None
         self.right_time_seconds = None
+
+
+class LotteryPreferencePairCollection:
+    def __init__(self, collection: List[LotteryPreferencePair]):
+        self.collection = collection
+        random.shuffle(self.collection)
+
+    def round_pair(self, round_number):
+        return self.collection[round_number-1]
+
+
+class LotteryTimedPairCollection:
+    def __init__(self, collection: List[LotteryTimedPair]):
+        self.collection = collection
+        random.shuffle(self.collection)
+
+    def round_pair(self, round_number):
+        return self.collection[round_number-1]
