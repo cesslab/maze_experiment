@@ -11,7 +11,7 @@ class Instructions(Page):
 
     def vars_for_template(self):
         maze_ids = []
-        for lottery_pair in self.participant.vars['preferred_lotteries']:
+        for lottery_pair in self.participant.vars['preferred_lottery_pairs']:
             for lottery in lottery_pair:
                 maze_ids.append(lottery.maze.name)
 
@@ -25,7 +25,7 @@ class MazePage(Page):
     form_fields = ['solved', 'solve_time_seconds', 'maze_id']
 
     def vars_for_template(self):
-        lottery_pair = self.participant.vars['preferred_lotteries'][self.round_number - 1]
+        lottery_pair = self.participant.vars['preferred_lottery_pairs'][self.round_number - 1]
         left_lottery: Lottery = lottery_pair[0]
         right_lottery: Lottery = lottery_pair[1]
 
