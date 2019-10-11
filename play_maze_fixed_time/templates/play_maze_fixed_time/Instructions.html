@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-    Instructions for Maze Play with Fixed Time
+    Part 4: Instructions for Maze Play with Fixed Time
 {% endblock %}
 
 {% block styles %}
@@ -48,9 +48,21 @@
     <div>
         <p>When you click the next you will be presented with a maze to solve with a completion rate of
             {% if realized_preference_number == 0 %}
-                {{l.completion_rate.0}}%
+                {% for r in l.completion_rate %}
+                    {% if forloop.last %}
+                        {{ r }}%
+                    {% else %}
+                        {{ r }}%,
+                    {% endif %}
+                {% endfor %}
             {% else %}
-                {{r.completion_rate.0}}%
+                {% for r in r.completion_rate %}
+                    {% if forloop.last %}
+                        {{ r }}%
+                    {% else %}
+                        {{ r }}%,
+                    {% endif %}
+                {% endfor %}
             {% endif %}.
         </p>
     </div>
