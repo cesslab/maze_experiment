@@ -23,13 +23,7 @@ class ChoicePage(Page):
         lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
         lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
 
-        left_lottery: Lottery = lottery_pair.left_lottery
-        right_lottery: Lottery = lottery_pair.right_lottery
-
-        self.player.left_lottery_id = left_lottery.id_number
-        self.player.right_lottery_id = right_lottery.id_number
-
-        lottery_pair.preference = self.player.preference
+        lottery_pair.preferred_lottery_label = self.player.preference
 
 
 page_sequence = [Instructions, ChoicePage]
