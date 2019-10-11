@@ -14,6 +14,7 @@
         <label>
             How far is the moon from the earth?
         </label>
+        {# TODO: Add max value to task_input field #}
         <input
                 type="number"
                 name="distance"
@@ -52,7 +53,7 @@
                 name="percentage"
                 max="100"
                 min="0"
-                id="task_input"
+                id="confidence_input"
                 placeholder="Enter percent value" required
                 class="center-input form-control investment"
                 value="{{ form.distance.value|default_if_none:"" }}"
