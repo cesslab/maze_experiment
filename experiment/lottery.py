@@ -72,10 +72,27 @@ class LotteryTimedPair:
 
 
 class PreferredLotteryPairCollection:
-    def __init__(self, collection: List[LotteryPreferencePair]):
-        self.collection = collection
+    def __init__(self):
+        self.collection = [
+                    LotteryPreferencePair(
+                        Lottery(1, Currency(8), Currency(4), [50], 50, 50, Maze('40_40_1', 147, 2, 169, 314)),
+                        Lottery(2, Currency(8), Currency(4), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
+                    ),
+                    LotteryPreferencePair(
+                        Lottery(3, Currency(8), Currency(4), [50], 80, 20, Maze('40_40_1', 147, 2, 169, 314)),
+                        Lottery(4, Currency(8), Currency(4), [50], 80, 20, Maze('60_40_1', 147, 2, 169, 314))
+                    ),
+                    LotteryPreferencePair(
+                        Lottery(5, Currency(8), Currency(4), [40, 60], 80, 20, Maze('40_60_2', 147, 2, 169, 314)),
+                        Lottery(6, Currency(10), Currency(2), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
+                    ),
+                    LotteryPreferencePair(
+                        Lottery(7, Currency(10.44), Currency(2), [30], 60, 40, Maze('40_60_2', 147, 2, 169, 314)),
+                        Lottery(8, Currency(8), Currency(4), [80], 60, 40, Maze('60_40_2', 147, 2, 169, 314))
+                    ),
+            ]
         random.shuffle(self.collection)
-        self.selected_pair_index = random.randrange(len(collection))
+        self.selected_pair_index = random.randrange(len(self.collection))
 
     def round_pair(self, round_number):
         return self.collection[round_number-1]

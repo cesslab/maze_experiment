@@ -18,24 +18,7 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         if self.round_number == 1:
             for player in self.get_players():
-                preferred_lottery_pair_collection = PreferredLotteryPairCollection([
-                    LotteryPreferencePair(
-                        Lottery(1, c(8), c(4), [50], 50, 50, Maze('40_40_1', 147, 2, 169, 314)),
-                        Lottery(2, c(8), c(4), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
-                    ),
-                    LotteryPreferencePair(
-                        Lottery(3, c(8), c(4), [50], 80, 20, Maze('40_40_1', 147, 2, 169, 314)),
-                        Lottery(4, c(8), c(4), [50], 80, 20, Maze('60_40_1', 147, 2, 169, 314))
-                    ),
-                    LotteryPreferencePair(
-                        Lottery(5, c(8), c(4), [40, 60], 80, 20, Maze('40_40_1', 147, 2, 169, 314)),
-                        Lottery(6, c(10), c(2), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
-                    ),
-                    LotteryPreferencePair(
-                        Lottery(7, c(10.44), c(2), [30], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
-                        Lottery(8, c(8), c(4), [80], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
-                    ),
-                ])
+                preferred_lottery_pair_collection = PreferredLotteryPairCollection()
                 player.participant.vars['preferred_lottery_pair_collection'] = preferred_lottery_pair_collection
 
 
