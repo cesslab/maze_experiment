@@ -25,7 +25,7 @@ def single_entry_task(browser, browser_tab, task_id):
 
 
 def choose_lottery(browser, pair_id, browser_tab):
-    preference = random.randint(1, 3)
+    preference = random.randint(0, 3)
     print('Browser Tab {}: Preferred lottery for pair {} was {}'.format(browser_tab, pair_id, preference))
 
     element = browser.find_element_by_id('id-preference-{}'.format(preference))
