@@ -17,39 +17,48 @@ class Lottery:
 
 
 class LotteryPreferencePair:
-    LEFT = 1
+    LEFT = 0
+    RIGHT = 1
     EITHER = 2
-    RIGHT = 3
 
     def __init__(self, a: Lottery, b: Lottery):
-        pair = [a, b]
-        random.shuffle(pair)
-        self.left_lottery = pair[0]
-        self.right_lottery = pair[1]
-        self._preference = None
+        self.pair = [a, b]
+        random.shuffle(self.pair)
+        self._preferred_lottery_label = None
         self.realized_lottery = None
+        self.realized_lottery_label = None
 
     def maze_names(self):
         return [self.left_lottery.maze.name, self.right_lottery.maze.name]
 
     @property
-    def preference(self):
-        if self._preference == self.LEFT:
-            return "Left"
-        elif self._preference == self.RIGHT:
-            return "Right"
-        else:
-            return "Either"
+    def left_lottery(self):
+        return self.pair[self.LEFT]
 
-    @preference.setter
-    def preference(self, p: int):
-        self._preference = p
-        if p == self.LEFT:
+    @property
+    def right_lottery(self):
+        return self.pair[self.RIGHT]
+
+    @property
+    def preferred_lottery_label(self):
+        return self._preferred_lottery_label
+
+    @preferred_lottery_label.setter
+    def preferred_lottery_label(self, label: int):
+        """
+        Sets both the preference number and the realized lottery
+        :param label:
+        :return:
+        """
+        self._preferred_lottery_label = label
+        if label == self.LEFT:
             self.realized_lottery = self.left_lottery
-        elif p == self.RIGHT:
+        elif label == self.RIGHT:
             self.realized_lottery = self.right_lottery
+        # Either
         else:
-            self.realized_lottery = self.right_lottery
+            self.realized_lottery_label = random.choice([self.LEFT, self.RIGHT])
+            self.realized_lottery = self.pair[self.realized_lottery_label]
 
 
 class LotteryTimedPair:
@@ -76,6 +85,9 @@ class PreferredLotteryPairCollection:
 
     def selected_pair_number(self):
         return self.selected_pair_index + 1
+
+    def is_round_pair_selected(self, round_number):
+        return round_number == self.selected_pair_number()
 
 
 class TimedLotteryPairCollection:
