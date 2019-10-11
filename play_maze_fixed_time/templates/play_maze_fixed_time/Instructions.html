@@ -5,8 +5,55 @@
     Instructions for Maze Play with Fixed Time
 {% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'preference/preference.css' %}">
+{% endblock %}
+
 {% block content %}
-    <p>Instructions for the phase 4, maze play with fixed time.</p>
+    <div>
+    <p>Lottery pair {{ lottery_pair_number }} was randomly selected at random.
+    </p>
+    </div>
+    <div class="grid-container">
+        <div>
+            {% include 'global/lottery_template.html' with op="V" high=l.high_prize low=l.low_prize rate=l.completion_rate p_complete=l.prob_completed p_incomplete=l.prob_incomplete %}
+        </div>
+        <div>
+            {% include 'global/lottery_template.html' with op="W" high=r.high_prize low=r.low_prize rate=r.completion_rate p_complete=r.prob_completed p_incomplete=r.prob_incomplete %}
+        </div>
+    </div>
+    <div>
+    <p>When asked which of the two options you preferred you selected
+        {% if preference_number == 0 %} <b>Option V</b>.
+        {% elif preference_number == 1 %} <b>Option W</b>.
+        {% else %} <b>Either</b>.
+            <b>Option {% if realized_preference_number == 0 %} V{% else %} W{% endif %}</b> was chosen at random for you.
+        {% endif %}</p>
+    </div>
+    <div>
+        {% if realized_preference_number == 0 %}
+            <div>
+                {% if preference_number == 0 %}<h2>You preferred option V</h2>{% endif %}
+                {% if preference_number == 2 and realized_preference_number == 0 %}<h2>Option V was randomly selected</h2>{% endif %}
+                {% include 'global/lottery_template.html' with op="V" high=l.high_prize low=l.low_prize rate=l.completion_rate p_complete=l.prob_completed p_incomplete=l.prob_incomplete %}
+            </div>
+        {% else %}
+            <div>
+                {% if preference_number == 1 %}<h2>You preferred option W</h2>{% endif %}
+                {% if preference_number == 2 and realized_preference_number == 1 %}<h2>Option W was randomly selected</h2>{% endif %}
+                {% include 'global/lottery_template.html' with op="W" high=r.high_prize low=r.low_prize rate=r.completion_rate p_complete=r.prob_completed p_incomplete=r.prob_incomplete %}
+            </div>
+        {% endif %}
+    </div>
+    <div>
+        <p>When you click the next you will be presented with a maze to solve with a completion rate of
+            {% if realized_preference_number == 0 %}
+                {{l.completion_rate.0}}%
+            {% else %}
+                {{r.completion_rate.0}}%
+            {% endif %}.
+        </p>
+    </div>
     {% next_button %}
 {% endblock %}
 

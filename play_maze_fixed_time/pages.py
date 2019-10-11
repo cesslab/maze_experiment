@@ -12,14 +12,18 @@ class Instructions(Page):
 
     def vars_for_template(self):
         lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
-        lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
+        lottery_pair: LotteryPreferencePair = lottery_collection.selected_lottery_pair()
 
         return {
             'maze_ids': lottery_pair.maze_names(),
             'left_lottery': lottery_pair.left_lottery,
             'right_lottery': lottery_pair.right_lottery,
             'realized_lottery': lottery_pair.realized_lottery,
-            'preference': lottery_pair.preference,
+            'preference_number': lottery_pair.preferred_lottery_label,
+            'realized_preference_number': lottery_pair.realized_lottery_label,
+            'lottery_pair_number': lottery_collection.selected_pair_number(),
+            'l': lottery_pair.left_lottery,
+            'r': lottery_pair.right_lottery,
         }
 
 
