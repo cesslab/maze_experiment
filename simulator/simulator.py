@@ -11,6 +11,13 @@ from selenium.webdriver.chrome.options import Options
 
 
 def instructions(browser):
+    print("Clicking through instruction screen...")
+    browser.find_element(By.XPATH, '//button').click()
+
+
+def practice_maze(browser):
+    print("Clicking through practice maze...")
+    driver.implicitly_wait(10)
     browser.find_element(By.XPATH, '//button').click()
 
 
@@ -25,7 +32,7 @@ def single_entry_task(browser, browser_tab, task_id):
 
 
 def choose_lottery(browser, pair_id, browser_tab):
-    preference = random.randint(0, 3)
+    preference = random.randint(0, 2)
     print('Browser Tab {}: Preferred lottery for pair {} was {}'.format(browser_tab, pair_id, preference))
 
     element = browser.find_element_by_id('id-preference-{}'.format(preference))
@@ -94,6 +101,21 @@ def task_five(browser, browser_tab, task_id):
     entry = random.randint(0, max_value)
     input_field.send_keys(str(entry))
     print('Browser Tab {}: For task {}, value {} was entered.'.format(browser_tab, task_id, entry))
+    browser.find_element(By.XPATH, '//button').click()
+
+
+def task_seven(browser, browser_tab, task_id):
+    distance_input_field = browser.find_element_by_id('task_input')
+    distance = random.randint(0, 500)
+    distance_input_field.send_keys(str(distance))
+    print('Browser Tab {}: For task {}, value {} was entered.'.format(browser_tab, task_id, distance))
+
+    browser.find_element_by_id('inlineRadio1').click()
+
+    confidence_input_field = browser.find_element_by_id('confidence_input')
+    confidence = random.randint(0, 100)
+    confidence_input_field.send_keys(str(confidence))
+
     browser.find_element(By.XPATH, '//button').click()
 
 
@@ -167,8 +189,7 @@ if __name__ == "__main__":
             for player in range(1, len(player_links) + 1):
                 # switch to new tab
                 driver.switch_to.window(driver.window_handles[player])
-                if round_id == 1:
-                    instructions(driver)
+                instructions(driver)
                 task_one(driver, player)
                 task_two(driver, player)
                 bet_case_select_task(driver, player, 3)
@@ -177,3 +198,13 @@ if __name__ == "__main__":
                 task_five(driver, player, 5)
                 # Task 6
                 task_five(driver, player, 6)
+                # Task 7
+                task_seven(driver, player, 7)
+
+    if 4 <= part:
+        for round_id in range(1, lottery_pairs + 1):
+            for player in range(1, len(player_links) + 1):
+                # switch to new tab
+                driver.switch_to.window(driver.window_handles[player])
+                instructions(driver)
+                practice_maze(driver)
