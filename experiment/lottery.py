@@ -66,9 +66,16 @@ class PreferredLotteryPairCollection:
     def __init__(self, collection: List[LotteryPreferencePair]):
         self.collection = collection
         random.shuffle(self.collection)
+        self.selected_pair_index = random.randrange(len(collection))
 
     def round_pair(self, round_number):
         return self.collection[round_number-1]
+
+    def selected_lottery_pair(self):
+        return self.collection[self.selected_pair_index]
+
+    def selected_pair_number(self):
+        return self.selected_pair_index + 1
 
 
 class TimedLotteryPairCollection:
