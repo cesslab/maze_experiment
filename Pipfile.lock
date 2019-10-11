@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "17d11d1b730ebc888773e332d2d4712c5e892c14a0c543549f4118f6a48a7491"
+            "sha256": "8bbf11f9aaf162ad14f2a286b02d568e2c1cb9b977b1c926fffd8377f0f0366d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -727,6 +727,14 @@
             ],
             "version": "==4.6.3"
         },
+        "pytest-sugar": {
+            "hashes": [
+                "sha256:26cf8289fe10880cbbc130bd77398c4e6a8b936d8393b116a5c16121d95ab283",
+                "sha256:fcd87a74b2bce5386d244b49ad60549bfbc4602527797fac167da147983f58ab"
+            ],
+            "index": "pypi",
+            "version": "==0.9.2"
+        },
         "selenium": {
             "hashes": [
                 "sha256:2d7131d7bc5a5b99a2d9b04aaf2612c411b03b8ca1b1ee8d3de5845a9be2cb3c",
@@ -741,6 +749,12 @@
                 "sha256:d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"
             ],
             "version": "==1.12.0"
+        },
+        "termcolor": {
+            "hashes": [
+                "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"
+            ],
+            "version": "==1.1.0"
         },
         "urllib3": {
             "hashes": [
