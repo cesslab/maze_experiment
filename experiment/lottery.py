@@ -62,7 +62,7 @@ class LotteryTimedPair:
         self.right_time_seconds = None
 
 
-class LotteryPreferencePairCollection:
+class PreferredLotteryPairCollection:
     def __init__(self, collection: List[LotteryPreferencePair]):
         self.collection = collection
         random.shuffle(self.collection)
@@ -71,7 +71,7 @@ class LotteryPreferencePairCollection:
         return self.collection[round_number-1]
 
 
-class LotteryTimedPairCollection:
+class TimedLotteryPairCollection:
     def __init__(self, collection: List[LotteryTimedPair]):
         self.collection = collection
         random.shuffle(self.collection)

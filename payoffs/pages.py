@@ -13,7 +13,7 @@ class Instructions(Page):
 class Payoffs(Page):
     def vars_for_template(self):
         random_round = self.player.participant.vars['preferred_pair_id']
-        pair: List[Lottery] = self.player.participant.vars['preferred_lottery_collection'][random_round - 1]
+        pair: List[Lottery] = self.player.participant.vars['preferred_lottery_pair_collection'][random_round - 1]
 
         chosen_lottery_side = self.player.participant.vars["preferred_lottery"]
         chosen_lottery: Lottery = pair[chosen_lottery_side]

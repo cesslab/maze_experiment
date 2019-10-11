@@ -4,7 +4,7 @@ from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
     Currency as c, currency_range
 )
-from experiment.lottery import Lottery, LotteryPreferencePair, LotteryPreferencePairCollection
+from experiment.lottery import Lottery, LotteryPreferencePair, PreferredLotteryPairCollection
 from experiment.mazes import Maze
 
 
@@ -18,7 +18,7 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         if self.round_number == 1:
             for player in self.get_players():
-                lottery_pairs = LotteryPreferencePairCollection([
+                preferred_lottery_pair_collection = PreferredLotteryPairCollection([
                     LotteryPreferencePair(
                         Lottery(1, c(8), c(4), [50], 50, 50, Maze('40_40_1', 147, 2, 169, 314)),
                         Lottery(2, c(8), c(4), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
@@ -36,7 +36,7 @@ class Subsession(BaseSubsession):
                         Lottery(8, c(8), c(4), [80], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
                     ),
                 ])
-                player.participant.vars['preferred_lottery_collection'] = lottery_pairs
+                player.participant.vars['preferred_lottery_pair_collection'] = preferred_lottery_pair_collection
 
 
 class Group(BaseGroup):

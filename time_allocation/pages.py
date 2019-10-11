@@ -1,7 +1,7 @@
 from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
-from experiment.lottery import Lottery, LotteryTimedPair, LotteryTimedPairCollection
+from experiment.lottery import Lottery, LotteryTimedPair, TimedLotteryPairCollection
 
 
 class Instructions(Page):
@@ -14,7 +14,7 @@ class TimeAllocationPage(Page):
     form_fields = ['left_lottery_time', 'right_lottery_time']
 
     def vars_for_template(self):
-        lottery_collection: LotteryTimedPairCollection = self.participant.vars['preferred_lottery_collection']
+        lottery_collection: TimedLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
         lottery_pair: LotteryTimedPair = lottery_collection.round_pair(self.round_number)
         return {
             'l': lottery_pair.left_lottery,
@@ -23,7 +23,7 @@ class TimeAllocationPage(Page):
         }
 
     def before_next_page(self):
-        lottery_collection: LotteryTimedPairCollection = self.participant.vars['preferred_lottery_collection']
+        lottery_collection: TimedLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
         lottery_pair: LotteryTimedPair = lottery_collection.round_pair(self.round_number)
 
         self.player.left_lottery_id = lottery_pair.left_lottery.id_number

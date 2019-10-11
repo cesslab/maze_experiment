@@ -2,7 +2,7 @@ from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
 
-from experiment.lottery import Lottery, LotteryPreferencePair, LotteryPreferencePairCollection
+from experiment.lottery import Lottery, LotteryPreferencePair, PreferredLotteryPairCollection
 from experiment.mazes import Maze
 
 
@@ -11,7 +11,7 @@ class Instructions(Page):
         return self.round_number == 1
 
     def vars_for_template(self):
-        lottery_collection: LotteryPreferencePairCollection = self.participant.vars['preferred_lottery_collection']
+        lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
         lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
 
         return {
@@ -28,7 +28,7 @@ class MazePage(Page):
     form_fields = ['solved', 'solve_time_seconds', 'maze_id']
 
     def vars_for_template(self):
-        lottery_collection: LotteryPreferencePairCollection = self.participant.vars['preferred_lottery_collection']
+        lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
         lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
         maze: Maze = lottery_pair.realized_lottery.maze
         return {

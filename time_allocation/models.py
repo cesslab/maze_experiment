@@ -6,7 +6,7 @@ from otree.api import (
 )
 
 from experiment.mazes import Maze
-from experiment.lottery import Lottery, LotteryTimedPair, LotteryTimedPairCollection
+from experiment.lottery import Lottery, LotteryTimedPair, TimedLotteryPairCollection
 
 
 class Constants(BaseConstants):
@@ -18,7 +18,7 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
     def creating_session(self):
         for player in self.get_players():
-            lottery_pairs = LotteryTimedPairCollection([
+            lottery_pairs = TimedLotteryPairCollection([
                 LotteryTimedPair(
                     Lottery(1, c(8), c(4), [50], 50, 50, Maze('40_40_1', 147, 2, 169, 314)),
                     Lottery(2, c(8), c(4), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))

@@ -1,5 +1,5 @@
 from ._builtin import Page
-from experiment.lottery import Lottery, LotteryPreferencePair, LotteryPreferencePairCollection
+from experiment.lottery import Lottery, LotteryPreferencePair, PreferredLotteryPairCollection
 
 
 class Instructions(Page):
@@ -12,7 +12,7 @@ class ChoicePage(Page):
     form_fields = ['preference']
 
     def vars_for_template(self):
-        lottery_collection: LotteryPreferencePairCollection = self.participant.vars['preferred_lottery_collection']
+        lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
         lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
         return {
             'l': lottery_pair.left_lottery,
@@ -20,7 +20,7 @@ class ChoicePage(Page):
         }
 
     def before_next_page(self):
-        lottery_collection: LotteryPreferencePairCollection = self.participant.vars['preferred_lottery_collection']
+        lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
         lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
 
         left_lottery: Lottery = lottery_pair.left_lottery
