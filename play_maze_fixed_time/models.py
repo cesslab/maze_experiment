@@ -7,7 +7,7 @@ from otree.api import (
 class Constants(BaseConstants):
     name_in_url = 'play_maze_fixed_time'
     players_per_group = None
-    num_rounds = 4
+    num_rounds = 1
 
 
 class Subsession(BaseSubsession):
