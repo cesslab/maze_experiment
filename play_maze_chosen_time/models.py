@@ -8,7 +8,7 @@ class Constants(BaseConstants):
     name_in_url = 'play_maze_chosen_time'
     players_per_group = None
     # The number of rounds equal the number of pairs of lotteries displayed in the time allocation phase
-    num_rounds = 4
+    num_rounds = 1
 
 
 class Subsession(BaseSubsession):
