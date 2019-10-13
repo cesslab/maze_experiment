@@ -19,8 +19,8 @@ SESSION_CONFIGS = [
        'app_sequence': [
            'preference', 'time_allocation', 'tasks', 'practice_maze', 'play_maze_fixed_time', 'play_maze_chosen_time', 'payoffs'
        ],
-       'max_time_seconds': 60,
-       'max_maze_solve_time': 60,
+       'max_time_seconds': 120,
+       'max_maze_solve_time': 120,
     },
 ]
 
