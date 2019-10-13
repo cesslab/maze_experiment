@@ -23,6 +23,11 @@ class ChoicePage(Page):
         lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
         lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
 
+        # Save the left and right lottery ID to the player model
+        self.player.left_lottery_id = lottery_pair.left_lottery.id_number
+        self.player.right_lottery_id = lottery_pair.right_lottery.id_number
+
+        # Save the player's preferred lottery
         lottery_pair.preferred_lottery_label = self.player.preference
 
 
