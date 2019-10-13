@@ -18,8 +18,7 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         if self.round_number == 1:
             for player in self.get_players():
-                preferred_lottery_pair_collection = PreferredLotteryPairCollection()
-                player.participant.vars['preferred_lottery_pair_collection'] = preferred_lottery_pair_collection
+                player.participant.vars['preferred_lottery_pair_collection'] = PreferredLotteryPairCollection()
 
 
 class Group(BaseGroup):
