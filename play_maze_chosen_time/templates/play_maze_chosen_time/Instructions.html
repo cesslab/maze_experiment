@@ -5,8 +5,31 @@
     Part 5: Instructions for Maze Play with Chosen Time
 {% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'preference/preference.css' %}">
+{% endblock %}
+
 {% block content %}
-    <p>Instructions for maze play with chosen time.</p>
+    <div>
+        <p>Lottery pair {{ lottery_pair_number }} was randomly selected at random.</p>
+    </div>
+    <div class="grid-container">
+        <div>
+            {% include 'global/lottery_template.html' with op="V" high=l.high_prize low=l.low_prize rate=l.completion_rate p_complete=l.prob_completed p_incomplete=l.prob_incomplete %}
+        </div>
+        <div>
+            {% include 'global/lottery_template.html' with op="W" high=r.high_prize low=r.low_prize rate=r.completion_rate p_complete=r.prob_completed p_incomplete=r.prob_incomplete %}
+        </div>
+    </div>
+    <div>
+        <p>
+            When asked to allocate time to option V and option W, you allocated {{ lp.left_time_seconds }} seconds to V
+            and {{ lp.right_time_seconds }} to option W.
+        </p>
+        <p>
+            You will first play the option V maze followed by the option W maze.
+        </p>
+    </div>
     {% next_button %}
 {% endblock %}
 
