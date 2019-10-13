@@ -16,7 +16,7 @@ class Lottery:
         self.maze: Maze = maze
 
 
-class LotteryPreferencePair:
+class LotteryPair:
     LEFT = 0
     RIGHT = 1
     EITHER = 2
@@ -24,7 +24,23 @@ class LotteryPreferencePair:
     def __init__(self, a: Lottery, b: Lottery):
         self.pair = [a, b]
         random.shuffle(self.pair)
-        self._preferred_lottery_label = None
+
+    def maze_names(self) -> List[str]:
+        return [self.left_lottery.maze.name, self.right_lottery.maze.name]
+
+    @property
+    def left_lottery(self) -> Lottery:
+        return self.pair[self.LEFT]
+
+    @property
+    def right_lottery(self) -> Lottery:
+        return self.pair[self.RIGHT]
+
+
+class LotteryPreferencePair(LotteryPair):
+    def __init__(self, a: Lottery, b: Lottery):
+        super(LotteryPreferencePair, self).__init__(a, b)
+        self._lottery_label = None
         self.realized_lottery = None
         self.realized_lottery_label = None
 
@@ -40,17 +56,17 @@ class LotteryPreferencePair:
         return self.pair[self.RIGHT]
 
     @property
-    def preferred_lottery_label(self):
-        return self._preferred_lottery_label
+    def lottery_label(self):
+        return self._lottery_label
 
-    @preferred_lottery_label.setter
-    def preferred_lottery_label(self, label: int):
+    @lottery_label.setter
+    def lottery_label(self, label: int):
         """
         Sets both the preference number and the realized lottery
         :param label:
         :return:
         """
-        self._preferred_lottery_label = label
+        self._lottery_label = label
         if label == self.LEFT:
             self.realized_lottery = self.left_lottery
         elif label == self.RIGHT:
@@ -61,12 +77,9 @@ class LotteryPreferencePair:
             self.realized_lottery = self.pair[self.realized_lottery_label]
 
 
-class LotteryTimedPair:
+class LotteryTimedPair(LotteryPair):
     def __init__(self, a: Lottery, b: Lottery):
-        pair = [a, b]
-        random.shuffle(pair)
-        self.left_lottery = pair[0]
-        self.right_lottery = pair[1]
+        super(LotteryTimedPair, self).__init__(a, b)
         self.left_time_seconds = None
         self.right_time_seconds = None
 
