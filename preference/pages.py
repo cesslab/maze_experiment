@@ -28,7 +28,7 @@ class ChoicePage(Page):
         self.player.right_lottery_id = lottery_pair.right_lottery.id_number
 
         # Save the player's preferred lottery
-        lottery_pair.preferred_lottery_label = self.player.preference
+        lottery_pair.lottery_label = self.player.preference
 
 
 page_sequence = [Instructions, ChoicePage]

@@ -49,7 +49,7 @@ class PlayerBot(Bot):
 
     @staticmethod
     def test_preferred_lottery_label_returned(lottery_label, lottery_pair: LotteryPreferencePair):
-        expect(lottery_pair.preferred_lottery_label, lottery_label)
+        expect(lottery_pair.lottery_label, lottery_label)
 
     @staticmethod
     def test_realized_lottery_matches_preference(lottery_pair: LotteryPreferencePair, preferred_lottery: Lottery):

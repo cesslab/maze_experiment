@@ -14,7 +14,7 @@ class TimeAllocationPage(Page):
     form_fields = ['left_lottery_time', 'right_lottery_time']
 
     def vars_for_template(self):
-        lottery_collection: TimedLotteryPairCollection = self.participant.vars['timed_lottery_pair_collection']
+        lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
         lottery_pair: LotteryTimedPair = lottery_collection.round_pair(self.round_number)
         return {
             'l': lottery_pair.left_lottery,
@@ -23,7 +23,7 @@ class TimeAllocationPage(Page):
         }
 
     def before_next_page(self):
-        lottery_collection: TimedLotteryPairCollection = self.participant.vars['timed_lottery_pair_collection']
+        lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
         lottery_pair: LotteryTimedPair = lottery_collection.round_pair(self.round_number)
 
         # Save the left and right lottery ID  to the player model

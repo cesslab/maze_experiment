@@ -19,7 +19,7 @@ class Instructions(Page):
             'left_lottery': lottery_pair.left_lottery,
             'right_lottery': lottery_pair.right_lottery,
             'realized_lottery': lottery_pair.realized_lottery,
-            'preference_number': lottery_pair.preferred_lottery_label,
+            'preference_number': lottery_pair.lottery_label,
             'realized_preference_number': lottery_pair.realized_lottery_label,
             'lottery_pair_number': lottery_collection.selected_pair_number(),
             'l': lottery_pair.left_lottery,
