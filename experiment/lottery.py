@@ -14,6 +14,33 @@ class Lottery:
         self.prob_completed: int = prob_completed
         self.prob_incomplete: int = prob_incomplete
         self.maze: Maze = maze
+        self.is_completion_rate_range = True if len(self.completion_rate) > 1 else False
+
+        self.random_value = random.randint(1, 100)
+        self.payoff = None
+
+    def determine_payoff(self):
+        if self.maze.solved:
+            if self.random_value <= self.prob_completed:
+                self.payoff = self.high_prize
+            else:
+                self.payoff = self.low_prize
+        else:
+            if self.random_value <= self.prob_incomplete:
+                self.payoff = self.high_prize
+            else:
+                self.payoff = self.low_prize
+
+    def __str__(self):
+        return "low: {}, high: {}, maze comp: {}, high|complete: {} high|incomplete: {}".format(
+            self.low_prize, self.high_prize, self.completion_rate_str(), self.prob_completed, self.prob_incomplete
+        )
+
+    def completion_rate_str(self):
+        if self.is_completion_rate_range:
+            return "{}, {}".format(self.completion_rate[0], self.completion_rate[1])
+        else:
+            return "{}".format(self.completion_rate[0])
 
 
 class LotteryPair:
@@ -35,6 +62,9 @@ class LotteryPair:
     @property
     def right_lottery(self) -> Lottery:
         return self.pair[self.RIGHT]
+
+    def __str__(self):
+        return "left: {}, right: {}".format(self.left_lottery, self.right_lottery)
 
 
 class LotteryPreferencePair(LotteryPair):
