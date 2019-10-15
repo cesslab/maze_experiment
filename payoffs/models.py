@@ -31,36 +31,5 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    p1_chosen_lottery = models.IntegerField()
-    p1_payoff = models.CurrencyField()
-    p1_won_high_prize = models.BooleanField()
-    p1_won_low_prize = models.BooleanField()
-    solved_maze = models.BooleanField()
+    pass
 
-    def set_phase_one_payoff(self):
-        random_round = self.participant.vars['preferred_pair_id']
-        pair: List[Lottery] = self.participant.vars['preferred_lottery_pair_collection'][random_round - 1]
-
-        chosen_lottery_side = self.participant.vars["preferred_lottery"]
-        chosen_lottery: Lottery = pair[chosen_lottery_side]
-
-        self.p1_chosen_lottery = chosen_lottery.id_number
-        chosen_maze: Maze = chosen_lottery.maze
-
-        self.solved_maze = chosen_maze.solved
-
-        r = random.randint(0, 100)
-        if chosen_maze.solved:
-            if r <= chosen_lottery.prob_completed:
-                self.p1_won_high_prize = True
-                self.p1_payoff = chosen_lottery.high_prize
-            else:
-                self.p1_won_low_prize = True
-                self.p1_payoff = chosen_lottery.low_prize
-        else:
-            if r <= chosen_lottery.prob_incomplete:
-                self.p1_won_high_prize = True
-                self.p1_payoff = chosen_lottery.high_prize
-            else:
-                self.p1_won_low_prize = True
-                self.p1_payoff = chosen_lottery.low_prize
