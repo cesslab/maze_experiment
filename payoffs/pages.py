@@ -4,32 +4,31 @@ from ._builtin import Page, WaitPage
 from experiment.lottery import Lottery
 from .models import Player
 
+from experiment.lottery import TimedLotteryPairCollection, LotteryTimedPair, PreferredLotteryPairCollection, LotteryPreferencePair
+
 
 class Instructions(Page):
     def before_next_page(self):
-        self.player.set_phase_one_payoff()
+        pass
 
 
 class Payoffs(Page):
     def vars_for_template(self):
-        random_round = self.player.participant.vars['preferred_pair_id']
-        pair: List[Lottery] = self.player.participant.vars['preferred_lottery_pair_collection'][random_round - 1]
+        timed_lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
+        timed_pair: LotteryTimedPair = timed_lottery_collection.selected_lottery_pair()
 
-        chosen_lottery_side = self.player.participant.vars["preferred_lottery"]
-        chosen_lottery: Lottery = pair[chosen_lottery_side]
-        if chosen_lottery_side == 0:
-            lottery_label = 'V'
-        else:
-            lottery_label = 'W'
+        left_timed_lottery: Lottery = timed_pair.left_lottery
+        right_timed_lottery: Lottery = timed_pair.right_lottery
 
+        preferred_lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
+        preferred_pair: LotteryPreferencePair = preferred_lottery_collection.selected_lottery_pair()
         return {
-            'l': chosen_lottery,
-            'lottery_label': lottery_label,
-            'random_round': random_round,
-            'won_low': self.player.p1_won_low_prize,
-            'won_high': self.player.p1_won_high_prize,
-            'payoff': self.player.p1_payoff,
-            'solved_maze': self.player.solved_maze,
+            'l': left_timed_lottery,
+            'r': right_timed_lottery,
+            'p': preferred_pair.realized_lottery,
+            'ppair': preferred_pair,
+            'preferred_pair_number': preferred_lottery_collection.selected_pair_number(),
+            'timed_pair_number': timed_lottery_collection.selected_pair_number(),
         }
 
 

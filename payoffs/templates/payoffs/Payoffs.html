@@ -5,33 +5,67 @@
     Final Payoffs
 {% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'preference/preference.css' %}">
+{% endblock %}
+
 {% block content %}
+    <div><h2>Payoff Part 1 and 4</h2></div>
     <div>
-        <h3>Phase 1:</h3>
-        <p>The following lottery was selected for payment</p>
-    </div>
-
-    <div>
-        {% include 'global/lottery_template.html' with op=lottery_label  high=l.high_prize low=l.low_prize rate=l.completion_rate p_complete=l.prob_completed p_incomplete=l.prob_incomplete %}
-    </div>
-    <div>
-        <h3>Outcome</h3>
         <p>
-            {% if solved_maze %}
-                You solved the maze.
-            {% else %}
-                You did not solve the maze.
+            Lottery pair {{ preferred_pair_number }} was randomly selected from
+            part 1.
+        </p>
+        <p>When asked which of the two options you preferred you selected
+            {% if ppair.lottery_label == 0 %} <b>Option V</b>.
+            {% elif ppair.lottery_label == 1 %} <b>Option W</b>.
+            {% else %} <b>Either</b>.
+                <b>Option {% if ppair.realized_lottery_label == 0 %} V{% else %} W{% endif %}</b> was chosen at random for you.
             {% endif %}
-
-            {% if won_low %}
-                The Low prize was chosen.
-            {% else %}
-                <p>The High Prize was Chosen.
-            {% endif %}
-             Your payoff for phase 1 is {{ payoff }}.
         </p>
     </div>
-
+    <div>
+        {% if ppair.realized_lottery_label == 0 %}
+            {% include 'global/lottery_template.html' with op="V" high=l.high_prize low=l.low_prize rate=l.completion_rate p_complete=l.prob_completed p_incomplete=l.prob_incomplete %}
+        {% else %}
+            {% include 'global/lottery_template.html' with op="W" high=r.high_prize low=r.low_prize rate=r.completion_rate p_complete=r.prob_completed p_incomplete=r.prob_incomplete %}
+        {% endif %}
+    </div>
+    <div>
+        <p>
+            {% if p.maze.solved %}
+                You solved the maze for this option.
+            {% else %}
+                You did not solve the maze for this option.
+            {% endif %}
+        </p>
+        <p>
+            The random value {{ p.random_value }} was drawn between 0 and 100.
+            {% if p.maze.solved %}
+                Because {{ p.random_value }} was
+                {% if p.random_value <= p.prob_completed %}
+                    less than or equal to {{ p.prob_completed }}, which is the probability of getting the high prize
+                    given that you completed the maze,
+                {% else %}
+                    greater than {{ p.prob_completed }}, which is the probability of getting the low prize given that
+                    you completed the maze,
+                {% endif %}
+                you will receive a prize value of {{ p.payoff }}.
+            {% else %}
+                Because {{ p.random_value }} was
+                {% if p.random_value <= p.prob_incomplete %}
+                    less than or equal to {{ p.prob_incomplete }}, which is the probability of getting the high prize
+                    given that you did not complete the maze,
+                {% else %}
+                    greater than {{ p.prob_incomplete }}, which is the probability of getting the low prize given that
+                    you did not complete the maze,
+                {% endif %}
+                you will receive a prize value of {{ p.payoff }}.
+            {% endif %}
+        </p>
+    </div>
+    <div><h2>Payoff Part 2 and 5</h2></div>
+    <div><h2>Payoff Part 3</h2></div>
     {% next_button %}
 
 {% endblock %}
