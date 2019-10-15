@@ -60,7 +60,16 @@ class LeftMazePage(Page):
         }
 
     def before_next_page(self):
-        pass
+        lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
+        lottery_pair: LotteryTimedPair = lottery_collection.selected_lottery_pair()
+
+        lottery: Lottery = lottery_pair.left_lottery
+        maze: Maze = lottery.maze
+
+        maze.solved = self.player.solved
+        maze.solve_time = self.player.solve_time_seconds
+
+        lottery.determine_payoff()
 
 
 class RightMazePage(Page):
@@ -96,6 +105,18 @@ class RightMazePage(Page):
             'end_y': maze.end_y,
             'round': lottery_collection.selected_pair_number(),
         }
+
+    def before_next_page(self):
+        lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
+        lottery_pair: LotteryTimedPair = lottery_collection.selected_lottery_pair()
+
+        lottery: Lottery = lottery_pair.right_lottery
+        maze: Maze = lottery.maze
+
+        maze.solved = self.player.solved
+        maze.solve_time = self.player.solve_time_seconds
+
+        lottery.determine_payoff()
 
 
 page_sequence = [Instructions, LeftMazePage, RightMazePage]

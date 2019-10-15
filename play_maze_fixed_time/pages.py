@@ -33,9 +33,11 @@ class MazePage(Page):
 
     def vars_for_template(self):
         lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
-        lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
+        lottery_pair: LotteryPreferencePair = lottery_collection.selected_lottery_pair()
         maze: Maze = lottery_pair.realized_lottery.maze
         return {
+            'label': lottery_pair.realized_lottery_label,
+            'lottery_pair_number': lottery_collection.selected_pair_number(),
             'seconds_to_solve': self.session.config['max_maze_solve_time'],
             'maze_img': 'play_maze_fixed_time/img/'+maze.name+'.png',
             'maze_id': maze.name,
@@ -45,6 +47,17 @@ class MazePage(Page):
             'end_y': maze.end_y,
             'round': self.round_number,
         }
+
+    def before_next_page(self):
+        lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
+        lottery_pair: LotteryPreferencePair = lottery_collection.selected_lottery_pair()
+        lottery: Lottery = lottery_pair.realized_lottery
+        maze: Maze = lottery.maze
+
+        maze.solved = self.player.solved
+        maze.solve_time = self.player.solve_time_seconds
+
+        lottery.determine_payoff()
 
 
 page_sequence = [Instructions, MazePage]
