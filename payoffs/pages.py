@@ -7,11 +7,6 @@ from .models import Player
 from experiment.lottery import TimedLotteryPairCollection, LotteryTimedPair, PreferredLotteryPairCollection, LotteryPreferencePair
 
 
-class Instructions(Page):
-    def before_next_page(self):
-        pass
-
-
 class Payoffs(Page):
     def vars_for_template(self):
         timed_lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
@@ -33,6 +28,5 @@ class Payoffs(Page):
 
 
 page_sequence = [
-    Instructions,
     Payoffs
 ]
