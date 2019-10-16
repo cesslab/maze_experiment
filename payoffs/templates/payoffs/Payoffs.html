@@ -41,30 +41,42 @@
         </p>
         <p>
             The random value {{ p.random_value }} was drawn between 0 and 100.
+            {# Maze is solved #}
             {% if p.maze.solved %}
                 Because {{ p.random_value }} was
+                {# High Prize | Solved #}
                 {% if p.random_value <= p.prob_completed %}
-                    less than or equal to {{ p.prob_completed }}, which is the probability of getting the high prize
-                    given that you completed the maze,
+                    less than or equal to {{ p.prob_completed }} you will get the <b>high prize of {{ p.payoff }}</b>.
+                {# Low Prize Prize | Solved #}
                 {% else %}
-                    greater than {{ p.prob_completed }}, which is the probability of getting the low prize given that
-                    you completed the maze,
+                    greater than {{ p.prob_completed }} you will get the <b>low prize of {{ p.payoff }}</b>.
                 {% endif %}
                 you will receive a prize value of {{ p.payoff }}.
+            {# Maze is not solved #}
             {% else %}
                 Because {{ p.random_value }} was
+                {# High Prize | Not Solved #}
                 {% if p.random_value <= p.prob_incomplete %}
-                    less than or equal to {{ p.prob_incomplete }}, which is the probability of getting the high prize
+                    less than or equal to {{ p.prob_incomplete }} you will get the <b>high prize of {{ p.payoff }}</b>.
                     given that you did not complete the maze,
+                {# Low Prize | Not Solved #}
                 {% else %}
-                    greater than {{ p.prob_incomplete }}, which is the probability of getting the low prize given that
-                    you did not complete the maze,
+                    greater than {{ p.prob_incomplete }} you will get the <b>low prize of {{ p.payoff }}</b>.
                 {% endif %}
                 you will receive a prize value of {{ p.payoff }}.
             {% endif %}
         </p>
     </div>
     <div><h2>Payoff Part 2 and 5</h2></div>
+    <div><p>Lottery pair {{ timed_pair_number }} was randomly selected from part 2. The two lotteries are shown below:</p></div>
+    <div class="grid-container">
+        <div>
+            {% include 'global/lottery_template.html' with op="V" high=l.high_prize low=l.low_prize rate=l.completion_rate p_complete=l.prob_completed p_incomplete=l.prob_incomplete %}
+        </div>
+        <div>
+            {% include 'global/lottery_template.html' with op="W" high=r.high_prize low=r.low_prize rate=r.completion_rate p_complete=r.prob_completed p_incomplete=r.prob_incomplete %}
+        </div>
+    </div>
     <div><h2>Payoff Part 3</h2></div>
     {% next_button %}
 

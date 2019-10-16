@@ -14,13 +14,13 @@
     <tr>
         <td>Completion Rate</td>
         <td>
-            {% for r in rate %}
+            [{% for r in rate %}
                 {% if forloop.last %}
                     {{ r }}%
                 {% else %}
-                    {{ r }}%,
+                    {{ r }}% -
                 {% endif %}
-            {% endfor %}
+            {% endfor %}]
         </td>
     </tr>
     <tr>
