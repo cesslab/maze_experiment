@@ -24,6 +24,8 @@ class Instructions(Page):
             'lottery_pair_number': lottery_collection.selected_pair_number(),
             'l': lottery_pair.left_lottery,
             'r': lottery_pair.right_lottery,
+            'l_rate_length': len(lottery_pair.left_lottery.completion_rate),
+            'r_rate_length': len(lottery_pair.right_lottery.completion_rate)
         }
 
 

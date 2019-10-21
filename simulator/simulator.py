@@ -171,8 +171,7 @@ if __name__ == "__main__":
             for player in range(1, len(player_links) + 1):
                 # switch to new tab
                 driver.switch_to.window(driver.window_handles[player])
-                if round_id == 1:
-                    instructions(driver)
+                instructions(driver)
                 choose_lottery(driver, round_id, player)
 
     if 2 <= part:
@@ -180,8 +179,7 @@ if __name__ == "__main__":
             for player in range(1, len(player_links) + 1):
                 # switch to new tab
                 driver.switch_to.window(driver.window_handles[player])
-                if round_id == 1:
-                    instructions(driver)
+                instructions(driver)
                 allocate_lottery_pair_time(driver, round_id, player)
 
     if 3 <= part:
@@ -208,3 +206,5 @@ if __name__ == "__main__":
                 driver.switch_to.window(driver.window_handles[player])
                 instructions(driver)
                 practice_maze(driver)
+
+    driver.quit()

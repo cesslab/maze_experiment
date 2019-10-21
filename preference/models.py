@@ -11,7 +11,7 @@ from experiment.mazes import Maze
 class Constants(BaseConstants):
     name_in_url = 'preference'
     players_per_group = None
-    num_rounds = 4
+    num_rounds = 7
 
 
 class Subsession(BaseSubsession):

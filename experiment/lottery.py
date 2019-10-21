@@ -99,8 +99,10 @@ class LotteryPreferencePair(LotteryPair):
         self._lottery_label = label
         if label == self.LEFT:
             self.realized_lottery = self.left_lottery
+            self.realized_lottery_label = self.LEFT
         elif label == self.RIGHT:
             self.realized_lottery = self.right_lottery
+            self.realized_lottery_label = self.RIGHT
         # Either
         else:
             self.realized_lottery_label = random.choice([self.LEFT, self.RIGHT])
@@ -114,63 +116,60 @@ class LotteryTimedPair(LotteryPair):
         self.right_time_seconds = None
 
 
-class PreferredLotteryPairCollection:
+class LotteryCollection:
+    """
+    0, L1 Z, Y, omega, eta, rho
+    ---------------------------
+    1, L1 800, 400, 50, 60, 40
+    2, L2 800, 400, 50, 80, 20
+    3, L3 800, 400, [0,100], 60, 40
+    4, L4 1000, 200, 50, 60, 40
+    5, L2' 800, 400, 50, 10, 0
+    6, L2'' 800, 400, 50, 30, 0
+    7, L3' 800, 400, [40, 60], 60, 40
+    8, L4' 1200, 0, 50, 60, 40
+
+    6, L1 vs L4
+    6, L1 vs L4'
+    """
     def __init__(self):
         self.collection = [
-                    LotteryPreferencePair(
-                        Lottery(1, Currency(8), Currency(4), [50], 50, 50, Maze('40_40_1', 147, 2, 169, 314)),
-                        Lottery(2, Currency(8), Currency(4), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
-                    ),
-                    LotteryPreferencePair(
-                        Lottery(3, Currency(8), Currency(4), [50], 80, 20, Maze('40_40_1', 147, 2, 169, 314)),
-                        Lottery(4, Currency(8), Currency(4), [50], 80, 20, Maze('60_40_1', 147, 2, 169, 314))
-                    ),
-                    LotteryPreferencePair(
-                        Lottery(5, Currency(8), Currency(4), [40, 60], 80, 20, Maze('40_60_2', 147, 2, 169, 314)),
-                        Lottery(6, Currency(10), Currency(2), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
-                    ),
-                    LotteryPreferencePair(
-                        Lottery(7, Currency(10.44), Currency(2), [30], 60, 40, Maze('40_60_2', 147, 2, 169, 314)),
-                        Lottery(8, Currency(8), Currency(4), [80], 60, 40, Maze('60_40_2', 147, 2, 169, 314))
-                    ),
-            ]
-        random.shuffle(self.collection)
-        self.selected_pair_index = random.randrange(len(self.collection))
-
-    def round_pair(self, round_number):
-        return self.collection[round_number-1]
-
-    def selected_lottery_pair(self):
-        return self.collection[self.selected_pair_index]
-
-    def selected_pair_number(self):
-        return self.selected_pair_index + 1
-
-    def is_round_pair_selected(self, round_number):
-        return round_number == self.selected_pair_number()
-
-
-class TimedLotteryPairCollection:
-    def __init__(self):
-        self.collection = [
-                LotteryPreferencePair(
-                    Lottery(1, Currency(8), Currency(4), [50], 50, 50, Maze('40_40_1', 147, 2, 169, 314)),
-                    Lottery(2, Currency(8), Currency(4), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
-                ),
-                LotteryPreferencePair(
-                    Lottery(3, Currency(8), Currency(4), [50], 80, 20, Maze('40_40_1', 147, 2, 169, 314)),
-                    Lottery(4, Currency(8), Currency(4), [50], 80, 20, Maze('60_40_1', 147, 2, 169, 314))
-                ),
-                LotteryPreferencePair(
-                    Lottery(5, Currency(8), Currency(4), [40, 60], 80, 20, Maze('40_60_2', 147, 2, 169, 314)),
-                    Lottery(6, Currency(10), Currency(2), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
-                ),
-                LotteryPreferencePair(
-                    Lottery(7, Currency(10.44), Currency(2), [30], 60, 40, Maze('40_60_2', 147, 2, 169, 314)),
-                    Lottery(8, Currency(8), Currency(4), [80], 60, 40, Maze('60_40_2', 147, 2, 169, 314))
-                ),
+            # 1: L1 vs L2
+            LotteryPreferencePair(
+                Lottery(1, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(2, Currency(800), Currency(400), [50], 80, 20, Maze('60_40_1', 147, 2, 169, 314))
+            ),
+            # 2: L1 vs L2'
+            LotteryPreferencePair(
+                Lottery(3, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(4, Currency(800), Currency(400), [50], 10, 0, Maze('60_40_1', 147, 2, 169, 314))
+            ),
+            # 3: L1 vs L2''
+            LotteryPreferencePair(
+                Lottery(5, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(6, Currency(800), Currency(400), [50], 30, 0, Maze('60_40_1', 147, 2, 169, 314))
+            ),
+            # 4: L1 vs L3
+            LotteryPreferencePair(
+                Lottery(7, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(8, Currency(800), Currency(400), [0, 100], 60, 40, Maze('50_50_2', 147, 2, 169, 314))
+            ),
+            # 5: L1 vs L3'
+            LotteryPreferencePair(
+                Lottery(9, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(10, Currency(800), Currency(400), [40, 60], 60, 40, Maze('40_60_2', 147, 2, 169, 314))
+            ),
+            # 6: L1 vs L4
+            LotteryPreferencePair(
+                Lottery(11, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(12, Currency(1000), Currency(200), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
+            ),
+            # 7: L1 vs L4'
+            LotteryPreferencePair(
+                Lottery(13, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(14, Currency(1200), Currency(0), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
+            ),
         ]
-
         random.shuffle(self.collection)
         self.selected_pair_index = random.randrange(len(self.collection))
 
@@ -185,3 +184,12 @@ class TimedLotteryPairCollection:
 
     def is_round_pair_selected(self, round_number):
         return round_number == self.selected_pair_number()
+
+
+class PreferredLotteryPairCollection(LotteryCollection):
+    pass
+
+
+class TimedLotteryPairCollection(LotteryCollection):
+    pass
+

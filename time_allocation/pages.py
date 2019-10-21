@@ -9,6 +9,16 @@ class Instructions(Page):
         return self.round_number == 1
 
 
+class NextNotification(Page):
+    def is_displayed(self):
+        return self.round_number != 1
+
+    def vars_for_template(self) -> dict:
+        return {
+            'round_number': self.round_number
+        }
+
+
 class TimeAllocationPage(Page):
     form_model = 'player'
     form_fields = ['left_lottery_time', 'right_lottery_time']
@@ -47,4 +57,4 @@ class TimeAllocationPage(Page):
             return "The time in seconds for V and W must add up to exactly {}".format(max_time)
 
 
-page_sequence = [Instructions, TimeAllocationPage]
+page_sequence = [Instructions, NextNotification, TimeAllocationPage]

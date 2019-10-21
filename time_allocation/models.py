@@ -12,7 +12,7 @@ from experiment.lottery import Lottery, LotteryTimedPair, TimedLotteryPairCollec
 class Constants(BaseConstants):
     name_in_url = 'time_allocation'
     players_per_group = None
-    num_rounds = 4
+    num_rounds = 7
 
 
 class Subsession(BaseSubsession):

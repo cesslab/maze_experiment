@@ -1,10 +1,20 @@
 from ._builtin import Page
-from experiment.lottery import Lottery, LotteryPreferencePair, PreferredLotteryPairCollection
+from experiment.lottery import LotteryPreferencePair, PreferredLotteryPairCollection
 
 
 class Instructions(Page):
     def is_displayed(self):
         return self.round_number == 1
+
+
+class NextNotification(Page):
+    def is_displayed(self):
+        return self.round_number != 1
+
+    def vars_for_template(self) -> dict:
+        return {
+            'round_number': self.round_number
+        }
 
 
 class ChoicePage(Page):
@@ -31,4 +41,4 @@ class ChoicePage(Page):
         lottery_pair.lottery_label = self.player.preference
 
 
-page_sequence = [Instructions, ChoicePage]
+page_sequence = [Instructions, NextNotification, ChoicePage]

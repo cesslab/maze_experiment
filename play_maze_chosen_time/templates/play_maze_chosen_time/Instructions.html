@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-    Part 5: Instructions for Maze Play with Chosen Time
+    Part 5
 {% endblock %}
 
 {% block styles %}
@@ -12,6 +12,10 @@
 {% block content %}
     <div>
         <p>Lottery pair {{ lottery_pair_number }} was selected at random.</p>
+        <p>
+            When asked to allocate time to option V and option W, you allocated <b>{{ lp.left_time_seconds }} seconds to V</b>
+            and <b>{{ lp.right_time_seconds }} seconds to option W</b>.
+        </p>
     </div>
     <div class="grid-container">
         <div>
@@ -22,10 +26,6 @@
         </div>
     </div>
     <div>
-        <p>
-            When asked to allocate time to option V and option W, you allocated {{ lp.left_time_seconds }} seconds to V
-            and {{ lp.right_time_seconds }} to option W.
-        </p>
         <p>
             You will first play the option V maze followed by the option W maze.
         </p>
