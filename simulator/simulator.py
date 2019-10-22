@@ -144,8 +144,10 @@ def bet_case_select_task(browser, browser_tab, task_id):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Parse arguments to the selenium simulator')
     parser.add_argument('part', metavar='N', type=int, help='list of experiment parts to run')
+    parser.add_argument('--quit', action='store_true', help='Do not quit at end')
     args = parser.parse_args()
     part = args.part
+    quit_at_end = args.quit
     print(part)
 
     chrome_options = Options()
@@ -207,4 +209,5 @@ if __name__ == "__main__":
                 instructions(driver)
                 practice_maze(driver)
 
-    driver.quit()
+    if quit_at_end:
+        driver.quit()
