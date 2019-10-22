@@ -24,7 +24,7 @@ class Payoffs(Page):
             'ppair': preferred_pair,
             'preferred_pair_number': preferred_lottery_collection.selected_pair_number(),
             'timed_pair_number': timed_lottery_collection.selected_pair_number(),
-            'lp': timed_pair
+            'lp': timed_pair,
         }
 
 

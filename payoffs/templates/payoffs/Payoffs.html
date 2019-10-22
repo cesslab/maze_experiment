@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-    <div><h3>Payoff for Part 1 and 4</h3></div>
+    <div><h3>Part 1 and 4</h3></div>
     <div>
         <p>
             Lottery pair {{ preferred_pair_number }} was randomly selected from
@@ -33,11 +33,14 @@
     </div>
     <div>
         <p>
+            <b>
             {% if p.maze.solved %}
-                <b>You solved the maze for this option.</b>
+                You solved
             {% else %}
-                <b>You did not solve the maze for this option.</b>
+                You did not solve
             {% endif %}
+                the maze for option {% if ppair.realized_lottery_label == 0 %} V{% else %} W{% endif %}.
+            </b>
         </p>
         <p>
             A random value of {{ p.random_value }} was drawn between 0 and 100.
@@ -64,23 +67,87 @@
             {% endif %}
         </p>
     </div>
-    <div><h3>Payoff for Part 2 and 5</h3></div>
+    <div><h3>Part 2 and 5</h3></div>
     <div><p>Lottery pair {{ timed_pair_number }} was randomly selected from part 2, shown below.</p></div>
-    <div class="grid-container">
-        <div>
-            {% include 'global/lottery_template.html' with op="V" high=l.high_prize low=l.low_prize rate=l.completion_rate p_complete=l.prob_completed p_incomplete=l.prob_incomplete %}
-        </div>
-        <div>
-            {% include 'global/lottery_template.html' with op="W" high=r.high_prize low=r.low_prize rate=r.completion_rate p_complete=r.prob_completed p_incomplete=r.prob_incomplete %}
-        </div>
+    <div>
+        {% include 'global/lottery_template.html' with op="V" high=l.high_prize low=l.low_prize rate=l.completion_rate p_complete=l.prob_completed p_incomplete=l.prob_incomplete %}
     </div>
     <div>
         <p>
-            When asked to allocate time to option V and option W, you allocated <b>{{ lp.left_time_seconds }} seconds to V</b>
-            and <b>{{ lp.right_time_seconds }} seconds to option W</b>.
+            <b>
+                {% if l.maze.solved %}
+                    You solved
+                {% else %}
+                    You did not solve
+                {% endif %}
+                the maze for option V.
+            </b>
+        </p>
+        <p>
+            A random value of {{ l.random_value }} was drawn between 0 and 100.
+            {# Maze is solved #}
+            {% if l.maze.solved %}
+                Because {{ l.random_value }} is
+                {# High Prize | Solved #}
+                {% if l.random_value <= l.prob_completed %}
+                    less than or equal to {{ l.prob_completed }} you will get a <b>high prize of {{ l.payoff }}</b>.
+                    {# Low Prize Prize | Solved #}
+                {% else %}
+                    greater than {{ l.prob_completed }} you will get a <b>low prize of {{ l.payoff }}</b>.
+                {% endif %}
+                {# Maze is not solved #}
+            {% else %}
+                Because {{ l.random_value }} was
+                {# High Prize | Not Solved #}
+                {% if l.random_value <= l.prob_incomplete %}
+                    less than or equal to {{ l.prob_incomplete }} you will get a <b>high prize of {{ l.payoff }}</b>.
+                    {# Low Prize | Not Solved #}
+                {% else %}
+                    greater than {{ l.prob_incomplete }} you will get a <b>low prize of {{ l.payoff }}</b>.
+                {% endif %}
+            {% endif %}
         </p>
     </div>
-    <div><h3>Payoff Part 3</h3></div>
+    <div>
+        {% include 'global/lottery_template.html' with op="W" high=r.high_prize low=r.low_prize rate=r.completion_rate p_complete=r.prob_completed p_incomplete=r.prob_incomplete %}
+    </div>
+    <div>
+        <p>
+            <b>
+                {% if r.maze.solved %}
+                    You solved
+                {% else %}
+                    You did not solve
+                {% endif %}
+                the maze for option W.
+            </b>
+        </p>
+        <p>
+            A random value of {{ r.random_value }} was drawn between 0 and 100.
+            {# Maze is solved #}
+            {% if r.maze.solved %}
+                Because {{ r.random_value }} is
+                {# High Prize | Solved #}
+                {% if r.random_value <= r.prob_completed %}
+                    less than or equal to {{ r.prob_completed }} you will get a <b>high prize of {{ r.payoff }}</b>.
+                    {# Low Prize Prize | Solved #}
+                {% else %}
+                    greater than {{ r.prob_completed }} you will get a <b>low prize of {{ r.payoff }}</b>.
+                {% endif %}
+                {# Maze is not solved #}
+            {% else %}
+                Because {{ r.random_value }} was
+                {# High Prize | Not Solved #}
+                {% if r.random_value <= r.prob_incomplete %}
+                    less than or equal to {{ r.prob_incomplete }} you will get a <b>high prize of {{ r.payoff }}</b>.
+                    {# Low Prize | Not Solved #}
+                {% else %}
+                    greater than {{ r.prob_incomplete }} you will get a <b>low prize of {{ r.payoff }}</b>.
+                {% endif %}
+            {% endif %}
+        </p>
+    </div>
+    <div><h3>Part 3</h3></div>
     {% next_button %}
 
 {% endblock %}
