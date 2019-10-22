@@ -166,7 +166,7 @@ if __name__ == "__main__":
 
     # Part 1: Preference selection phase
     if 1 <= part:
-        lottery_pairs = 4
+        lottery_pairs = 7
         for round_id in range(1, lottery_pairs + 1):
             for player in range(1, len(player_links) + 1):
                 # switch to new tab
