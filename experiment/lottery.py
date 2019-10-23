@@ -136,38 +136,38 @@ class LotteryCollection:
         self.collection = [
             # 1: L1 vs L2
             LotteryPreferencePair(
-                Lottery(1, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
-                Lottery(2, Currency(800), Currency(400), [50], 80, 20, Maze('60_40_1', 147, 2, 169, 314))
+                Lottery(1, Currency(8), Currency(4), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(2, Currency(8), Currency(4), [50], 80, 20, Maze('60_40_1', 147, 2, 169, 314))
             ),
             # 2: L1 vs L2'
             LotteryPreferencePair(
-                Lottery(3, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
-                Lottery(4, Currency(800), Currency(400), [50], 10, 0, Maze('60_40_1', 147, 2, 169, 314))
+                Lottery(3, Currency(8), Currency(4), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(4, Currency(8), Currency(4), [50], 10, 0, Maze('60_40_1', 147, 2, 169, 314))
             ),
             # 3: L1 vs L2''
             LotteryPreferencePair(
-                Lottery(5, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
-                Lottery(6, Currency(800), Currency(400), [50], 30, 0, Maze('60_40_1', 147, 2, 169, 314))
+                Lottery(5, Currency(8), Currency(4), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(6, Currency(8), Currency(4), [50], 30, 0, Maze('60_40_1', 147, 2, 169, 314))
             ),
             # 4: L1 vs L3
             LotteryPreferencePair(
-                Lottery(7, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
-                Lottery(8, Currency(800), Currency(400), [0, 100], 60, 40, Maze('50_50_2', 147, 2, 169, 314))
+                Lottery(7, Currency(8), Currency(4), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(8, Currency(8), Currency(4), [0, 100], 60, 40, Maze('50_50_2', 147, 2, 169, 314))
             ),
             # 5: L1 vs L3'
             LotteryPreferencePair(
-                Lottery(9, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
-                Lottery(10, Currency(800), Currency(400), [40, 60], 60, 40, Maze('40_60_2', 147, 2, 169, 314))
+                Lottery(9, Currency(8), Currency(4), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(10, Currency(8), Currency(4), [40, 60], 60, 40, Maze('40_60_2', 147, 2, 169, 314))
             ),
             # 6: L1 vs L4
             LotteryPreferencePair(
-                Lottery(11, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
-                Lottery(12, Currency(1000), Currency(200), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
+                Lottery(11, Currency(8), Currency(4), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(12, Currency(10), Currency(2), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
             ),
             # 7: L1 vs L4'
             LotteryPreferencePair(
-                Lottery(13, Currency(800), Currency(400), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
-                Lottery(14, Currency(1200), Currency(0), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
+                Lottery(13, Currency(8), Currency(4), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(14, Currency(12), Currency(0), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
             ),
         ]
         random.shuffle(self.collection)
