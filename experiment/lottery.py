@@ -128,9 +128,6 @@ class LotteryCollection:
     6, L2'' 800, 400, 50, 30, 0
     7, L3' 800, 400, [40, 60], 60, 40
     8, L4' 1200, 0, 50, 60, 40
-
-    6, L1 vs L4
-    6, L1 vs L4'
     """
     def __init__(self):
         self.collection = [
