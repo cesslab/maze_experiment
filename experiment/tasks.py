@@ -1,7 +1,7 @@
 import random
 from typing import List
 
-from otree.api import Currency as c
+from otree.api import Currency, Currency as c
 
 
 class Option:
@@ -9,7 +9,7 @@ class Option:
     A = 1
     B = 2
 
-    def __init__(self, option_type, prob_high, payoff_high, prob_low, payoff_low):
+    def __init__(self, option_type, prob_high, payoff_high: Currency, prob_low, payoff_low: Currency):
         self.option_type = option_type
         self.prob_low = prob_low
         self.payoff_low = payoff_low

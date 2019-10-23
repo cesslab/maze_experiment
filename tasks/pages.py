@@ -39,6 +39,9 @@ class TaskTwoPage(Page):
         payoff_case_number = task_two.payoff_case_number
         task_two.payoff_option = entered_options[payoff_case_number - 1]
 
+        self.player.payoff = task_two.payoff_option.payoff
+        print("Task 2 Payoff {}".format(self.player.payoff))
+
 
 
 

@@ -25,6 +25,7 @@ class Payoffs(Page):
             'l': left_timed_lottery,
             'r': right_timed_lottery,
             'p': preferred_pair.realized_lottery,
+            'plabel': 'V' if preferred_pair.realized_lottery_label == 0 else 'W',
             'ppair': preferred_pair,
             'preferred_pair_number': preferred_lottery_collection.selected_pair_number(),
             'timed_pair_number': timed_lottery_collection.selected_pair_number(),
@@ -33,7 +34,10 @@ class Payoffs(Page):
             'case': task_two.payoff_case(),
             'case_number': task_two.payoff_case_number,
             'option': task_two.payoff_option,
-            'option_label': task_two.payoff_option.label()
+            'option_label': task_two.payoff_option.label(),
+            'total_payoff': self.participant.payoff,
+            'total_payoff_participation': self.participant.payoff_plus_participation_fee(),
+            'participation_fee': self.session.config['participation_fee']
         }
 
 

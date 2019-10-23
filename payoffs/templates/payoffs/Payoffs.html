@@ -25,11 +25,7 @@
         </p>
     </div>
     <div>
-        {% if ppair.realized_lottery_label == 0 %}
-            {% include 'global/lottery_template.html' with op="V" high=l.high_prize low=l.low_prize rate=l.completion_rate p_complete=l.prob_completed p_incomplete=l.prob_incomplete %}
-        {% else %}
-            {% include 'global/lottery_template.html' with op="W" high=r.high_prize low=r.low_prize rate=r.completion_rate p_complete=r.prob_completed p_incomplete=r.prob_incomplete %}
-        {% endif %}
+        {% include 'global/lottery_template.html' with op=plabel high=p.high_prize low=p.low_prize rate=p.completion_rate p_complete=p.prob_completed p_incomplete=p.prob_incomplete %}
     </div>
     <div>
         <p>
@@ -190,6 +186,10 @@
             greater than {{ option.prob_high }} you will get a prize of <b>{{ option.payoff_low }}</b>.
         {% endif %}
     </p>
+    </div>
+    <div>
+        <h3>Total Payoff</h3>
+        <p>Your total payoff plus a show-up fee of {{ participation_fee }} is <b>{{ total_payoff_participation }}</b>.</p>
     </div>
     {% next_button %}
 

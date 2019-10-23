@@ -36,7 +36,7 @@ class LeftMazePage(Page):
         if lottery_pair.left_time_seconds == 0:
             self.player.solved = False
             self.player.solve_time_seconds = 0
-            self.player.maze_id = lottery_pair.right_lottery.maze.name
+            self.player.maze_id = lottery_pair.left_lottery.maze.name
             return False
         else:
             return True
@@ -70,6 +70,9 @@ class LeftMazePage(Page):
         maze.solve_time = self.player.solve_time_seconds
 
         lottery.determine_payoff()
+        self.player.payoff = lottery.payoff + self.player.payoff
+        print("Payoff left maze: {}".format(self.player.payoff))
+
 
 
 class RightMazePage(Page):
@@ -117,6 +120,8 @@ class RightMazePage(Page):
         maze.solve_time = self.player.solve_time_seconds
 
         lottery.determine_payoff()
+        self.player.payoff = lottery.payoff + self.player.payoff
+        print("Payoff right maze: {}".format(self.player.payoff))
 
 
 page_sequence = [Instructions, LeftMazePage, RightMazePage]
