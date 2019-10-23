@@ -30,11 +30,14 @@
                 {% for case in cases %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        {% for option in case %}
                             <td>
-                                {{ option.0 }}% chance of getting {{ option.1|c }} and {{ option.2 }}% of getting {{ option.3|c }}
+                                {{ case.option_a.prob_high }}% chance of getting {{ case.option_a.payoff_high|c }} and
+                                {{ case.option_a.prob_low }}% of getting {{ case.option_a.payoff_low|c }}
                             </td>
-                        {% endfor %}
+                        <td>
+                            {{ case.option_b.prob_high }}% chance of getting {{ case.option_b.payoff_high|c }} and
+                            {{ case.option_b.prob_low }}% of getting {{ case.option_b.payoff_low|c }}
+                        </td>
                         <td>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-secondary left-pair btn-ab" id="a_row_{{ forloop.counter }}">

@@ -2,6 +2,8 @@ from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
 
+from experiment.tasks import TaskTwo
+
 
 class Instructions(Page):
     def is_displayed(self):
@@ -13,7 +15,7 @@ class TaskOne(Page):
     form_fields = ['task_one_choice']
 
 
-class TaskTwo(Page):
+class TaskTwoPage(Page):
     form_model = 'player'
     form_fields = [
         'task_two_1', 'task_two_2', 'task_two_3', 'task_two_4', 'task_two_5',
@@ -21,20 +23,23 @@ class TaskTwo(Page):
     ]
 
     def vars_for_template(self):
+        task_two: TaskTwo = self.participant.vars['task_two']
         return {
-            'cases': [
-                [[10, c(2.00), 90, c(1.60)], [10, c(3.85), 90, c(.10)]],
-                [[20, c(2.00), 80, c(1.60)], [20, c(3.85), 80, c(.10)]],
-                [[30, c(2.00), 70, c(1.60)], [30, c(3.85), 70, c(.10)]],
-                [[40, c(2.00), 60, c(1.60)], [40, c(3.85), 60, c(.10)]],
-                [[50, c(2.00), 50, c(1.60)], [50, c(3.85), 50, c(.10)]],
-                [[60, c(2.00), 40, c(1.60)], [60, c(3.85), 40, c(.10)]],
-                [[70, c(2.00), 30, c(1.60)], [70, c(3.85), 30, c(.10)]],
-                [[80, c(2.00), 20, c(1.60)], [80, c(3.85), 20, c(.10)]],
-                [[90, c(2.00), 10, c(1.60)], [90, c(3.85), 10, c(.10)]],
-                [[100, c(2.00), 0, c(1.60)], [90, c(3.85), 10, c(.10)]],
-            ],
+            'cases': task_two.cases
         }
+
+    def before_next_page(self):
+        task_two: TaskTwo = self.participant.vars['task_two']
+        entered_options = [
+            self.player.task_two_1, self.player.task_two_2, self.player.task_two_3, self.player.task_two_3,
+            self.player.task_two_4, self.player.task_two_5, self.player.task_two_6, self.player.task_two_7,
+            self.player.task_two_8, self.player.task_two_9, self.player.task_two_10
+        ]
+
+        payoff_case_number = task_two.payoff_case_number
+        task_two.payoff_option = entered_options[payoff_case_number - 1]
+
+
 
 
 class TaskThree(Page):
@@ -80,4 +85,4 @@ class TaskSeven(Page):
     form_fields = ['distance', 'unit']
 
 
-page_sequence = [Instructions, TaskOne, TaskTwo, TaskThree, TaskFour, TaskFive, TaskSix, TaskSeven]
+page_sequence = [Instructions, TaskOne, TaskTwoPage, TaskThree, TaskFour, TaskFive, TaskSix, TaskSeven]

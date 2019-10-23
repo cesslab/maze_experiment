@@ -148,6 +148,47 @@
         </p>
     </div>
     <div><h3>Part 3</h3></div>
+    <div>
+        <p>Task 2 was randomly selected from the seven tasks in part 3.</p>
+        <p>Case {{ case_number }} was randomly selected out of 10. You selected option {{ option_label }}.</p>
+    </div>
+    <div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Case</th>
+                <th>Option A</th>
+                <th>Option B</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ case_number }}</td>
+                    <td>
+                        {{ case.option_a.prob_high }}% chance of getting {{ case.option_a.payoff_high|c }} and
+                        {{ case.option_a.prob_low }}% of getting {{ case.option_a.payoff_low|c }}
+                    </td>
+                    <td>
+                        {{ case.option_b.prob_high }}% chance of getting {{ case.option_b.payoff_high|c }} and
+                        {{ case.option_b.prob_low }}% of getting {{ case.option_b.payoff_low|c }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+    <p>
+        A random value of {{ option.random_num }} was drawn between 0 and 100.
+        Because {{option.random_num }} is
+        {# High Prize | Solved #}
+        {% if option.random_num <= option.prob_high %}
+            less than or equal to {{ option.prob_high }} you will get a prize of {{ option.payoff_high }}.
+            {# Low Prize Prize | Solved #}
+        {% else %}
+            greater than {{ option.prob_high }} you will get a prize of {{ option.payoff_low }}.
+        {% endif %}
+    </p>
+    </div>
     {% next_button %}
 
 {% endblock %}

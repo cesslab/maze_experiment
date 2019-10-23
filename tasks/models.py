@@ -3,7 +3,7 @@ from otree.api import (
     Currency as c, currency_range
 )
 
-from experiment.lottery import Lottery
+from experiment.tasks import TaskTwo
 
 author = 'Your name here'
 
@@ -19,7 +19,10 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    def creating_session(self):
+        if self.round_number == 1:
+            for player in self.get_players():
+                player.participant.vars['task_two'] = TaskTwo()
 
 
 class Group(BaseGroup):

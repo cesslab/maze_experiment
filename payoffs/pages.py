@@ -5,6 +5,7 @@ from experiment.lottery import Lottery
 from .models import Player
 
 from experiment.lottery import TimedLotteryPairCollection, LotteryTimedPair, PreferredLotteryPairCollection, LotteryPreferencePair
+from experiment.tasks import TaskTwo
 
 
 class Payoffs(Page):
@@ -17,6 +18,9 @@ class Payoffs(Page):
 
         preferred_lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
         preferred_pair: LotteryPreferencePair = preferred_lottery_collection.selected_lottery_pair()
+
+        task_two: TaskTwo = self.participant.vars['task_two']
+
         return {
             'l': left_timed_lottery,
             'r': right_timed_lottery,
@@ -25,6 +29,11 @@ class Payoffs(Page):
             'preferred_pair_number': preferred_lottery_collection.selected_pair_number(),
             'timed_pair_number': timed_lottery_collection.selected_pair_number(),
             'lp': timed_pair,
+            'cases': task_two.cases,
+            'case': task_two.payoff_case(),
+            'case_number': task_two.payoff_case_number,
+            'option': task_two.payoff_option,
+            'option_label': task_two.payoff_option.label()
         }
 
 
