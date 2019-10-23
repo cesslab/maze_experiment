@@ -149,8 +149,10 @@
     </div>
     <div><h3>Part 3</h3></div>
     <div>
-        <p>Task 2 was randomly selected from the seven tasks in part 3.</p>
-        <p>Case {{ case_number }} was randomly selected out of 10. You selected option {{ option_label }}.</p>
+        <p>Task 2 was randomly selected from the seven tasks.</p>
+        <p>Out of the ten cases in task two case {{ case_number }} was randomly selected.
+           For case {{ case_number }} you selected <b>option {{ option_label }}</b>.
+        </p>
     </div>
     <div>
         <table class="table table-bordered">
@@ -182,10 +184,10 @@
         Because {{option.random_num }} is
         {# High Prize | Solved #}
         {% if option.random_num <= option.prob_high %}
-            less than or equal to {{ option.prob_high }} you will get a prize of {{ option.payoff_high }}.
+            less than or equal to {{ option.prob_high }} you will get a prize of <b>{{ option.payoff_high }}</b>.
             {# Low Prize Prize | Solved #}
         {% else %}
-            greater than {{ option.prob_high }} you will get a prize of {{ option.payoff_low }}.
+            greater than {{ option.prob_high }} you will get a prize of <b>{{ option.payoff_low }}</b>.
         {% endif %}
     </p>
     </div>
