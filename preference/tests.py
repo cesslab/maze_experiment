@@ -3,7 +3,7 @@ from . import pages
 from ._builtin import Bot
 from .models import Constants
 
-from preference.pages import Instructions, ChoicePage
+from preference.pages import Instructions, ChoicePage, NextNotification
 from experiment.lottery import LotteryPreferencePair, PreferredLotteryPairCollection, Lottery
 
 
@@ -13,10 +13,11 @@ class PlayerBot(Bot):
 
         if self.round_number == 1:
             yield(Instructions)
+            # Choose left lottery
             yield(ChoicePage, dict(preference=LotteryPreferencePair.LEFT))
-            # Test left lottery preferred
             expect(self.player.preference, LotteryPreferencePair.LEFT)
 
+            # Get the lottery pair for the round
             lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
             lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
 
@@ -24,8 +25,12 @@ class PlayerBot(Bot):
             self.test_realized_lottery_matches_preference(lottery_pair, lottery_pair.left_lottery)
 
         elif self.round_number == 2:
+            yield(NextNotification)
+
+            # Choose right lottery
             yield(ChoicePage, dict(preference=LotteryPreferencePair.RIGHT))
 
+            # Get the lottery pair for the round
             lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
             lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
 
@@ -33,6 +38,8 @@ class PlayerBot(Bot):
             self.test_realized_lottery_matches_preference(lottery_pair, lottery_pair.right_lottery)
 
         else:
+            yield(NextNotification)
+
             yield(ChoicePage, dict(preference=LotteryPreferencePair.EITHER))
 
             lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
