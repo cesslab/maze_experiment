@@ -1,7 +1,5 @@
-from otree.api import Currency as c, currency_range, expect
-from . import pages
+from otree.api import expect
 from ._builtin import Bot
-from .models import Constants
 
 from preference.pages import Instructions, ChoicePage, NextNotification
 from experiment.lottery import LotteryPreferencePair, PreferredLotteryPairCollection, Lottery
