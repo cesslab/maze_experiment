@@ -17,7 +17,7 @@ class PlayerBot(Bot):
         # Test incorrect time allocations
         wrong_left_time = random.randint(121, 5000)
         wrong_right_time = -1*random.randint(0, 120)
-        SubmissionMustFail(TimeAllocationPage, dict(left_lottery_time=wrong_left_time, right_lottery_time=wrong_right_time))
+        yield(SubmissionMustFail(TimeAllocationPage, dict(left_lottery_time=wrong_left_time, right_lottery_time=wrong_right_time)))
 
         # Test correct time allocations
         left_time = random.randint(0, 120)
