@@ -1,20 +1,7 @@
-from otree.api import (
-    models,
-    widgets,
-    BaseConstants,
-    BaseSubsession,
-    BaseGroup,
-    BasePlayer,
-    Currency as c,
-    currency_range,
-)
-
+from otree.api import models, BaseConstants, BaseSubsession, BaseGroup, BasePlayer
 
 author = 'Anwar A. Ruff'
-
-doc = """
-Practice Maze
-"""
+doc = """Practice Maze"""
 
 
 class Constants(BaseConstants):
@@ -32,7 +19,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    maze_id = models.CharField(max_length=255)
-    solved = models.IntegerField(default=0)
-    solve_time_seconds = models.IntegerField()
+    maze_id = models.CharField(max_length=255, blank=False)
+    solved = models.IntegerField(choices=[0, 1], default=0, blank=False)
+    solve_time_seconds = models.IntegerField(blank=False)
 

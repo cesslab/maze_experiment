@@ -1,11 +1,8 @@
-import random
+from otree.api import models, BaseConstants, BaseSubsession, BaseGroup, BasePlayer
+from experiment.lottery import PreferredLotteryPairCollection
 
-from otree.api import (
-    models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
-    Currency as c, currency_range
-)
-from experiment.lottery import Lottery, LotteryPreferencePair, PreferredLotteryPairCollection
-from experiment.mazes import Maze
+author = 'Anwar A. Ruff'
+doc = """Chose Preferred Lotteries"""
 
 
 class Constants(BaseConstants):
@@ -26,6 +23,6 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    left_lottery_id = models.IntegerField(default=False)
-    right_lottery_id = models.IntegerField(default=False)
-    preference = models.IntegerField(default=False)
+    left_lottery_id = models.IntegerField(blank=False)
+    right_lottery_id = models.IntegerField(blank=False)
+    preference = models.IntegerField(blank=False)

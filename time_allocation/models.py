@@ -1,12 +1,9 @@
-import random
+from otree.api import models, BaseConstants, BaseSubsession, BaseGroup, BasePlayer
 
-from otree.api import (
-    models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
-    Currency as c, currency_range
-)
+from experiment.lottery import TimedLotteryPairCollection
 
-from experiment.mazes import Maze
-from experiment.lottery import Lottery, LotteryTimedPair, TimedLotteryPairCollection
+author = 'Anwar A. Ruff'
+doc = """Allocate Time to Lottery Mazes"""
 
 
 class Constants(BaseConstants):
@@ -26,7 +23,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    left_lottery_id = models.IntegerField()
-    right_lottery_id = models.IntegerField()
-    left_lottery_time = models.IntegerField()
-    right_lottery_time = models.IntegerField()
+    left_lottery_id = models.IntegerField(blank=False)
+    right_lottery_id = models.IntegerField(blank=False)
+    left_lottery_time = models.IntegerField(blank=False)
+    right_lottery_time = models.IntegerField(blank=False)
