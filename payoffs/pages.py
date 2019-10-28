@@ -1,8 +1,6 @@
-from typing import List
-from ._builtin import Page, WaitPage
+from ._builtin import Page
 
 from experiment.lottery import Lottery
-from .models import Player
 
 from experiment.lottery import TimedLotteryPairCollection, LotteryTimedPair, PreferredLotteryPairCollection, LotteryPreferencePair
 from experiment.tasks import TaskTwo
@@ -41,6 +39,4 @@ class Payoffs(Page):
         }
 
 
-page_sequence = [
-    Payoffs
-]
+page_sequence = [Payoffs]
