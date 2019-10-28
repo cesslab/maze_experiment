@@ -1,8 +1,5 @@
-from otree.api import Currency as c, currency_range
-from ._builtin import Page, WaitPage
-from .models import Constants
+from ._builtin import Page
 
-from experiment.lottery import Lottery
 from experiment.mazes import Maze
 
 from experiment.lottery import Lottery, LotteryTimedPair, TimedLotteryPairCollection
@@ -71,8 +68,6 @@ class LeftMazePage(Page):
 
         lottery.determine_payoff()
         self.player.payoff = lottery.payoff + self.player.payoff
-        print("Payoff left maze: {}".format(self.player.payoff))
-
 
 
 class RightMazePage(Page):
@@ -121,7 +116,6 @@ class RightMazePage(Page):
 
         lottery.determine_payoff()
         self.player.payoff = lottery.payoff + self.player.payoff
-        print("Payoff right maze: {}".format(self.player.payoff))
 
 
 page_sequence = [Instructions, LeftMazePage, RightMazePage]

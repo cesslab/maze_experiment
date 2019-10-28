@@ -1,15 +1,9 @@
-from otree.api import (
-    models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
-    Currency as c, currency_range
-)
+from otree.api import models, BaseConstants, BaseSubsession, BaseGroup, BasePlayer
 
 from experiment.tasks import TaskTwo
 
-author = 'Your name here'
-
-doc = """
-Your app description
-"""
+author = 'Anwar A. Ruff'
+doc = """Tasks"""
 
 
 class Constants(BaseConstants):

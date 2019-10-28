@@ -59,7 +59,6 @@ class MazePage(Page):
 
         lottery.determine_payoff()
         self.player.payoff = lottery.payoff
-        print("Payoff fixed time maze: {}".format(self.player.payoff))
 
 
 page_sequence = [Instructions, MazePage]
