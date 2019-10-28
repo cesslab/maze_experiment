@@ -1,19 +1,7 @@
-import random
-from typing import List
+from otree.api import BaseConstants, BaseSubsession, BaseGroup, BasePlayer
 
-from otree.api import (
-    models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
-    Currency as c, currency_range
-)
-
-from experiment.lottery import Lottery
-from experiment.mazes import Maze
-
-author = 'Your name here'
-
-doc = """
-Your app description
-"""
+author = 'Anwar A. Ruff'
+doc = """Payoffs"""
 
 
 class Constants(BaseConstants):
