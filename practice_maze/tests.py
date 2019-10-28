@@ -1,9 +1,10 @@
-from otree.api import Currency as c, currency_range
-from . import pages
 from ._builtin import Bot
-from .models import Constants
+import random
+from .pages import Instructions, PracticeMaze
 
 
 class PlayerBot(Bot):
     def play_round(self):
-        pass
+        yield(Instructions)
+        yield(PracticeMaze, {'solved': random.choice([0, 1]), 'solve_time_seconds': 60, 'maze_id': 'closed'})
+
