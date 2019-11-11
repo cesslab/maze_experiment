@@ -95,6 +95,32 @@ def task_two(browser, browser_tab):
     browser.find_element(By.XPATH, '//button').click()
 
 
+def task_eight(browser, browser_tab):
+    cases = 11
+    choice_labels = ['A', 'B']
+    choice_ids = ['a_row_{}', 'b_row_{}']
+    for case_id in range(1, cases + 1):
+        random_choice = random.randint(0, 1)
+        choice = choice_ids[random_choice]
+        print('Browser Tab {}: For task 8 Case {}, option {} was chosen.'.format(browser_tab, case_id, choice_labels[random_choice]))
+        element = browser.find_element_by_id(choice.format(case_id))
+        element.click()
+    browser.find_element(By.XPATH, '//button').click()
+
+
+def task_nine(browser, browser_tab):
+    cases = 11
+    choice_labels = ['A', 'B']
+    choice_ids = ['a_row_{}', 'b_row_{}']
+    for case_id in range(1, cases + 1):
+        random_choice = random.randint(0, 1)
+        choice = choice_ids[random_choice]
+        print('Browser Tab {}: For task 9 Case {}, option {} was chosen.'.format(browser_tab, case_id, choice_labels[random_choice]))
+        element = browser.find_element_by_id(choice.format(case_id))
+        element.click()
+    browser.find_element(By.XPATH, '//button').click()
+
+
 def task_five(browser, browser_tab, task_id):
     input_field = browser.find_element_by_id('task_input')
     max_value = int(input_field.get_attribute('max'))
@@ -150,27 +176,29 @@ if __name__ == "__main__":
     quit_at_end = args.quit
     print(part)
 
-    chrome_options = Options()
+    chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--disable-infobars")
     chrome_options.add_argument('--window-size=1200,900')
     chrome_options.add_argument("--disable-device-discovery-notifications")
-    driver = webdriver.Chrome(chrome_options=chrome_options)
-    driver.implicitly_wait(30)
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.implicitly_wait(60)
 
     driver.get(environ.get('EXPERIMENT_URL'))
     player_links = driver.find_elements_by_partial_link_text("InitializeParticipant")
-    print('there are {} players'.format(len(player_links)))
+
+    num_players = len(player_links)
+    print('there are {} players'.format(num_players))
 
     # create a new tab for each player
-    for player in range(1, len(player_links) + 1):
+    for player in range(1, num_players + 1):
         driver.switch_to.window(driver.window_handles[0])
         player_links[player-1].send_keys(Keys.COMMAND + Keys.ENTER)
 
     # Part 1: Preference selection phase
+    lottery_pairs = 8
     if 1 <= part:
-        lottery_pairs = 7
         for round_id in range(1, lottery_pairs + 1):
-            for player in range(1, len(player_links) + 1):
+            for player in range(1, num_players + 1):
                 # switch to new tab
                 driver.switch_to.window(driver.window_handles[player])
                 instructions(driver)
@@ -178,17 +206,19 @@ if __name__ == "__main__":
 
     if 2 <= part:
         for round_id in range(1, lottery_pairs + 1):
-            for player in range(1, len(player_links) + 1):
+            for player in range(1, num_players + 1):
                 # switch to new tab
-                driver.switch_to.window(driver.window_handles[player])
+                if num_players > 1:
+                    driver.switch_to.window(driver.window_handles[player])
                 instructions(driver)
                 allocate_lottery_pair_time(driver, round_id, player)
 
     if 3 <= part:
         for round_id in range(1, lottery_pairs + 1):
-            for player in range(1, len(player_links) + 1):
+            for player in range(1, num_players + 1):
                 # switch to new tab
-                driver.switch_to.window(driver.window_handles[player])
+                if num_players > 1:
+                    driver.switch_to.window(driver.window_handles[player])
                 instructions(driver)
                 task_one(driver, player)
                 task_two(driver, player)
@@ -200,12 +230,17 @@ if __name__ == "__main__":
                 task_five(driver, player, 6)
                 # Task 7
                 task_seven(driver, player, 7)
+                # Task 8
+                task_eight(driver, player)
+                # Task 9
+                task_nine(driver, player)
 
     if 4 <= part:
         for round_id in range(1, lottery_pairs + 1):
-            for player in range(1, len(player_links) + 1):
+            for player in range(1, num_players + 1):
                 # switch to new tab
-                driver.switch_to.window(driver.window_handles[player])
+                if num_players > 1:
+                    driver.switch_to.window(driver.window_handles[player])
                 instructions(driver)
                 practice_maze(driver)
 
