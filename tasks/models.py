@@ -1,6 +1,6 @@
 from otree.api import models, BaseConstants, BaseSubsession, BaseGroup, BasePlayer
 
-from experiment.tasks import TaskTwo
+from experiment.tasks import TaskTwo, TaskEight, TaskNine
 
 author = 'Anwar A. Ruff'
 doc = """Tasks"""
@@ -17,6 +17,8 @@ class Subsession(BaseSubsession):
         if self.round_number == 1:
             for player in self.get_players():
                 player.participant.vars['task_two'] = TaskTwo()
+                player.participant.vars['task_eight'] = TaskEight()
+                player.participant.vars['task_nine'] = TaskNine()
 
 
 class Group(BaseGroup):
@@ -57,6 +59,28 @@ class Player(BasePlayer):
     task_four_8 = models.IntegerField(choices=[1, 2], blank=False)
     task_four_9 = models.IntegerField(choices=[1, 2], blank=False)
     task_four_10 = models.IntegerField(choices=[1, 2], blank=False)
+    task_eight_1 = models.IntegerField(choices=[1, 2], blank=False)
+    task_eight_2 = models.IntegerField(choices=[1, 2], blank=False)
+    task_eight_3 = models.IntegerField(choices=[1, 2], blank=False)
+    task_eight_4 = models.IntegerField(choices=[1, 2], blank=False)
+    task_eight_5 = models.IntegerField(choices=[1, 2], blank=False)
+    task_eight_6 = models.IntegerField(choices=[1, 2], blank=False)
+    task_eight_7 = models.IntegerField(choices=[1, 2], blank=False)
+    task_eight_8 = models.IntegerField(choices=[1, 2], blank=False)
+    task_eight_9 = models.IntegerField(choices=[1, 2], blank=False)
+    task_eight_10 = models.IntegerField(choices=[1, 2], blank=False)
+    task_eight_11 = models.IntegerField(choices=[1, 2], blank=False)
+    task_nine_1 = models.IntegerField(choices=[1, 2], blank=False)
+    task_nine_2 = models.IntegerField(choices=[1, 2], blank=False)
+    task_nine_3 = models.IntegerField(choices=[1, 2], blank=False)
+    task_nine_4 = models.IntegerField(choices=[1, 2], blank=False)
+    task_nine_5 = models.IntegerField(choices=[1, 2], blank=False)
+    task_nine_6 = models.IntegerField(choices=[1, 2], blank=False)
+    task_nine_7 = models.IntegerField(choices=[1, 2], blank=False)
+    task_nine_8 = models.IntegerField(choices=[1, 2], blank=False)
+    task_nine_9 = models.IntegerField(choices=[1, 2], blank=False)
+    task_nine_10 = models.IntegerField(choices=[1, 2], blank=False)
+    task_nine_11 = models.IntegerField(choices=[1, 2], blank=False)
     task_five_invested = models.IntegerField(min=0, max=100, blank=False)
     task_six_invested = models.IntegerField(min=0, max=100, blank=False)
     distance = models.IntegerField(blank=False)

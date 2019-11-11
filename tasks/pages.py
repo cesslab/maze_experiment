@@ -1,7 +1,7 @@
 from otree.api import Currency as c
 from ._builtin import Page
 
-from experiment.tasks import TaskTwo
+from experiment.tasks import TaskTwo, TaskEight, TaskNine
 
 
 class Instructions(Page):
@@ -41,6 +41,58 @@ class TaskTwoPage(Page):
         self.player.payoff = task_two.payoff_option.payoff
 
 
+class TaskEightPage(Page):
+    form_model = 'player'
+    form_fields = [
+        'task_eight_1', 'task_eight_2', 'task_eight_3', 'task_eight_4', 'task_eight_5',
+        'task_eight_6', 'task_eight_7', 'task_eight_8', 'task_eight_9', 'task_eight_10', 'task_eight_11'
+    ]
+
+    def vars_for_template(self):
+        task_eight: TaskEight = self.participant.vars['task_eight']
+        return {
+            'cases': task_eight.cases
+        }
+
+    def before_next_page(self):
+        task_eight: TaskTwo = self.participant.vars['task_eight']
+        entered_options = [
+            self.player.task_eight_1, self.player.task_eight_2, self.player.task_eight_3, self.player.task_eight_3,
+            self.player.task_eight_4, self.player.task_eight_5, self.player.task_eight_6, self.player.task_eight_7,
+            self.player.task_eight_8, self.player.task_eight_9, self.player.task_eight_10, self.player.task_eight_11
+        ]
+
+        payoff_case_number = task_eight.payoff_case_number
+        task_eight.payoff_option = entered_options[payoff_case_number - 1]
+
+        self.player.payoff = task_eight.payoff_option.payoff
+
+
+class TaskNinePage(Page):
+    form_model = 'player'
+    form_fields = [
+        'task_nine_1', 'task_nine_2', 'task_nine_3', 'task_nine_4', 'task_nine_5',
+        'task_nine_6', 'task_nine_7', 'task_nine_8', 'task_nine_9', 'task_nine_10', 'task_nine_11'
+    ]
+
+    def vars_for_template(self):
+        task_nine: TaskNine = self.participant.vars['task_nine']
+        return {
+            'cases': task_nine.cases
+        }
+
+    def before_next_page(self):
+        task_nine: TaskTwo = self.participant.vars['task_nine']
+        entered_options = [
+            self.player.task_nine_1, self.player.task_nine_2, self.player.task_nine_3, self.player.task_nine_3,
+            self.player.task_nine_4, self.player.task_nine_5, self.player.task_nine_6, self.player.task_nine_7,
+            self.player.task_nine_8, self.player.task_nine_9, self.player.task_nine_10, self.player.task_nine_11
+        ]
+
+        payoff_case_number = task_nine.payoff_case_number
+        task_nine.payoff_option = entered_options[payoff_case_number - 1]
+
+        self.player.payoff = task_nine.payoff_option.payoff
 
 
 class TaskThree(Page):
@@ -86,4 +138,4 @@ class TaskSeven(Page):
     form_fields = ['distance', 'unit']
 
 
-page_sequence = [Instructions, TaskOne, TaskTwoPage, TaskThree, TaskFour, TaskFive, TaskSix, TaskSeven]
+page_sequence = [Instructions, TaskOne, TaskTwoPage, TaskThree, TaskFour, TaskFive, TaskSix, TaskSeven, TaskEightPage, TaskNinePage]

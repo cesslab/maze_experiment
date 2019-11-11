@@ -71,4 +71,67 @@ class TaskTwo:
             self._payoff_option = self.payoff_case().option_b
 
 
+class TaskEight:
+    def __init__(self):
+        self.cases: List[Case] = [
+            Case(Option(Option.A, 100, c(8), 0, c(4)), Option(Option.B, 100, c(8), 0, c(4))),
+            Case(Option(Option.A, 90, c(8), 10, c(4)), Option(Option.B, 90, c(8), 10, c(4))),
+            Case(Option(Option.A, 80, c(8), 20, c(4)), Option(Option.B, 80, c(8), 20, c(4))),
+            Case(Option(Option.A, 70, c(8), 30, c(4)), Option(Option.B, 70, c(8), 30, c(4))),
+            Case(Option(Option.A, 60, c(8), 40, c(4)), Option(Option.B, 60, c(8), 40, c(4))),
+            Case(Option(Option.A, 50, c(8), 50, c(6)), Option(Option.B, 50, c(8), 50, c(4))),
+            Case(Option(Option.A, 40, c(8), 60, c(4)), Option(Option.B, 40, c(8), 60, c(4))),
+            Case(Option(Option.A, 30, c(8), 70, c(4)), Option(Option.B, 30, c(8), 70, c(4))),
+            Case(Option(Option.A, 20, c(8), 80, c(4)), Option(Option.B, 20, c(8), 80, c(4))),
+            Case(Option(Option.A, 10, c(8), 90, c(4)), Option(Option.B, 10, c(8), 90, c(4))),
+            Case(Option(Option.A, 0, c(8), 100, c(4)), Option(Option.B, 0, c(8), 100, c(4))),
+        ]
+        self.payoff_case_number = random.randint(1, len(self.cases))
+        self._payoff_option = None
 
+    def payoff_case(self) -> Case:
+        return self.cases[self.payoff_case_number - 1]
+
+    @property
+    def payoff_option(self) -> Option:
+        return self._payoff_option
+
+    @payoff_option.setter
+    def payoff_option(self, o):
+        if o == Option.A:
+            self._payoff_option = self.payoff_case().option_a
+        else:
+            self._payoff_option = self.payoff_case().option_b
+
+
+class TaskNine:
+    def __init__(self):
+        self.cases: List[Case] = [
+            Case(Option(Option.A, 100, c(8), 0, c(4)), Option(Option.B, 100, c(8), 0, c(0))),
+            Case(Option(Option.A, 90, c(8), 10, c(4)), Option(Option.B, 90, c(8), 10, c(0))),
+            Case(Option(Option.A, 80, c(8), 20, c(4)), Option(Option.B, 80, c(8), 20, c(0))),
+            Case(Option(Option.A, 70, c(8), 30, c(4)), Option(Option.B, 70, c(8), 30, c(0))),
+            Case(Option(Option.A, 60, c(8), 40, c(4)), Option(Option.B, 60, c(8), 40, c(0))),
+            Case(Option(Option.A, 50, c(8), 50, c(6)), Option(Option.B, 50, c(8), 50, c(0))),
+            Case(Option(Option.A, 40, c(8), 60, c(4)), Option(Option.B, 40, c(8), 60, c(0))),
+            Case(Option(Option.A, 30, c(8), 70, c(4)), Option(Option.B, 30, c(8), 70, c(0))),
+            Case(Option(Option.A, 20, c(8), 80, c(4)), Option(Option.B, 20, c(8), 80, c(0))),
+            Case(Option(Option.A, 10, c(8), 90, c(4)), Option(Option.B, 10, c(8), 90, c(0))),
+            Case(Option(Option.A, 0, c(8), 100, c(4)), Option(Option.B, 0, c(8), 100, c(0))),
+        ]
+        self.payoff_case_number = random.randint(1, len(self.cases))
+        self._payoff_option = None
+
+    def payoff_case(self) -> Case:
+        return self.cases[self.payoff_case_number - 1]
+
+    @property
+    def payoff_option(self) -> Option:
+        return self._payoff_option
+
+    @payoff_option.setter
+    def payoff_option(self, o):
+        if o == Option.A:
+            self._payoff_option = self.payoff_case().option_a
+        else:
+            self._payoff_option = self.payoff_case().option_b
