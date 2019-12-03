@@ -9,7 +9,7 @@ class Instructions(Page):
         return self.round_number == 1
 
 
-class TaskOne(Page):
+class TaskOnePage(Page):
     form_model = 'player'
     form_fields = ['task_one_choice']
 
@@ -95,7 +95,7 @@ class TaskNinePage(Page):
         self.player.payoff = task_nine.payoff_option.payoff
 
 
-class TaskThree(Page):
+class TaskThreePage(Page):
     form_model = 'player'
     form_fields = [
         'task_three_1', 'task_three_2', 'task_three_3', 'task_three_4', 'task_three_5',
@@ -109,7 +109,7 @@ class TaskThree(Page):
         }
 
 
-class TaskFour(Page):
+class TaskFourPage(Page):
     form_model = 'player'
     form_fields = [
         'task_four_1', 'task_four_2', 'task_four_3', 'task_four_4', 'task_four_5',
@@ -123,19 +123,19 @@ class TaskFour(Page):
         }
 
 
-class TaskFive(Page):
+class TaskFivePage(Page):
     form_model = 'player'
     form_fields = ['task_five_invested']
 
 
-class TaskSix(Page):
+class TaskSixPage(Page):
     form_model = 'player'
     form_fields = ['task_six_invested']
 
 
-class TaskSeven(Page):
+class TaskSevenPage(Page):
     form_model = 'player'
     form_fields = ['distance', 'unit']
 
 
-page_sequence = [Instructions, TaskOne, TaskTwoPage, TaskThree, TaskFour, TaskFive, TaskSix, TaskSeven, TaskEightPage, TaskNinePage]
+page_sequence = [Instructions, TaskOnePage, TaskTwoPage, TaskThreePage, TaskFourPage, TaskFivePage, TaskSixPage, TaskSevenPage, TaskEightPage, TaskNinePage]
