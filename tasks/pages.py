@@ -9,9 +9,9 @@ class Instructions(Page):
         return self.round_number == 1
 
 
-class TaskOnePage(Page):
+class TaskFourPage(Page):
     form_model = 'player'
-    form_fields = ['task_one_choice']
+    form_fields = ['task_four_choice']
 
 
 class TaskTwoPage(Page):
@@ -109,7 +109,7 @@ class TaskThreePage(Page):
         }
 
 
-class TaskFourPage(Page):
+class _TaskFourPage(Page):
     form_model = 'player'
     form_fields = [
         'task_four_1', 'task_four_2', 'task_four_3', 'task_four_4', 'task_four_5',
@@ -138,4 +138,4 @@ class TaskSevenPage(Page):
     form_fields = ['distance', 'unit']
 
 
-page_sequence = [Instructions, TaskOnePage, TaskTwoPage, TaskThreePage, TaskFourPage, TaskFivePage, TaskSixPage, TaskSevenPage, TaskEightPage, TaskNinePage]
+page_sequence = [Instructions, TaskOnePage, TaskTwoPage, TaskThreePage, _TaskFourPage, TaskFivePage, TaskSixPage, TaskSevenPage, TaskEightPage, TaskNinePage]
