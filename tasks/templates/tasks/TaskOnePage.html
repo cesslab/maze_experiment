@@ -1,0 +1,139 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+  Task 1
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'tasks/task2.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div>
+    <h4>Task Description</h4>
+    <p>Below you will be asked to partake in three tasks, task a, b, and c, which are identical except for one feature
+    that will be described below.</p>
+    <p>
+      Consider the following option. You are given 1 minute to solve a maze. Of the students
+      who were given this maze in the past, <b>X%</b> of them that tried to solve this maze in 1 minute succeeded (success rate = X%)
+      as you will see below, you will be involved in 3 tasks where X will vary between 20%, 50%, and 80%.
+
+      If you solve the maze, you win $8. If you don’t, you win $4. We shall call this the <b>“Maze” option</b>.
+      For each of the cases below, you must choose between the “Maze” option and a
+      lottery, which has nothing to do with solving mazes but simply pays you either $8 or $4 with varying probability.
+
+      For instance, in Case 2, you have to choose between the “Maze” option
+      and the lottery that pays $8 with probability 80% and $4 with probability 20%.</p>
+    <p>
+      Your payoff in this task will be determined as follows. We randomly select
+      one of the eleven cases. If, in the selected case, you chose the Maze, you will
+      be given 1 minute to solve a Maze and if you solve it you win $8. Otherwise,
+      you win $4. If you chose the lottery, then you get to play the lottery associated
+      with the selected case will be played out.
+    </p>
+  </div>
+
+  <div>
+    <h4>Task 1.A</h4>
+    <p>The success rate X for task 1.A is 20%.</p>
+  </div>
+  <div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th style="text-align: center;">Case</th>
+          <th>Maze Option</th>
+          <th>Lottery Option</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for case in cases_one_a %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>
+            <label style="margin-right: 5px;" for="task_one_a_maze_{{ forloop.counter }}">Maze</label>
+            <input type="radio" value="1" id="task_one_a_maze_{{ forloop.counter }}" name="task_one_a_{{ forloop.counter }}" autocomplete="off">
+          </td>
+          <td>
+            <input type="radio" value="2" id="task_one_a_lottery_{{ forloop.counter }}" name="task_one_a_{{ forloop.counter }}" autocomplete="off">
+            <label style="margin-left: 5px;" for="task_one_a_lottery_{{ forloop.counter }}">
+              {{ case.option_b.prob_high }}% probability you win {{ case.option_b.payoff_high|c }} and
+              {{ case.option_b.prob_low }}% probability you win {{ case.option_b.payoff_low|c }}
+            </label>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <h4>Task 1.B</h4>
+    <p>The success rate X for task 1.B is 50%.</p>
+  </div>
+  <div>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Case</th>
+        <th>Maze Option</th>
+        <th>Lottery Option</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for case in cases_one_b %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>
+            <label style="margin-right: 5px;" for="task_one_b_maze_{{ forloop.counter }}">Maze</label>
+            <input type="radio" value="1" id="task_one_b_maze_{{ forloop.counter }}" name="task_one_b_{{ forloop.counter }}" autocomplete="off">
+          </td>
+          <td>
+            <input type="radio" value="2" id="task_one_b_lottery_{{ forloop.counter }}" name="task_one_b_{{ forloop.counter }}" autocomplete="off">
+            <label style="margin-left: 5px;" for="task_one_b_lottery_{{ forloop.counter }}">
+              {{ case.option_b.prob_high }}% probability you win {{ case.option_b.payoff_high|c }} and
+              {{ case.option_b.prob_low }}% probability you win {{ case.option_b.payoff_low|c }}
+            </label>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <h2>Task 1.C</h2>
+    <p>The success rate X for task 1.C is 80%.</p>
+  </div>
+  <div>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Case</th>
+        <th>Maze Option</th>
+        <th>Lottery Option</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for case in cases_one_c %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>
+            <label style="margin-right: 5px;" for="task_one_c_maze_{{ forloop.counter }}">Maze</label>
+            <input type="radio" value="1" id="task_one_c_maze_{{ forloop.counter }}" name="task_one_c_{{ forloop.counter }}" autocomplete="off">
+          </td>
+          <td>
+            <input type="radio" value="2" id="task_one_c_lottery_{{ forloop.counter }}" name="task_one_c_{{ forloop.counter }}" autocomplete="off">
+            <label style="margin-left: 5px;" for="task_one_c_lottery_{{ forloop.counter }}">
+              {{ case.option_b.prob_high }}% probability you win {{ case.option_b.payoff_high|c }} and
+              {{ case.option_b.prob_low }}% probability you win {{ case.option_b.payoff_low|c }}
+            </label>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% next_button %}
+
+{% endblock %}

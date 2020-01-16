@@ -3,7 +3,6 @@ from ._builtin import Page
 from experiment.lottery import Lottery
 
 from experiment.lottery import TimedLotteryPairCollection, LotteryTimedPair, PreferredLotteryPairCollection, LotteryPreferencePair
-from experiment.tasks import TaskTwo
 
 
 class Payoffs(Page):

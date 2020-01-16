@@ -39,7 +39,7 @@ class Case:
             self.selected_option = self.option_b
 
 
-class TaskTwo:
+class TaskSeven:
     def __init__(self):
         self.cases: List[Case] = [
             Case(Option(Option.A, 10, c(2.0), 90, c(1.6)), Option(Option.B, 10, c(3.85), 90, c(.1))),
@@ -104,7 +104,7 @@ class TaskEight:
             self._payoff_option = self.payoff_case().option_b
 
 
-class TaskNine:
+class TaskOne:
     def __init__(self):
         self.cases: List[Case] = [
             Case(Option(Option.A, 100, c(8), 0, c(4)), Option(Option.B, 100, c(8), 0, c(0))),

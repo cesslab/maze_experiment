@@ -1,8 +1,43 @@
 from otree.api import Currency as c
 from ._builtin import Page
 
-from experiment.tasks import TaskTwo, TaskEight, TaskNine
+from experiment.tasks import TaskSeven, TaskEight, TaskOne
 
+
+class TaskOnePage(Page):
+    form_model = 'player'
+    form_fields = [
+        'task_one_a_1', 'task_one_a_2', 'task_one_a_3', 'task_one_a_4', 'task_one_a_5',
+        'task_one_a_6', 'task_one_a_7', 'task_one_a_8', 'task_one_a_9', 'task_one_a_10', 'task_one_a_11',
+        'task_one_b_1', 'task_one_b_2', 'task_one_b_3', 'task_one_b_4', 'task_one_b_5',
+        'task_one_b_6', 'task_one_b_7', 'task_one_b_8', 'task_one_b_9', 'task_one_b_10', 'task_one_b_11',
+        'task_one_c_1', 'task_one_c_2', 'task_one_c_3', 'task_one_c_4', 'task_one_c_5',
+        'task_one_c_6', 'task_one_c_7', 'task_one_c_8', 'task_one_c_9', 'task_one_c_10', 'task_one_c_11',
+    ]
+
+    def vars_for_template(self):
+        task_one_a: TaskOne = self.participant.vars['task_one_a']
+        task_one_b: TaskOne = self.participant.vars['task_one_b']
+        task_one_c: TaskOne = self.participant.vars['task_one_c']
+        return {
+            'cases_one_a': task_one_a.cases,
+            'cases_one_b': task_one_b.cases,
+            'cases_one_c': task_one_c.cases,
+        }
+
+    def before_next_page(self):
+        pass
+        # task_nine: TaskNine = self.participant.vars['task_nine']
+        # entered_options = [
+        #     self.player.task_nine_1, self.player.task_nine_2, self.player.task_nine_3, self.player.task_nine_3,
+        #     self.player.task_nine_4, self.player.task_nine_5, self.player.task_nine_6, self.player.task_nine_7,
+        #     self.player.task_nine_8, self.player.task_nine_9, self.player.task_nine_10, self.player.task_nine_11
+        # ]
+        #
+        # payoff_case_number = task_nine.payoff_case_number
+        # task_nine.payoff_option = entered_options[payoff_case_number - 1]
+        #
+        # self.player.payoff = task_nine.payoff_option.payoff
 
 class Instructions(Page):
     def is_displayed(self):
@@ -14,34 +49,34 @@ class TaskFourPage(Page):
     form_fields = ['task_four_choice']
 
 
-class TaskTwoPage(Page):
+class TaskSevenPage(Page):
     form_model = 'player'
     form_fields = [
-        'task_two_1', 'task_two_2', 'task_two_3', 'task_two_4', 'task_two_5',
-        'task_two_6', 'task_two_7', 'task_two_8', 'task_two_9', 'task_two_10',
+        'task_seven_1', 'task_seven_2', 'task_seven_3', 'task_seven_4', 'task_seven_5',
+        'task_seven_6', 'task_seven_7', 'task_seven_8', 'task_seven_9', 'task_seven_10',
     ]
 
     def vars_for_template(self):
-        task_two: TaskTwo = self.participant.vars['task_two']
+        task_seven: TaskSeven = self.participant.vars['task_seven']
         return {
-            'cases': task_two.cases
+            'cases': task_seven.cases
         }
 
     def before_next_page(self):
-        task_two: TaskTwo = self.participant.vars['task_two']
+        task_seven: TaskSeven = self.participant.vars['task_seven']
         entered_options = [
-            self.player.task_two_1, self.player.task_two_2, self.player.task_two_3, self.player.task_two_3,
-            self.player.task_two_4, self.player.task_two_5, self.player.task_two_6, self.player.task_two_7,
-            self.player.task_two_8, self.player.task_two_9, self.player.task_two_10
+            self.player.task_seven_1, self.player.task_seven_2, self.player.task_seven_3, self.player.task_seven_3,
+            self.player.task_seven_4, self.player.task_seven_5, self.player.task_seven_6, self.player.task_seven_7,
+            self.player.task_seven_8, self.player.task_seven_9, self.player.task_seven_10
         ]
 
-        payoff_case_number = task_two.payoff_case_number
-        task_two.payoff_option = entered_options[payoff_case_number - 1]
+        payoff_case_number = task_seven.payoff_case_number
+        task_seven.payoff_option = entered_options[payoff_case_number - 1]
 
-        self.player.payoff = task_two.payoff_option.payoff
+        self.player.payoff = task_seven.payoff_option.payoff
 
 
-class TaskEightPage(Page):
+class _TaskEightPage(Page):
     form_model = 'player'
     form_fields = [
         'task_eight_1', 'task_eight_2', 'task_eight_3', 'task_eight_4', 'task_eight_5',
@@ -55,7 +90,7 @@ class TaskEightPage(Page):
         }
 
     def before_next_page(self):
-        task_eight: TaskTwo = self.participant.vars['task_eight']
+        task_eight: TaskEight = self.participant.vars['task_eight']
         entered_options = [
             self.player.task_eight_1, self.player.task_eight_2, self.player.task_eight_3, self.player.task_eight_3,
             self.player.task_eight_4, self.player.task_eight_5, self.player.task_eight_6, self.player.task_eight_7,
@@ -68,31 +103,31 @@ class TaskEightPage(Page):
         self.player.payoff = task_eight.payoff_option.payoff
 
 
-class TaskNinePage(Page):
-    form_model = 'player'
-    form_fields = [
-        'task_nine_1', 'task_nine_2', 'task_nine_3', 'task_nine_4', 'task_nine_5',
-        'task_nine_6', 'task_nine_7', 'task_nine_8', 'task_nine_9', 'task_nine_10', 'task_nine_11'
-    ]
-
-    def vars_for_template(self):
-        task_nine: TaskNine = self.participant.vars['task_nine']
-        return {
-            'cases': task_nine.cases
-        }
-
-    def before_next_page(self):
-        task_nine: TaskTwo = self.participant.vars['task_nine']
-        entered_options = [
-            self.player.task_nine_1, self.player.task_nine_2, self.player.task_nine_3, self.player.task_nine_3,
-            self.player.task_nine_4, self.player.task_nine_5, self.player.task_nine_6, self.player.task_nine_7,
-            self.player.task_nine_8, self.player.task_nine_9, self.player.task_nine_10, self.player.task_nine_11
-        ]
-
-        payoff_case_number = task_nine.payoff_case_number
-        task_nine.payoff_option = entered_options[payoff_case_number - 1]
-
-        self.player.payoff = task_nine.payoff_option.payoff
+# class TaskNinePage(Page):
+#     form_model = 'player'
+#     form_fields = [
+#         'task_nine_1', 'task_nine_2', 'task_nine_3', 'task_nine_4', 'task_nine_5',
+#         'task_nine_6', 'task_nine_7', 'task_nine_8', 'task_nine_9', 'task_nine_10', 'task_nine_11'
+#     ]
+#
+#     def vars_for_template(self):
+#         task_nine: TaskNine = self.participant.vars['task_nine']
+#         return {
+#             'cases': task_nine.cases
+#         }
+#
+#     def before_next_page(self):
+#         task_nine: TaskNine = self.participant.vars['task_nine']
+#         entered_options = [
+#             self.player.task_nine_1, self.player.task_nine_2, self.player.task_nine_3, self.player.task_nine_3,
+#             self.player.task_nine_4, self.player.task_nine_5, self.player.task_nine_6, self.player.task_nine_7,
+#             self.player.task_nine_8, self.player.task_nine_9, self.player.task_nine_10, self.player.task_nine_11
+#         ]
+#
+#         payoff_case_number = task_nine.payoff_case_number
+#         task_nine.payoff_option = entered_options[payoff_case_number - 1]
+#
+#         self.player.payoff = task_nine.payoff_option.payoff
 
 
 class TaskThreePage(Page):
@@ -123,19 +158,19 @@ class _TaskFourPage(Page):
         }
 
 
-class TaskFivePage(Page):
+class _TaskFivePage(Page):
     form_model = 'player'
     form_fields = ['task_five_invested']
 
 
-class TaskSixPage(Page):
+class TaskEightPage(Page):
     form_model = 'player'
-    form_fields = ['task_six_invested']
+    form_fields = ['task_eight_invested']
 
 
-class TaskSevenPage(Page):
+class TaskSixPage(Page):
     form_model = 'player'
     form_fields = ['distance', 'unit']
 
 
-page_sequence = [Instructions, TaskOnePage, TaskTwoPage, TaskThreePage, _TaskFourPage, TaskFivePage, TaskSixPage, TaskSevenPage, TaskEightPage, TaskNinePage]
+page_sequence = [Instructions, TaskOnePage]

@@ -3,6 +3,13 @@ output {
     font-size: 1em;
 }
 
+td {
+    text-align: center;
+}
+th {
+    text-align: center;
+}
+
 .title-item {
     border-bottom: 1px solid lightgrey;
     text-align: center;
