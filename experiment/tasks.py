@@ -39,19 +39,20 @@ class Case:
             self.selected_option = self.option_b
 
 
-class TaskSeven:
+class TaskAlpha:
     def __init__(self):
         self.cases: List[Case] = [
-            Case(Option(Option.A, 10, c(2.0), 90, c(1.6)), Option(Option.B, 10, c(3.85), 90, c(.1))),
-            Case(Option(Option.A, 20, c(2.0), 80, c(1.6)), Option(Option.B, 20, c(3.85), 80, c(.1))),
-            Case(Option(Option.A, 30, c(2.0), 70, c(1.6)), Option(Option.B, 30, c(3.85), 70, c(.1))),
-            Case(Option(Option.A, 40, c(2.0), 60, c(1.6)), Option(Option.B, 40, c(3.85), 60, c(.1))),
-            Case(Option(Option.A, 50, c(2.0), 50, c(1.6)), Option(Option.B, 50, c(3.85), 50, c(.1))),
-            Case(Option(Option.A, 60, c(2.0), 40, c(1.6)), Option(Option.B, 60, c(3.85), 40, c(.1))),
-            Case(Option(Option.A, 70, c(2.0), 30, c(1.6)), Option(Option.B, 70, c(3.85), 30, c(.1))),
-            Case(Option(Option.A, 80, c(2.0), 20, c(1.6)), Option(Option.B, 80, c(3.85), 20, c(.1))),
-            Case(Option(Option.A, 90, c(2.0), 10, c(1.6)), Option(Option.B, 90, c(3.85), 10, c(.1))),
-            Case(Option(Option.A, 100, c(2.0), 0, c(1.6)), Option(Option.B, 10, c(3.85), 0, c(.1))),
+            Case(Option(Option.A, 100, c(8), 0, c(4)), Option(Option.B, 100, c(8), 0, c(0))),
+            Case(Option(Option.A, 90, c(8), 10, c(4)), Option(Option.B, 90, c(8), 10, c(0))),
+            Case(Option(Option.A, 80, c(8), 20, c(4)), Option(Option.B, 80, c(8), 20, c(0))),
+            Case(Option(Option.A, 70, c(8), 30, c(4)), Option(Option.B, 70, c(8), 30, c(0))),
+            Case(Option(Option.A, 60, c(8), 40, c(4)), Option(Option.B, 60, c(8), 40, c(0))),
+            Case(Option(Option.A, 50, c(8), 50, c(6)), Option(Option.B, 50, c(8), 50, c(0))),
+            Case(Option(Option.A, 40, c(8), 60, c(4)), Option(Option.B, 40, c(8), 60, c(0))),
+            Case(Option(Option.A, 30, c(8), 70, c(4)), Option(Option.B, 30, c(8), 70, c(0))),
+            Case(Option(Option.A, 20, c(8), 80, c(4)), Option(Option.B, 20, c(8), 80, c(0))),
+            Case(Option(Option.A, 10, c(8), 90, c(4)), Option(Option.B, 10, c(8), 90, c(0))),
+            Case(Option(Option.A, 0, c(8), 100, c(4)), Option(Option.B, 0, c(8), 100, c(0))),
         ]
         self.payoff_case_number = random.randint(1, len(self.cases))
         self._payoff_option = None
@@ -71,7 +72,7 @@ class TaskSeven:
             self._payoff_option = self.payoff_case().option_b
 
 
-class TaskEight:
+class TaskBeta:
     def __init__(self):
         self.cases: List[Case] = [
             Case(Option(Option.A, 100, c(8), 0, c(4)), Option(Option.B, 100, c(8), 0, c(4))),
@@ -104,20 +105,19 @@ class TaskEight:
             self._payoff_option = self.payoff_case().option_b
 
 
-class TaskOne:
+class TaskEpsilon:
     def __init__(self):
         self.cases: List[Case] = [
-            Case(Option(Option.A, 100, c(8), 0, c(4)), Option(Option.B, 100, c(8), 0, c(0))),
-            Case(Option(Option.A, 90, c(8), 10, c(4)), Option(Option.B, 90, c(8), 10, c(0))),
-            Case(Option(Option.A, 80, c(8), 20, c(4)), Option(Option.B, 80, c(8), 20, c(0))),
-            Case(Option(Option.A, 70, c(8), 30, c(4)), Option(Option.B, 70, c(8), 30, c(0))),
-            Case(Option(Option.A, 60, c(8), 40, c(4)), Option(Option.B, 60, c(8), 40, c(0))),
-            Case(Option(Option.A, 50, c(8), 50, c(6)), Option(Option.B, 50, c(8), 50, c(0))),
-            Case(Option(Option.A, 40, c(8), 60, c(4)), Option(Option.B, 40, c(8), 60, c(0))),
-            Case(Option(Option.A, 30, c(8), 70, c(4)), Option(Option.B, 30, c(8), 70, c(0))),
-            Case(Option(Option.A, 20, c(8), 80, c(4)), Option(Option.B, 20, c(8), 80, c(0))),
-            Case(Option(Option.A, 10, c(8), 90, c(4)), Option(Option.B, 10, c(8), 90, c(0))),
-            Case(Option(Option.A, 0, c(8), 100, c(4)), Option(Option.B, 0, c(8), 100, c(0))),
+            Case(Option(Option.A, 10, c(2.0), 90, c(1.6)), Option(Option.B, 10, c(3.85), 90, c(.1))),
+            Case(Option(Option.A, 20, c(2.0), 80, c(1.6)), Option(Option.B, 20, c(3.85), 80, c(.1))),
+            Case(Option(Option.A, 30, c(2.0), 70, c(1.6)), Option(Option.B, 30, c(3.85), 70, c(.1))),
+            Case(Option(Option.A, 40, c(2.0), 60, c(1.6)), Option(Option.B, 40, c(3.85), 60, c(.1))),
+            Case(Option(Option.A, 50, c(2.0), 50, c(1.6)), Option(Option.B, 50, c(3.85), 50, c(.1))),
+            Case(Option(Option.A, 60, c(2.0), 40, c(1.6)), Option(Option.B, 60, c(3.85), 40, c(.1))),
+            Case(Option(Option.A, 70, c(2.0), 30, c(1.6)), Option(Option.B, 70, c(3.85), 30, c(.1))),
+            Case(Option(Option.A, 80, c(2.0), 20, c(1.6)), Option(Option.B, 80, c(3.85), 20, c(.1))),
+            Case(Option(Option.A, 90, c(2.0), 10, c(1.6)), Option(Option.B, 90, c(3.85), 10, c(.1))),
+            Case(Option(Option.A, 100, c(2.0), 0, c(1.6)), Option(Option.B, 10, c(3.85), 0, c(.1))),
         ]
         self.payoff_case_number = random.randint(1, len(self.cases))
         self._payoff_option = None
@@ -135,3 +135,4 @@ class TaskOne:
             self._payoff_option = self.payoff_case().option_a
         else:
             self._payoff_option = self.payoff_case().option_b
+

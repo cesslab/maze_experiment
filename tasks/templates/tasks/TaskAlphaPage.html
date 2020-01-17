@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-  Task 1
+  Task {{task_number}}
 {% endblock %}
 
 {% block styles %}
@@ -35,8 +35,8 @@
   </div>
 
   <div>
-    <h4>Task 1.A</h4>
-    <p>The success rate X for task 1.A is 20%.</p>
+    <h4>Task {{ task_number }}.A</h4>
+    <p>The success rate X for task {{ task_number }}.A is 20%.</p>
   </div>
   <div>
     <table class="table table-bordered">
@@ -52,12 +52,12 @@
         <tr>
           <td>{{ forloop.counter }}</td>
           <td>
-            <label style="margin-right: 5px;" for="task_one_a_maze_{{ forloop.counter }}">Maze</label>
-            <input type="radio" value="1" id="task_one_a_maze_{{ forloop.counter }}" name="task_one_a_{{ forloop.counter }}" autocomplete="off">
+            <label style="margin-right: 5px;" for="task_alpha_a_maze_{{ forloop.counter }}">Maze</label>
+            <input type="radio" value="1" id="task_alpha_a_maze_{{ forloop.counter }}" name="task_alpha_a_{{ forloop.counter }}" autocomplete="off">
           </td>
           <td>
-            <input type="radio" value="2" id="task_one_a_lottery_{{ forloop.counter }}" name="task_one_a_{{ forloop.counter }}" autocomplete="off">
-            <label style="margin-left: 5px;" for="task_one_a_lottery_{{ forloop.counter }}">
+            <input type="radio" value="2" id="task_alpha_a_lottery_{{ forloop.counter }}" name="task_alpha_a_{{ forloop.counter }}" autocomplete="off">
+            <label style="margin-left: 5px;" for="task_alpha_a_lottery_{{ forloop.counter }}">
               {{ case.option_b.prob_high }}% probability you win {{ case.option_b.payoff_high|c }} and
               {{ case.option_b.prob_low }}% probability you win {{ case.option_b.payoff_low|c }}
             </label>
@@ -68,8 +68,8 @@
     </table>
   </div>
   <div>
-    <h4>Task 1.B</h4>
-    <p>The success rate X for task 1.B is 50%.</p>
+    <h4>Task {{ task_number }}.B</h4>
+    <p>The success rate X for task {{ task_number }}.B is 50%.</p>
   </div>
   <div>
     <table class="table table-bordered">
@@ -85,12 +85,12 @@
         <tr>
           <td>{{ forloop.counter }}</td>
           <td>
-            <label style="margin-right: 5px;" for="task_one_b_maze_{{ forloop.counter }}">Maze</label>
-            <input type="radio" value="1" id="task_one_b_maze_{{ forloop.counter }}" name="task_one_b_{{ forloop.counter }}" autocomplete="off">
+            <label style="margin-right: 5px;" for="task_alpha_b_maze_{{ forloop.counter }}">Maze</label>
+            <input type="radio" value="1" id="task_alpha_b_maze_{{ forloop.counter }}" name="task_alpha_b_{{ forloop.counter }}" autocomplete="off">
           </td>
           <td>
-            <input type="radio" value="2" id="task_one_b_lottery_{{ forloop.counter }}" name="task_one_b_{{ forloop.counter }}" autocomplete="off">
-            <label style="margin-left: 5px;" for="task_one_b_lottery_{{ forloop.counter }}">
+            <input type="radio" value="2" id="task_alpha_b_lottery_{{ forloop.counter }}" name="task_alpha_b_{{ forloop.counter }}" autocomplete="off">
+            <label style="margin-left: 5px;" for="task_alpha_b_lottery_{{ forloop.counter }}">
               {{ case.option_b.prob_high }}% probability you win {{ case.option_b.payoff_high|c }} and
               {{ case.option_b.prob_low }}% probability you win {{ case.option_b.payoff_low|c }}
             </label>
@@ -101,8 +101,8 @@
     </table>
   </div>
   <div>
-    <h2>Task 1.C</h2>
-    <p>The success rate X for task 1.C is 80%.</p>
+    <h4>Task {{ task_number }}.C</h4>
+    <p>The success rate X for task {{ task_number }}.C is 80%.</p>
   </div>
   <div>
     <table class="table table-bordered">
@@ -118,12 +118,24 @@
         <tr>
           <td>{{ forloop.counter }}</td>
           <td>
-            <label style="margin-right: 5px;" for="task_one_c_maze_{{ forloop.counter }}">Maze</label>
-            <input type="radio" value="1" id="task_one_c_maze_{{ forloop.counter }}" name="task_one_c_{{ forloop.counter }}" autocomplete="off">
+            <label style="margin-right: 5px;" for="task_alpha_c_maze_{{ forloop.counter }}">Maze</label>
+            <input
+                    type="radio"
+                    value="1"
+                    id="task_alpha_c_maze_{{ forloop.counter }}"
+                    name="task_alpha_c_{{ forloop.counter }}"
+                    autocomplete="off"
+            >
           </td>
           <td>
-            <input type="radio" value="2" id="task_one_c_lottery_{{ forloop.counter }}" name="task_one_c_{{ forloop.counter }}" autocomplete="off">
-            <label style="margin-left: 5px;" for="task_one_c_lottery_{{ forloop.counter }}">
+            <input
+                    type="radio"
+                    value="2"
+                    id="task_alpha_c_lottery_{{ forloop.counter }}"
+                    name="task_alpha_c_{{ forloop.counter }}"
+                    autocomplete="off"
+            >
+            <label style="margin-left: 5px;" for="task_alpha_c_lottery_{{ forloop.counter }}">
               {{ case.option_b.prob_high }}% probability you win {{ case.option_b.payoff_high|c }} and
               {{ case.option_b.prob_low }}% probability you win {{ case.option_b.payoff_low|c }}
             </label>

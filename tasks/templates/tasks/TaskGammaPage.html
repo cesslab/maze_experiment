@@ -1,0 +1,48 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+  Task {{task_number}}
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'tasks/task2.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div>
+  <p>Consider six dollar amounts, $ 0, $2, $4, $8, $10 and $12. In the tasks below we are going to give you a
+choice between getting a certain amount of money for sure, either $2, $4, $8 or $10 and a gamble that
+gives you either $12 or $0 with probabilities to be determined by you. Your task is to tell us what
+probability you would demand in order to make you indifferent between one of those amounts for sure
+      and a gamble giving you either $12 or $0 with the probability you specified.</p>
+
+<p>For example, consider the following four hypothetical amounts money: $0, $1200, $3000, $9000. In the
+tasks below we will ask you questions like: What probability would you need to make you indifferent
+between receiving $3000 for sure and a gamble that gives you a chance p% of getting $9000 and a
+chance (1-p)% of getting $0. For example, if you state 0.90 then you would be saying that you would be
+indifferent between $3000 for sure and a gamble giving you a 10% change of getting $0 and a 90%
+chance of getting $9000. When we say that you are indifferent we mean that you state a probability
+which is such that if we flipped a fair coin that would land heads or tails with a 50% chance and gave you
+the sure amount if it landed heads and the lottery if it landed tails, you would not care which side of the
+    coin it landed on.</p>
+
+<p>To insure that you report your true indifference probability we will do the following. You will enter the
+probability that will make you indifferent into the computer. We will then choose a probability randomly
+between 0 and 1. If the probability we pick is less than the one you stated as making you indifferent,
+then you will not engage in the lottery but rather get the sure amount paid to you. If, however, the
+random probability is greater than the one you stated, then we will play out the lottery but with the
+random probability rather than the one you stated. More precisely, say you state that a probability of
+0.4 would make you indifferent between a sure prize and a lottery of a big one and a small one. If the
+random probability we choose is smaller than 0.4, then you get the sure payment. If, however say the
+random probability is say 0.6, we will have you play out the lottery but with a probability of 0.6 of you
+getting the big prize which is higher than you stated. Note that if you state a probability of 1 you will
+always get the sure prize while if you state a probability of 0 you will always get the lottery but possibly
+    with a very low chance of getting the big prize.</p>
+  </div>
+
+    {% formfields %}
+
+  {% next_button %}
+
+{% endblock %}

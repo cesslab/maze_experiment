@@ -1,0 +1,133 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+  Task {{task_number}}
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'tasks/task2.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div>
+    <table class="table table-bordered">
+      <thead>
+      <tr><th colspan="2">Your Lottery</th></tr>
+      </thead>
+          <tbody>
+              <tr>
+                  <td>High Prize</td>
+                  <td>{{ high_a|c }}</td>
+              </tr>
+              <tr>
+                  <td>Low Prize</td>
+                  <td>{{ low_a|c }}</td>
+              <tr>
+              <tr>
+                  <td>Probability of High Prize</td>
+                  <td>p% between 0% and 100% inclusively</td>
+              </tr>
+              <tr>
+                  <td>Probability of Low Prize</td>
+                  <td>100% - p%</td>
+              </tr>
+          </tbody>
+    </table>
+  </div>
+    <div>
+    <p>For each of the cases below, you must choose between <b>Your Lottery</b> and the lottery
+    presented to the right of it.</p>
+    </div>
+  <div>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Case</th>
+        <th>Your Lottery</th>
+        <th>Alternate Lottery</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for case in cases_beta_a %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>
+            <label style="margin-right: 5px;" for="task_beta_a_maze_{{ forloop.counter }}">Your Lottery</label>
+            <input type="radio" value="1" id="task_beta_a_maze_{{ forloop.counter }}" name="task_beta_a_{{ forloop.counter }}" autocomplete="off">
+          </td>
+          <td>
+            <input type="radio" value="2" id="task_beta_a_lottery_{{ forloop.counter }}" name="task_beta_a_{{ forloop.counter }}" autocomplete="off">
+            <label style="margin-left: 5px;" for="task_beta_a_lottery_{{ forloop.counter }}">
+              {{ case.option_b.prob_high }}% probability you win {{ case.option_b.payoff_high|c }} and
+              {{ case.option_b.prob_low }}% probability you win {{ case.option_b.payoff_low|c }}
+            </label>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+    <div>
+        <table class="table table-bordered">
+            <thead>
+            <tr><th colspan="2">Your Lottery</th></tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>High Prize</td>
+                <td>{{ high_b|c }}</td>
+            </tr>
+            <tr>
+                <td>Low Prize</td>
+                <td>{{ low_b|c }}</td>
+            <tr>
+            <tr>
+                <td>Probability of High Prize</td>
+                <td>p% between 40% and 60% inclusively</td>
+            </tr>
+            <tr>
+                <td>Probability of Low Prize</td>
+                <td>100% - p%</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <p>For each of the cases below, you must choose between <b>Your Lottery</b> and the lottery
+            presented to the right of it.</p>
+    </div>
+    <div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Case</th>
+                <th>Your Lottery</th>
+                <th>Alternate Lottery</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for case in cases_beta_b %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <label style="margin-right: 5px;" for="task_beta_b_maze_{{ forloop.counter }}">Your Lottery</label>
+                        <input type="radio" value="1" id="task_beta_b_maze_{{ forloop.counter }}" name="task_beta_b_{{ forloop.counter }}" autocomplete="off">
+                    </td>
+                    <td>
+                        <input type="radio" value="2" id="task_beta_b_lottery_{{ forloop.counter }}" name="task_beta_b_{{ forloop.counter }}" autocomplete="off">
+                        <label style="margin-left: 5px;" for="task_beta_b_lottery_{{ forloop.counter }}">
+                            {{ case.option_b.prob_high }}% probability you win {{ case.option_b.payoff_high|c }} and
+                            {{ case.option_b.prob_low }}% probability you win {{ case.option_b.payoff_low|c }}
+                        </label>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+  {% next_button %}
+
+{% endblock %}

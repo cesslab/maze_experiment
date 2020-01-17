@@ -3,7 +3,7 @@ import random
 from ._builtin import Bot
 from otree.api import SubmissionMustFail
 
-from .pages import TaskOnePage, TaskTwoPage, TaskThreePage, TaskFourPage, TaskFivePage, TaskSixPage, TaskSevenPage, Instructions
+from .pages import TaskOnePage, TaskTwoPage, TaskGammaPage, TaskDeltaPage, TaskEpsilonPage, TaskZetaPage, TaskEtaPage, Instructions
 
 
 class PlayerBot(Bot):
@@ -36,7 +36,7 @@ class PlayerBot(Bot):
             'task_three_6': '', 'task_three_7': '', 'task_three_8': '', 'task_three_9': '', 'task_three_10': '',
             'task_three_bet': ''
         }
-        yield(SubmissionMustFail(TaskThreePage, incorrect_form_field_values))
+        yield(SubmissionMustFail(TaskGammaPage, incorrect_form_field_values))
 
         correct_form_field_values = {
             'task_three_1': random.choice([1, 2]), 'task_three_2': random.choice([1, 2]),
@@ -46,7 +46,7 @@ class PlayerBot(Bot):
             'task_three_9': random.choice([1, 2]), 'task_three_10': random.choice([1, 2]),
             'task_three_bet': random.choice([1, 2])
         }
-        yield(TaskThreePage, correct_form_field_values)
+        yield(TaskGammaPage, correct_form_field_values)
 
         # Test task 4
         incorrect_form_field_values = {
@@ -54,14 +54,14 @@ class PlayerBot(Bot):
             'task_four_6': '', 'task_four_7': '', 'task_four_8': '', 'task_four_9': '', 'task_four_10': '',
             'task_four_bet': ''
         }
-        yield(SubmissionMustFail(TaskFourPage, incorrect_form_field_values))
+        yield(SubmissionMustFail(TaskDeltaPage, incorrect_form_field_values))
 
         incorrect_form_field_values = {
             'task_four_1': 1, 'task_four_2': 2, 'task_four_3': 1, 'task_four_4': 1, 'task_four_5': 1,
             'task_four_6': 2, 'task_four_7': 1, 'task_four_8': 2, 'task_four_9': 2, 'task_four_10': 2,
             'task_four_bet': ''
         }
-        yield(SubmissionMustFail(TaskFourPage, incorrect_form_field_values))
+        yield(SubmissionMustFail(TaskDeltaPage, incorrect_form_field_values))
 
         correct_form_field_values = {
             'task_four_1': random.choice([1, 2]), 'task_four_2': random.choice([1, 2]),
@@ -71,54 +71,54 @@ class PlayerBot(Bot):
             'task_four_9': random.choice([1, 2]), 'task_four_10': random.choice([1, 2]),
             'task_four_bet': random.choice([1, 2])
         }
-        yield(TaskFourPage, correct_form_field_values)
+        yield(TaskDeltaPage, correct_form_field_values)
 
         # Test task 5
         incorrect_form_field_values = {
             'task_five_invested': ''
         }
-        yield(SubmissionMustFail(TaskFivePage, incorrect_form_field_values))
+        yield(SubmissionMustFail(TaskEpsilonPage, incorrect_form_field_values))
 
         incorrect_form_field_values = {
             'task_five_invested': random.randint(101, 200)
         }
-        yield(SubmissionMustFail(TaskFivePage, incorrect_form_field_values))
+        yield(SubmissionMustFail(TaskEpsilonPage, incorrect_form_field_values))
 
         correct_form_field_values = {
             'task_five_invested': random.randint(0, 100)
         }
-        yield(TaskFivePage, correct_form_field_values)
+        yield(TaskEpsilonPage, correct_form_field_values)
 
         # Test task 6
         incorrect_form_field_values = {
             'task_six_invested': ''
         }
-        yield(SubmissionMustFail(TaskSixPage, incorrect_form_field_values))
+        yield(SubmissionMustFail(TaskZetaPage, incorrect_form_field_values))
 
         incorrect_form_field_values = {
             'task_six_invested': random.randint(101, 200)
         }
-        yield(SubmissionMustFail(TaskSixPage, incorrect_form_field_values))
+        yield(SubmissionMustFail(TaskZetaPage, incorrect_form_field_values))
 
         correct_form_field_values = {
             'task_six_invested': random.randint(0, 100)
         }
-        yield(TaskSixPage, correct_form_field_values)
+        yield(TaskZetaPage, correct_form_field_values)
 
         # Test task 7
         incorrect_form_field_values = {
             'distance': '',
             'unit': ''
         }
-        yield(SubmissionMustFail(TaskSevenPage, incorrect_form_field_values))
+        yield(SubmissionMustFail(TaskEtaPage, incorrect_form_field_values))
         incorrect_form_field_values = {
             'distance': '1200',
             'unit': ''
         }
-        yield(SubmissionMustFail(TaskSevenPage, incorrect_form_field_values))
+        yield(SubmissionMustFail(TaskEtaPage, incorrect_form_field_values))
 
         correct_form_field_values = {
             'distance': '1200',
             'unit': '1'
         }
-        yield(TaskSevenPage, correct_form_field_values)
+        yield(TaskEtaPage, correct_form_field_values)

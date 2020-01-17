@@ -1,28 +1,46 @@
 from otree.api import Currency as c
 from ._builtin import Page
 
-from experiment.tasks import TaskSeven, TaskEight, TaskOne
+from experiment.tasks import TaskAlpha, TaskBeta, TaskEpsilon
 
 
-class TaskOnePage(Page):
+class Instructions(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
+
+class TaskAlphaPage(Page):
     form_model = 'player'
     form_fields = [
-        'task_one_a_1', 'task_one_a_2', 'task_one_a_3', 'task_one_a_4', 'task_one_a_5',
-        'task_one_a_6', 'task_one_a_7', 'task_one_a_8', 'task_one_a_9', 'task_one_a_10', 'task_one_a_11',
-        'task_one_b_1', 'task_one_b_2', 'task_one_b_3', 'task_one_b_4', 'task_one_b_5',
-        'task_one_b_6', 'task_one_b_7', 'task_one_b_8', 'task_one_b_9', 'task_one_b_10', 'task_one_b_11',
-        'task_one_c_1', 'task_one_c_2', 'task_one_c_3', 'task_one_c_4', 'task_one_c_5',
-        'task_one_c_6', 'task_one_c_7', 'task_one_c_8', 'task_one_c_9', 'task_one_c_10', 'task_one_c_11',
+        'task_alpha_a_1', 'task_alpha_a_2', 'task_alpha_a_3', 'task_alpha_a_4', 'task_alpha_a_5',
+        'task_alpha_a_6', 'task_alpha_a_7', 'task_alpha_a_8', 'task_alpha_a_9', 'task_alpha_a_10', 'task_alpha_a_11',
+        'task_alpha_b_1', 'task_alpha_b_2', 'task_alpha_b_3', 'task_alpha_b_4', 'task_alpha_b_5',
+        'task_alpha_b_6', 'task_alpha_b_7', 'task_alpha_b_8', 'task_alpha_b_9', 'task_alpha_b_10', 'task_alpha_b_11',
+        'task_alpha_c_1', 'task_alpha_c_2', 'task_alpha_c_3', 'task_alpha_c_4', 'task_alpha_c_5',
+        'task_alpha_c_6', 'task_alpha_c_7', 'task_alpha_c_8', 'task_alpha_c_9', 'task_alpha_c_10', 'task_alpha_c_11',
     ]
 
     def vars_for_template(self):
-        task_one_a: TaskOne = self.participant.vars['task_one_a']
-        task_one_b: TaskOne = self.participant.vars['task_one_b']
-        task_one_c: TaskOne = self.participant.vars['task_one_c']
+        task_alpha_a: TaskAlpha = self.participant.vars['task_alpha_a']
+        task_alpha_b: TaskAlpha = self.participant.vars['task_alpha_b']
+        task_alpha_c: TaskAlpha = self.participant.vars['task_alpha_c']
         return {
-            'cases_one_a': task_one_a.cases,
-            'cases_one_b': task_one_b.cases,
-            'cases_one_c': task_one_c.cases,
+            'task_number': 1,
+            'cases_one_a': task_alpha_a.cases,
+            'cases_one_b': task_alpha_b.cases,
+            'cases_one_c': task_alpha_c.cases,
+            'a': [
+                'task_alpha_a_1', 'task_alpha_a_2', 'task_alpha_a_3', 'task_alpha_a_4', 'task_alpha_a_5',
+                'task_alpha_a_6', 'task_alpha_a_7', 'task_alpha_a_8', 'task_alpha_a_9', 'task_alpha_a_10', 'task_alpha_a_11',
+            ],
+            'b': [
+                'task_alpha_b_1', 'task_alpha_b_2', 'task_alpha_b_3', 'task_alpha_b_4', 'task_alpha_b_5',
+                'task_alpha_b_6', 'task_alpha_b_7', 'task_alpha_b_8', 'task_alpha_b_9', 'task_alpha_b_10', 'task_alpha_b_11',
+            ],
+            'c': [
+                'task_alpha_c_1', 'task_alpha_c_2', 'task_alpha_c_3', 'task_alpha_c_4', 'task_alpha_c_5',
+                'task_alpha_c_6', 'task_alpha_c_7', 'task_alpha_c_8', 'task_alpha_c_9', 'task_alpha_c_10', 'task_alpha_c_11',
+            ]
         }
 
     def before_next_page(self):
@@ -39,138 +57,111 @@ class TaskOnePage(Page):
         #
         # self.player.payoff = task_nine.payoff_option.payoff
 
-class Instructions(Page):
-    def is_displayed(self):
-        return self.round_number == 1
 
-
-class TaskFourPage(Page):
-    form_model = 'player'
-    form_fields = ['task_four_choice']
-
-
-class TaskSevenPage(Page):
+class TaskBetaPage(Page):
     form_model = 'player'
     form_fields = [
-        'task_seven_1', 'task_seven_2', 'task_seven_3', 'task_seven_4', 'task_seven_5',
-        'task_seven_6', 'task_seven_7', 'task_seven_8', 'task_seven_9', 'task_seven_10',
+        'task_beta_a_1', 'task_beta_a_2', 'task_beta_a_3', 'task_beta_a_4', 'task_beta_a_5',
+        'task_beta_a_6', 'task_beta_a_7', 'task_beta_a_8', 'task_beta_a_9', 'task_beta_a_10', 'task_beta_a_11',
+        'task_beta_b_1', 'task_beta_b_2', 'task_beta_b_3', 'task_beta_b_4', 'task_beta_b_5',
+        'task_beta_b_6', 'task_beta_b_7', 'task_beta_b_8', 'task_beta_b_9', 'task_beta_b_10', 'task_beta_b_11',
     ]
 
     def vars_for_template(self):
-        task_seven: TaskSeven = self.participant.vars['task_seven']
+        task_beta_a: TaskBeta = self.participant.vars['task_beta_a']
+        task_beta_b: TaskBeta = self.participant.vars['task_beta_b']
         return {
-            'cases': task_seven.cases
+            'task_number': 2,
+            'cases_beta_a': task_beta_a.cases,
+            'cases_beta_b': task_beta_b.cases,
+            'high_a': c(8),
+            'low_a': c(4),
+            'high_b': c(8),
+            'low_b': c(4),
+        }
+
+
+class TaskGammaPage(Page):
+    form_model = 'player'
+    form_fields = ['task_gamma_1', 'task_gamma_2', 'task_gamma_3', 'task_gamma_4']
+
+    def vars_for_template(self):
+        return {
+            'task_number': 3,
+        }
+
+
+class TaskDeltaPage(Page):
+    form_model = 'player'
+    form_fields = ['task_delta_choice']
+
+    def vars_for_template(self):
+        return {
+            'task_number': 4,
+        }
+
+
+class TaskEpsilonPage(Page):
+    form_model = 'player'
+    form_fields = [
+        'task_epsilon_1', 'task_epsilon_2', 'task_epsilon_3', 'task_epsilon_4', 'task_epsilon_5',
+        'task_epsilon_6', 'task_epsilon_7', 'task_epsilon_8', 'task_epsilon_9', 'task_epsilon_10',
+    ]
+
+    def vars_for_template(self):
+        task_epsilon: TaskEpsilon = self.participant.vars['task_epsilon']
+        return {
+            'task_number': 5,
+            'cases': task_epsilon.cases
         }
 
     def before_next_page(self):
-        task_seven: TaskSeven = self.participant.vars['task_seven']
+        task_epsilon: TaskEpsilon = self.participant.vars['task_epsilon']
         entered_options = [
-            self.player.task_seven_1, self.player.task_seven_2, self.player.task_seven_3, self.player.task_seven_3,
-            self.player.task_seven_4, self.player.task_seven_5, self.player.task_seven_6, self.player.task_seven_7,
-            self.player.task_seven_8, self.player.task_seven_9, self.player.task_seven_10
+            self.player.task_epsilon_1, self.player.task_epsilon_2, self.player.task_epsilon_3, self.player.task_epsilon_3,
+            self.player.task_epsilon_4, self.player.task_epsilon_5, self.player.task_epsilon_6, self.player.task_epsilon_7,
+            self.player.task_epsilon_8, self.player.task_epsilon_9, self.player.task_epsilon_10
         ]
 
-        payoff_case_number = task_seven.payoff_case_number
-        task_seven.payoff_option = entered_options[payoff_case_number - 1]
+        self.participant.vars['payment_task_number'] = 5
 
-        self.player.payoff = task_seven.payoff_option.payoff
+        payoff_case_number = task_epsilon.payoff_case_number
+        task_epsilon.payoff_option = entered_options[payoff_case_number - 1]
+
+        self.player.payoff = task_epsilon.payoff_option.payoff
 
 
-class _TaskEightPage(Page):
+class TaskZetaPage(Page):
     form_model = 'player'
-    form_fields = [
-        'task_eight_1', 'task_eight_2', 'task_eight_3', 'task_eight_4', 'task_eight_5',
-        'task_eight_6', 'task_eight_7', 'task_eight_8', 'task_eight_9', 'task_eight_10', 'task_eight_11'
-    ]
-
-    def vars_for_template(self):
-        task_eight: TaskEight = self.participant.vars['task_eight']
-        return {
-            'cases': task_eight.cases
-        }
-
-    def before_next_page(self):
-        task_eight: TaskEight = self.participant.vars['task_eight']
-        entered_options = [
-            self.player.task_eight_1, self.player.task_eight_2, self.player.task_eight_3, self.player.task_eight_3,
-            self.player.task_eight_4, self.player.task_eight_5, self.player.task_eight_6, self.player.task_eight_7,
-            self.player.task_eight_8, self.player.task_eight_9, self.player.task_eight_10, self.player.task_eight_11
-        ]
-
-        payoff_case_number = task_eight.payoff_case_number
-        task_eight.payoff_option = entered_options[payoff_case_number - 1]
-
-        self.player.payoff = task_eight.payoff_option.payoff
-
-
-# class TaskNinePage(Page):
-#     form_model = 'player'
-#     form_fields = [
-#         'task_nine_1', 'task_nine_2', 'task_nine_3', 'task_nine_4', 'task_nine_5',
-#         'task_nine_6', 'task_nine_7', 'task_nine_8', 'task_nine_9', 'task_nine_10', 'task_nine_11'
-#     ]
-#
-#     def vars_for_template(self):
-#         task_nine: TaskNine = self.participant.vars['task_nine']
-#         return {
-#             'cases': task_nine.cases
-#         }
-#
-#     def before_next_page(self):
-#         task_nine: TaskNine = self.participant.vars['task_nine']
-#         entered_options = [
-#             self.player.task_nine_1, self.player.task_nine_2, self.player.task_nine_3, self.player.task_nine_3,
-#             self.player.task_nine_4, self.player.task_nine_5, self.player.task_nine_6, self.player.task_nine_7,
-#             self.player.task_nine_8, self.player.task_nine_9, self.player.task_nine_10, self.player.task_nine_11
-#         ]
-#
-#         payoff_case_number = task_nine.payoff_case_number
-#         task_nine.payoff_option = entered_options[payoff_case_number - 1]
-#
-#         self.player.payoff = task_nine.payoff_option.payoff
-
-
-class TaskThreePage(Page):
-    form_model = 'player'
-    form_fields = [
-        'task_three_1', 'task_three_2', 'task_three_3', 'task_three_4', 'task_three_5',
-        'task_three_6', 'task_three_7', 'task_three_8', 'task_three_9', 'task_three_10',
-        'task_three_bet',
-    ]
+    form_fields = ['task_zeta_distance', 'task_zeta_unit', 'task_zeta_percent']
 
     def vars_for_template(self):
         return {
-            'cases': [c(.75), c(1), c(1.25), c(1.50), c(1.75), c(2), c(2.25), c(2.5), c(2.75), c(3)],
+            'task_number': 6,
         }
 
 
-class _TaskFourPage(Page):
+class TaskEtaPage(Page):
     form_model = 'player'
-    form_fields = [
-        'task_four_1', 'task_four_2', 'task_four_3', 'task_four_4', 'task_four_5',
-        'task_four_6', 'task_four_7', 'task_four_8', 'task_four_9', 'task_four_10',
-        'task_four_bet',
-    ]
+    form_fields = ['task_eta_invested']
 
     def vars_for_template(self):
         return {
-            'cases': [c(.75), c(1), c(1.25), c(1.50), c(1.75), c(2), c(2.25), c(2.50), c(2.75), c(3)],
+            'task_number': 7,
         }
 
 
-class _TaskFivePage(Page):
+class TaskThetaPage(Page):
     form_model = 'player'
-    form_fields = ['task_five_invested']
+    form_fields = ['task_theta_invested']
+
+    def vars_for_template(self):
+        return {
+            'task_number': 8,
+        }
 
 
-class TaskEightPage(Page):
-    form_model = 'player'
-    form_fields = ['task_eight_invested']
-
-
-class TaskSixPage(Page):
-    form_model = 'player'
-    form_fields = ['distance', 'unit']
-
-
-page_sequence = [Instructions, TaskOnePage]
+page_sequence = [
+    Instructions, TaskAlphaPage, TaskBetaPage, TaskGammaPage, TaskDeltaPage, TaskEpsilonPage, TaskZetaPage,
+    TaskEtaPage, TaskThetaPage
+]

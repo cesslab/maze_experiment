@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-    Task 7
+    Task {{task_number}}
 {% endblock %}
 
 {% block styles %}
@@ -17,25 +17,25 @@
         {# TODO: Add max value to task_input field #}
         <input
                 type="number"
-                name="distance"
+                name="task_zeta_distance"
                 id="task_input"
                 placeholder="Enter the distance" required
                 class="center-input form-control investment"
-                value="{{ form.distance.value|default_if_none:"" }}"
+                value="{{ form.task_zeta_distance.value|default_if_none:"" }}"
         >
-        {% if form.distance.errors %}
+        {% if form.task_zeta_distance.errors %}
         <div class="alert alert-danger">
-            {{ form.distance.errors }}
+            {{ form.task_zeta_distance.errors }}
         </div>
         {% endif %}
     </div>
     <div class="form-group">
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="unit" id="inlineRadio1" value="1">
+            <input class="form-check-input" type="radio" name="task_zeta_unit" id="inlineRadio1" value="1">
             <label class="form-check-label" for="inlineRadio1">Miles</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="unit" id="inlineRadio2" value="2">
+            <input class="form-check-input" type="radio" name="task_zeta_unit" id="inlineRadio2" value="2">
             <label class="form-check-label" for="inlineRadio2">Kilometers</label>
         </div>
     </div>
@@ -53,13 +53,13 @@
     </p>
         <input
                 type="number"
-                name="percentage"
+                name="task_zeta_percent"
                 max="100"
                 min="0"
                 id="confidence_input"
                 placeholder="Enter percent value" required
                 class="center-input form-control investment"
-                value="{{ form.distance.value|default_if_none:"" }}"
+                value="{{ form.task_zeta_percent.value|default_if_none:"" }}"
         >
         </div>
     {% next_button %}

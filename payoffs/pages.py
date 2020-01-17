@@ -4,6 +4,7 @@ from experiment.lottery import Lottery
 
 from experiment.lottery import TimedLotteryPairCollection, LotteryTimedPair, PreferredLotteryPairCollection, LotteryPreferencePair
 
+from experiment.tasks import TaskEpsilon
 
 class Payoffs(Page):
     def vars_for_template(self):
@@ -16,7 +17,7 @@ class Payoffs(Page):
         preferred_lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
         preferred_pair: LotteryPreferencePair = preferred_lottery_collection.selected_lottery_pair()
 
-        task_two: TaskTwo = self.participant.vars['task_two']
+        task_epsilon: TaskEpsilon = self.participant.vars['task_epsilon']
 
         return {
             'l': left_timed_lottery,
@@ -27,11 +28,12 @@ class Payoffs(Page):
             'preferred_pair_number': preferred_lottery_collection.selected_pair_number(),
             'timed_pair_number': timed_lottery_collection.selected_pair_number(),
             'lp': timed_pair,
-            'cases': task_two.cases,
-            'case': task_two.payoff_case(),
-            'case_number': task_two.payoff_case_number,
-            'option': task_two.payoff_option,
-            'option_label': task_two.payoff_option.label(),
+            'cases': task_epsilon.cases,
+            'case': task_epsilon.payoff_case(),
+            'task_number': self.participant.vars['payment_task_number'],
+            'case_number': task_epsilon.payoff_case_number,
+            'option': task_epsilon.payoff_option,
+            'option_label': task_epsilon.payoff_option.label(),
             'total_payoff': self.participant.payoff,
             'total_payoff_participation': self.participant.payoff_plus_participation_fee(),
             'participation_fee': self.session.config['participation_fee']
