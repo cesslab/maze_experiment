@@ -20,40 +20,213 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>Case</th>
-                <th>Option A</th>
-                <th>Option B</th>
-                <th></th>
+                <th style="text-align: center;">Case</th>
+                <th>Lottery Option A</th>
+                <th>Lottery Option B</th>
             </tr>
             </thead>
             <tbody>
-                {% for case in cases %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                            <td>
-                                {{ case.option_a.prob_high }}% chance of getting {{ case.option_a.payoff_high|c }} and
-                                {{ case.option_a.prob_low }}% of getting {{ case.option_a.payoff_low|c }}
-                            </td>
-                        <td>
-                            {{ case.option_b.prob_high }}% chance of getting {{ case.option_b.payoff_high|c }} and
-                            {{ case.option_b.prob_low }}% of getting {{ case.option_b.payoff_low|c }}
-                        </td>
-                        <td>
-                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-secondary left-pair btn-ab" id="a_row_{{ forloop.counter }}">
-                                    <input type="radio" value="1" name="task_epsilon_{{ forloop.counter }}" autocomplete="off">A
-                                </label>
-                                <label class="btn btn-secondary btn-ab" id="b_row_{{ forloop.counter }}">
-                                    <input type="radio" value="2" name="task_epsilon_{{ forloop.counter }}" autocomplete="off">B
-                                </label>
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
+            <tr>
+                <td>1</td>
+                <td>
+                    <label style="margin-right: 5px;" for="a_maze_1">
+                        {{ cases.0.option_a.prob_high }}% probability you win {{ cases.0.option_a.payoff_high|c }} and
+                        {{ cases.0.option_a.prob_low }}% probability you win {{ cases.0.option_a.payoff_low|c }}
+                    </label>
+                    <input type="radio" class="maze" data-type="maze" value="1" data-task="a" data-case="1"  id="a_maze_1" name="task_epsilon_1" autocomplete="off">
+                </td>
+                <td>
+                    <input type="radio" class="lottery" data-type="lottery" value="2" data-task="a" data-case="1"  id="a_lottery_1" name="task_epsilon_1" autocomplete="off">
+                    <label style="margin-left: 5px;" for="a_lottery_1">
+                        {{ cases.0.option_b.prob_high }}% probability you win {{ cases.0.option_b.payoff_high|c }} and
+                        {{ cases.0.option_b.prob_low }}% probability you win {{ cases.0.option_b.payoff_low|c }}
+                    </label>
+                </td>
+            <tr>
+                <td>2</td>
+                <td>
+                    <label style="margin-right: 5px;" for="a_maze_2">
+                        {{ cases.1.option_a.prob_high }}% probability you win {{ cases.1.option_a.payoff_high|c }} and
+                        {{ cases.1.option_a.prob_low }}% probability you win {{ cases.1.option_a.payoff_low|c }}
+                    </label>
+                    <input type="radio" class="maze" data-type="maze" value="1" data-task="a" data-case="2" id="a_maze_2" name="task_epsilon_2" autocomplete="off">
+                </td>
+                <td>
+                    <input type="radio" class="lottery" data-type="lottery" value="2" data-task="a" data-case="2" id="a_lottery_2" name="task_epsilon_2" autocomplete="off">
+                    <label style="margin-left: 5px;" for="a_lottery_2">
+                        {{ cases.1.option_b.prob_high }}% probability you win {{ cases.1.option_b.payoff_high|c }} and
+                        {{ cases.1.option_b.prob_low }}% probability you win {{ cases.1.option_b.payoff_low|c }}
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>
+                    <label style="margin-right: 5px;" for="a_maze_3">
+                        {{ cases.2.option_a.prob_high }}% probability you win {{ cases.2.option_a.payoff_high|c }} and
+                        {{ cases.2.option_a.prob_low }}% probability you win {{ cases.2.option_a.payoff_low|c }}
+                    </label>
+                    <input type="radio" value="1" class="maze" data-type="maze" data-task="a" data-case="3"  id="a_maze_3" name="task_epsilon_3" autocomplete="off">
+                </td>
+                <td>
+                    <input type="radio" value="2" class="lottery" data-type="lottery" data-task="a" data-case="3"  id="a_lottery_3" name="task_epsilon_3" autocomplete="off">
+                    <label style="margin-left: 5px;" for="a_lottery_3">
+                        {{ cases.2.option_b.prob_high }}% probability you win {{ cases.2.option_b.payoff_high|c }} and
+                        {{ cases.2.option_b.prob_low }}% probability you win {{ cases.2.option_b.payoff_low|c }}
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>
+                    <label style="margin-right: 5px;" for="a_maze_4">
+                        {{ cases.3.option_a.prob_high }}% probability you win {{ cases.3.option_a.payoff_high|c }} and
+                        {{ cases.3.option_a.prob_low }}% probability you win {{ cases.3.option_a.payoff_low|c }}
+                    </label>
+                    <input type="radio" value="1" class="maze" data-type="maze" data-task="a" data-case="4" id="a_maze_4" name="task_epsilon_4" autocomplete="off">
+                </td>
+                <td>
+                    <input type="radio" value="2" class="lottery" data-type="lottery" data-task="a" data-case="4" id="a_lottery_4" name="task_epsilon_4" autocomplete="off">
+                    <label style="margin-left: 5px;" for="a_lottery_4">
+                        {{ cases.3.option_b.prob_high }}% probability you win {{ cases.3.option_b.payoff_high|c }} and
+                        {{ cases.3.option_b.prob_low }}% probability you win {{ cases.3.option_b.payoff_low|c }}
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>
+                    <label style="margin-right: 5px;" for="a_maze_5">
+                        {{ cases.4.option_a.prob_high }}% probability you win {{ cases.4.option_a.payoff_high|c }} and
+                        {{ cases.4.option_a.prob_low }}% probability you win {{ cases.4.option_a.payoff_low|c }}
+                    </label>
+                    <input type="radio" value="1" class="maze" data-type="maze" data-task="a" data-case="5" id="a_maze_5" name="task_epsilon_5" autocomplete="off">
+                </td>
+                <td>
+                    <input type="radio" value="2" class="lottery" data-type="lottery" data-task="a" data-case="5" id="a_lottery_5" name="task_epsilon_5" autocomplete="off">
+                    <label style="margin-left: 5px;" for="a_lottery_5">
+                        {{ cases.4.option_b.prob_high }}% probability you win {{ cases.4.option_b.payoff_high|c }} and
+                        {{ cases.4.option_b.prob_low }}% probability you win {{ cases.4.option_b.payoff_low|c }}
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>
+                    <label style="margin-right: 5px;" for="a_maze_6">
+                        {{ cases.5.option_a.prob_high }}% probability you win {{ cases.5.option_a.payoff_high|c }} and
+                        {{ cases.5.option_a.prob_low }}% probability you win {{ cases.5.option_a.payoff_low|c }}
+                    </label>
+                    <input type="radio" value="1" class="maze" data-type="maze" data-task="a" data-case="6" id="a_maze_6" name="task_epsilon_6" autocomplete="off">
+                </td>
+                <td>
+                    <input type="radio" value="2" class="lottery" data-type="lottery" data-task="a" data-case="6"  id="a_lottery_6" name="task_epsilon_6" autocomplete="off">
+                    <label style="margin-left: 5px;" for="a_lottery_6">
+                        {{ cases.5.option_b.prob_high }}% probability you win {{ cases.5.option_b.payoff_high|c }} and
+                        {{ cases.5.option_b.prob_low }}% probability you win {{ cases.5.option_b.payoff_low|c }}
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>
+                    <label style="margin-right: 5px;" for="a_maze_7">
+                        {{ cases.6.option_a.prob_high }}% probability you win {{ cases.6.option_a.payoff_high|c }} and
+                        {{ cases.6.option_a.prob_low }}% probability you win {{ cases.6.option_a.payoff_low|c }}
+                    </label>
+                    <input type="radio" value="1" class="maze" data-type="maze" data-task="a" data-case="7" id="a_maze_7" name="task_epsilon_7" autocomplete="off">
+                </td>
+                <td>
+                    <input type="radio" value="2" class="lottery" data-type="lottery" data-task="a" data-case="7" id="a_lottery_7" name="task_epsilon_7" autocomplete="off">
+                    <label style="margin-left: 5px;" for="a_lottery_7">
+                        {{ cases.6.option_b.prob_high }}% probability you win {{ cases.6.option_b.payoff_high|c }} and
+                        {{ cases.6.option_b.prob_low }}% probability you win {{ cases.6.option_b.payoff_low|c }}
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>
+                    <label style="margin-right: 5px;" for="a_maze_8">
+                        {{ cases.7.option_a.prob_high }}% probability you win {{ cases.7.option_a.payoff_high|c }} and
+                        {{ cases.7.option_a.prob_low }}% probability you win {{ cases.7.option_a.payoff_low|c }}
+                    </label>
+                    <input type="radio" value="1" class="maze" data-type="maze" data-task="a" data-case="8" id="a_maze_8" name="task_epsilon_8" autocomplete="off">
+                </td>
+                <td>
+                    <input type="radio" value="2" class="lottery" data-type="lottery" data-task="a" data-case="8"  id="a_lottery_8" name="task_epsilon_8" autocomplete="off">
+                    <label style="margin-left: 5px;" for="a_lottery_8">
+                        {{ cases.7.option_b.prob_high }}% probability you win {{ cases.7.option_b.payoff_high|c }} and
+                        {{ cases.7.option_b.prob_low }}% probability you win {{ cases.7.option_b.payoff_low|c }}
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>
+                    <label style="margin-right: 5px;" for="a_maze_9">
+                        {{ cases.8.option_a.prob_high }}% probability you win {{ cases.8.option_a.payoff_high|c }} and
+                        {{ cases.8.option_a.prob_low }}% probability you win {{ cases.8.option_a.payoff_low|c }}
+                    </label>
+                    <input type="radio" value="1" class="maze" data-type="maze" data-task="a" data-case="9" id="a_maze_9" name="task_epsilon_9" autocomplete="off">
+                </td>
+                <td>
+                    <input type="radio" value="2" class="lottery" data-type="lottery" data-task="a" data-case="9" id="a_lottery_9" name="task_epsilon_9" autocomplete="off">
+                    <label style="margin-left: 5px;" for="a_lottery_9">
+                        {{ cases.8.option_b.prob_high }}% probability you win {{ cases.8.option_b.payoff_high|c }} and
+                        {{ cases.8.option_b.prob_low }}% probability you win {{ cases.8.option_b.payoff_low|c }}
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>
+                    <label style="margin-right: 5px;" for="a_maze_10">
+                        {{ cases.9.option_b.prob_high }}% probability you win {{ cases.9.option_b.payoff_high|c }} and
+                        {{ cases.9.option_b.prob_low }}% probability you win {{ cases.9.option_b.payoff_low|c }}
+                    </label>
+                    <input type="radio" value="1" class="maze" data-type="maze" data-task="a" data-case="10" id="a_maze_10" name="task_epsilon_10" autocomplete="off">
+                </td>
+                <td>
+                    <input type="radio" value="2" class="lottery" data-type="lottery" data-task="a" data-case="10" id="a_lottery_10" name="task_epsilon_10" autocomplete="off">
+                    <label style="margin-left: 5px;" for="a_lottery_10">
+                        {{ cases.9.option_b.prob_high }}% probability you win {{ cases.9.option_b.payoff_high|c }} and
+                        {{ cases.9.option_b.prob_low }}% probability you win {{ cases.9.option_b.payoff_low|c }}
+                    </label>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
 
     {% next_button %}
 
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            $('input[type=radio]').click(function(e) {
+                let caseNumber = parseInt(e.target.dataset.case);
+                let task = e.target.dataset.task;
+                let selectedOptionType = e.target.dataset.type;
+                let otherOptionType = (e.target.dataset.type === "maze") ? "lottery" : "maze";
+
+                console.log(typeof(selectedOptionType));
+
+                let sameColumn = Array.from(document.querySelectorAll(`[data-task='${task}'][data-type='${selectedOptionType}']`));
+                let otherColumn = Array.from(document.querySelectorAll(`[data-task='${task}'][data-type='${otherOptionType}']`));
+                for (let i = 0; i < sameColumn.length; ++i) {
+                    if (parseInt(sameColumn[i].dataset.case) <= caseNumber) {
+                        sameColumn[i].checked = true;
+                        otherColumn[i].checked = false;
+                    }
+                    else {
+                        otherColumn[i].checked = true;
+                        sameColumn[i].checked = false;
+                    }
+                }
+            })
+
+        });
+    </script>
 {% endblock %}
