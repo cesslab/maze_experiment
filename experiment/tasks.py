@@ -25,6 +25,9 @@ class Option:
     def label(self):
         return 'A' if self.option_type == Option.A else 'B'
 
+    def __str__(self):
+        return f'option type ${self.option_type}, prob_low: ${self.prob_low}, payoff_low: ${self.payoff_low}, prob_high: ${self.prob_high}, payoff_high: ${self.payoff_high}, payoff: ${self.payoff}'
+
 
 class Case:
     def __init__(self, option_a, option_b):
@@ -37,6 +40,9 @@ class Case:
             self.selected_option = self.option_a
         else:
             self.selected_option = self.option_b
+
+    def __str__(self):
+        return f'option a: {self.option_a}, option b: {self.option_b}'
 
 
 class TaskAlpha:
