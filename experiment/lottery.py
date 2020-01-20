@@ -124,7 +124,7 @@ class LotteryCollection:
     2, L2 800, 400, 50, 80, 20
     3, L3 800, 400, [0,100], 60, 40
     4, L4 1000, 200, 50, 60, 40
-    5, L2' 800, 400, 50, 10, 0
+    5, L2' 800, 400, 50, 100, 0
     6, L2'' 800, 400, 50, 30, 0
     7, L3' 800, 400, [40, 60], 60, 40
     8, L4' 1200, 0, 50, 60, 40
@@ -139,7 +139,7 @@ class LotteryCollection:
             # 2: L1 vs L2'
             LotteryPreferencePair(
                 Lottery(3, Currency(8), Currency(4), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
-                Lottery(4, Currency(8), Currency(4), [50], 10, 0, Maze('60_40_1', 147, 2, 169, 314))
+                Lottery(4, Currency(8), Currency(4), [50], 100, 0, Maze('60_40_1', 147, 2, 169, 314))
             ),
             # 3: L1 vs L2''
             LotteryPreferencePair(
