@@ -88,10 +88,10 @@ class Player(BasePlayer):
     task_beta_b_10 = models.IntegerField(choices=[1, 2], blank=False)
     task_beta_b_11 = models.IntegerField(choices=[1, 2], blank=False)
 
-    task_gamma_1 = models.IntegerField(label="$2 for sure and a lottery giving you a p% chance of getting $12 and a (1-p%) chance of getting $0. Enter a percent chance between 0% and 100%", min=0, max=100, blank=False)
-    task_gamma_2 = models.IntegerField(label="$4 for sure and a lottery giving you a p% chance of getting $12 and a (1-p%) chance of getting $0. Enter a percent chance between 0% and 100%", min=0, max=100, blank=False)
-    task_gamma_3 = models.IntegerField(label="$8 for sure and a lottery giving you a p% chance of getting $12 and a (1-p%) chance of getting $0. Enter a percent chance between 0% and 100%", min=0, max=100, blank=False)
-    task_gamma_4 = models.IntegerField(label="$10 for sure and a lottery giving you a p% chance of getting $12 and a (1-p%) chance of getting $0. Enter a percent chance between 0% and 100%", min=0, max=100, blank=False)
+    task_gamma_1 = models.IntegerField(label="$2 for sure and a lottery giving you a p% chance of getting $12 and a (100%-p%) chance of getting $0. Enter a percent chance between 0% and 100%", min=0, max=100, blank=False)
+    task_gamma_2 = models.IntegerField(label="$4 for sure and a lottery giving you a p% chance of getting $12 and a (100%-p%) chance of getting $0. Enter a percent chance between 0% and 100%", min=0, max=100, blank=False)
+    task_gamma_3 = models.IntegerField(label="$8 for sure and a lottery giving you a p% chance of getting $12 and a (100%-p%) chance of getting $0. Enter a percent chance between 0% and 100%", min=0, max=100, blank=False)
+    task_gamma_4 = models.IntegerField(label="$10 for sure and a lottery giving you a p% chance of getting $12 and a (100%-p%) chance of getting $0. Enter a percent chance between 0% and 100%", min=0, max=100, blank=False)
 
     task_delta_choice = models.IntegerField(choices=[1, 2, 3], blank=False)
 
