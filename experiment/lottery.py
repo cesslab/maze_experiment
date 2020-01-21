@@ -139,7 +139,7 @@ class LotteryCollection:
             # 2: L1 vs L2'
             LotteryPreferencePair(
                 Lottery(3, Currency(8), Currency(4), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
-                Lottery(4, Currency(8), Currency(4), [50], 100, 0, Maze('60_40_1', 147, 2, 169, 314))
+                Lottery(4, Currency(8), Currency(4), [50], 10, 0, Maze('60_40_1', 147, 2, 169, 314))
             ),
             # 3: L1 vs L2''
             LotteryPreferencePair(
