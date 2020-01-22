@@ -181,7 +181,7 @@ class InstructionsWaitPage(Page):
 
 
 page_sequence = [
-    WaitPage, InstructionsWaitPage,
+    PlayerWaitPage, InstructionsWaitPage,
     Instructions, TaskAlphaPage, TaskBetaPage, TaskGammaPage, TaskDeltaPage, TaskEpsilonPage, TaskZetaPage,
     TaskEtaPage, TaskThetaPage
 ]
