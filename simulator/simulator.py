@@ -1,23 +1,30 @@
 import random
 import argparse
+import time
 import os
 import glob
 from os import environ
 
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
-def instructions(browser):
+def instructions(driver):
     print("Clicking through instruction screen...")
-    browser.find_element(By.XPATH, '//button').click()
+    driver.find_element(By.XPATH, '//button').click()
+    # try:
+    #     btn = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//button')))
+    #     btn.click()
+    # finally:
+    #     print("Unable to find instructions button.")
+    #     driver.quit()
 
 
 def practice_maze(browser):
     print("Clicking through practice maze...")
-    driver.implicitly_wait(10)
     browser.find_element(By.XPATH, '//button').click()
 
 
@@ -31,13 +38,14 @@ def single_entry_task(browser, browser_tab, task_id):
     browser.find_element(By.XPATH, '//button').click()
 
 
-def choose_lottery(browser, pair_id, browser_tab):
+def choose_lottery(driver, pair_id, browser_tab):
     preference = random.randint(0, 2)
-    print('Browser Tab {}: Preferred lottery for pair {} was {}'.format(browser_tab, pair_id, preference))
+    preference_text = {0: "Option V", 1: "Option W", 2: "Either"}
+    print('Browser Tab {}: Preferred lottery for pair {} was {}'.format(browser_tab, pair_id, preference_text[preference]))
 
-    element = browser.find_element_by_id('id-preference-{}'.format(preference))
+    element = driver.find_element_by_id('id-preference-{}'.format(preference))
     element.click()
-    browser.find_element(By.XPATH, '//button').click()
+    driver.find_element(By.XPATH, '//button').click()
 
 
 def allocate_lottery_pair_time(browser, pair_id, browser_tab):
@@ -181,18 +189,21 @@ if __name__ == "__main__":
     chrome_options.add_argument('--window-size=1200,900')
     chrome_options.add_argument("--disable-device-discovery-notifications")
     driver = webdriver.Chrome(options=chrome_options)
-    driver.implicitly_wait(60)
+    driver.implicitly_wait(30)
 
     driver.get(environ.get('EXPERIMENT_URL'))
+    time.sleep(5)
     player_links = driver.find_elements_by_partial_link_text("InitializeParticipant")
 
     num_players = len(player_links)
-    print('there are {} players'.format(num_players))
+    print(f'{num_players} player links were found.')
 
     # create a new tab for each player
     for player in range(1, num_players + 1):
         driver.switch_to.window(driver.window_handles[0])
         player_links[player-1].send_keys(Keys.COMMAND + Keys.ENTER)
+        time.sleep(5)
+        print(f'Created player tab {player}.')
 
     # Part 1: Preference selection phase
     lottery_pairs = 8
@@ -200,9 +211,12 @@ if __name__ == "__main__":
         for round_id in range(1, lottery_pairs + 1):
             for player in range(1, num_players + 1):
                 # switch to new tab
+                print("window handles: {}".format(len(driver.window_handles)))
                 driver.switch_to.window(driver.window_handles[player])
                 instructions(driver)
+                time.sleep(1)
                 choose_lottery(driver, round_id, player)
+                time.sleep(1)
 
     if 2 <= part:
         for round_id in range(1, lottery_pairs + 1):
@@ -211,7 +225,9 @@ if __name__ == "__main__":
                 if num_players > 1:
                     driver.switch_to.window(driver.window_handles[player])
                 instructions(driver)
+                time.sleep(1)
                 allocate_lottery_pair_time(driver, round_id, player)
+                time.sleep(1)
 
     if 3 <= part:
         for round_id in range(1, lottery_pairs + 1):
