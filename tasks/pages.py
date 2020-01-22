@@ -1,5 +1,5 @@
 from otree.api import Currency as c
-from ._builtin import Page
+from ._builtin import Page, WaitPage
 
 from experiment.tasks import TaskAlpha, TaskBeta, TaskEpsilon
 
@@ -161,7 +161,27 @@ class TaskThetaPage(Page):
         }
 
 
+class PlayerWaitPage(WaitPage):
+    def is_displayed(self):
+        return self.round_number == 1
+
+
+class InstructionsWaitPage(Page):
+    form_model = 'player'
+    form_fields = ['pass_code']
+
+    def is_displayed(self):
+        return self.round_number == 1
+
+    def error_message(self, values):
+        if 'pass_code' not in values:
+            return ' You must wait for the researcher to provide you with the correct password'
+        elif not (values['pass_code'] == 2600):
+            return ' You must wait for the researcher to provide you with the correct password'
+
+
 page_sequence = [
+    WaitPage, InstructionsWaitPage,
     Instructions, TaskAlphaPage, TaskBetaPage, TaskGammaPage, TaskDeltaPage, TaskEpsilonPage, TaskZetaPage,
     TaskEtaPage, TaskThetaPage
 ]
