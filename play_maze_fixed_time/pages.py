@@ -31,6 +31,13 @@ class MazePrompt(Page):
     def is_displayed(self):
         return self.session.config['max_maze_solve_time'] > 0
 
+    def vars_for_template(self):
+        lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
+        lottery_pair: LotteryPreferencePair = lottery_collection.selected_lottery_pair()
+        return {
+            'label': lottery_pair.realized_lottery_label,
+        }
+
 
 class MazePage(Page):
     form_model = 'player'
