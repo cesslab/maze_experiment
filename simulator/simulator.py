@@ -192,7 +192,7 @@ if __name__ == "__main__":
     driver.implicitly_wait(30)
 
     driver.get(environ.get('EXPERIMENT_URL'))
-    time.sleep(5)
+    time.sleep(2)
     player_links = driver.find_elements_by_partial_link_text("InitializeParticipant")
 
     num_players = len(player_links)
@@ -202,7 +202,7 @@ if __name__ == "__main__":
     for player in range(1, num_players + 1):
         driver.switch_to.window(driver.window_handles[0])
         player_links[player-1].send_keys(Keys.COMMAND + Keys.ENTER)
-        time.sleep(5)
+        time.sleep(2)
         print(f'Created player tab {player}.')
 
     # Part 1: Preference selection phase
@@ -214,9 +214,9 @@ if __name__ == "__main__":
                 print("window handles: {}".format(len(driver.window_handles)))
                 driver.switch_to.window(driver.window_handles[player])
                 instructions(driver)
-                time.sleep(1)
+                time.sleep(.5)
                 choose_lottery(driver, round_id, player)
-                time.sleep(1)
+                time.sleep(.5)
 
     if 2 <= part:
         for round_id in range(1, lottery_pairs + 1):
@@ -225,9 +225,9 @@ if __name__ == "__main__":
                 if num_players > 1:
                     driver.switch_to.window(driver.window_handles[player])
                 instructions(driver)
-                time.sleep(1)
+                time.sleep(.5)
                 allocate_lottery_pair_time(driver, round_id, player)
-                time.sleep(1)
+                time.sleep(.5)
 
     if 3 <= part:
         for round_id in range(1, lottery_pairs + 1):

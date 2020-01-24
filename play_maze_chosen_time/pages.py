@@ -22,6 +22,22 @@ class Instructions(Page):
         }
 
 
+class LeftMazePrompt(Page):
+    def is_displayed(self):
+        lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
+        lottery_pair: LotteryTimedPair = lottery_collection.selected_lottery_pair()
+
+        return lottery_pair.left_time_seconds > 0
+
+
+class RightMazePrompt(Page):
+    def is_displayed(self):
+        lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
+        lottery_pair: LotteryTimedPair = lottery_collection.selected_lottery_pair()
+
+        return lottery_pair.right_time_seconds > 0
+
+
 class LeftMazePage(Page):
     form_model = 'player'
     form_fields = ['solved', 'solve_time_seconds', 'maze_id']
@@ -118,5 +134,5 @@ class RightMazePage(Page):
         self.player.payoff = lottery.payoff + self.player.payoff
 
 
-page_sequence = [Instructions, LeftMazePage, RightMazePage]
+page_sequence = [Instructions, LeftMazePrompt, LeftMazePage, RightMazePrompt, RightMazePage]
 

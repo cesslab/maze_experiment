@@ -27,6 +27,11 @@ class Instructions(Page):
         }
 
 
+class MazePrompt(Page):
+    def is_displayed(self):
+        return self.session.config['max_maze_solve_time'] > 0
+
+
 class MazePage(Page):
     form_model = 'player'
     form_fields = ['solved', 'solve_time_seconds', 'maze_id']
@@ -61,4 +66,4 @@ class MazePage(Page):
         self.player.payoff = lottery.payoff
 
 
-page_sequence = [Instructions, MazePage]
+page_sequence = [Instructions, MazePrompt, MazePage]

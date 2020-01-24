@@ -1,0 +1,20 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Part 5
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'preference/preference.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div>
+        <p>
+            Please be prepared to begin solving the maze as soon as you click the continue button.
+        </p>
+    </div>
+    {% next_button %}
+{% endblock %}
+
