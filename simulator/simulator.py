@@ -192,7 +192,7 @@ if __name__ == "__main__":
     driver.implicitly_wait(30)
 
     driver.get(environ.get('EXPERIMENT_URL'))
-    time.sleep(2)
+    time.sleep(.5)
     player_links = driver.find_elements_by_partial_link_text("InitializeParticipant")
 
     num_players = len(player_links)
@@ -202,7 +202,7 @@ if __name__ == "__main__":
     for player in range(1, num_players + 1):
         driver.switch_to.window(driver.window_handles[0])
         player_links[player-1].send_keys(Keys.COMMAND + Keys.ENTER)
-        time.sleep(2)
+        time.sleep(.5)
         print(f'Created player tab {player}.')
 
     # Part 1: Preference selection phase
