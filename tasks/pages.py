@@ -1,5 +1,5 @@
 from otree.api import Currency as c
-from ._builtin import Page, WaitPage
+from ._builtin import Page
 
 from experiment.tasks import TaskAlpha, TaskBeta, TaskEpsilon
 
@@ -42,20 +42,6 @@ class TaskAlphaPage(Page):
                 'task_alpha_c_6', 'task_alpha_c_7', 'task_alpha_c_8', 'task_alpha_c_9', 'task_alpha_c_10', 'task_alpha_c_11',
             ]
         }
-
-    def before_next_page(self):
-        pass
-        # task_nine: TaskNine = self.participant.vars['task_nine']
-        # entered_options = [
-        #     self.player.task_nine_1, self.player.task_nine_2, self.player.task_nine_3, self.player.task_nine_3,
-        #     self.player.task_nine_4, self.player.task_nine_5, self.player.task_nine_6, self.player.task_nine_7,
-        #     self.player.task_nine_8, self.player.task_nine_9, self.player.task_nine_10, self.player.task_nine_11
-        # ]
-        #
-        # payoff_case_number = task_nine.payoff_case_number
-        # task_nine.payoff_option = entered_options[payoff_case_number - 1]
-        #
-        # self.player.payoff = task_nine.payoff_option.payoff
 
 
 class TaskBetaPage(Page):
