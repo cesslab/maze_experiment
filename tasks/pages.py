@@ -161,27 +161,85 @@ class TaskThetaPage(Page):
         }
 
 
-class PlayerWaitPage(WaitPage):
-    def is_displayed(self):
-        return self.round_number == 1
-
-
-class InstructionsWaitPage(Page):
+class HoldWaitPage(Page):
     form_model = 'player'
     form_fields = ['pass_code']
+    template_name = 'tasks/HoldWaitPage.html'
+    year = 0
+    task = 0
 
     def is_displayed(self):
-        return self.round_number == 1
+        return True
 
     def error_message(self, values):
+        # [1984, 1859, 1914, 1929, 1945, 1492, 1776]
         if 'pass_code' not in values:
             return ' You must wait for the researcher to provide you with the correct password'
-        elif not (values['pass_code'] == 2600):
+        elif not (int(values['pass_code']) == self.year):
             return ' You must wait for the researcher to provide you with the correct password'
+
+    def vars_for_template(self):
+        return {
+            'task': self.task,
+        }
+
+
+class HoldWaitPageOne(HoldWaitPage):
+    year = 1984
+    task = 1
+
+
+class HoldWaitPageTwo(HoldWaitPage):
+    year = 1959
+    task = 2
+
+
+class HoldWaitPageThree(HoldWaitPage):
+    year = 1914
+    task = 3
+
+
+class HoldWaitPageFour(HoldWaitPage):
+    year = 1929
+    task = 4
+
+
+class HoldWaitPageFive(HoldWaitPage):
+    year = 1945
+    task = 5
+
+
+class HoldWaitPageSix(HoldWaitPage):
+    year = 1492
+    task = 6
+
+
+class HoldWaitPageSeven(HoldWaitPage):
+    year = 1776
+    task = 7
+
+
+class HoldWaitPageEight(HoldWaitPage):
+    year = 2020
+    task = 8
 
 
 page_sequence = [
-    PlayerWaitPage, InstructionsWaitPage,
-    Instructions, TaskAlphaPage, TaskBetaPage, TaskGammaPage, TaskDeltaPage, TaskEpsilonPage, TaskZetaPage,
-    TaskEtaPage, TaskThetaPage
+    Instructions,
+    HoldWaitPageOne,
+    TaskAlphaPage,
+    HoldWaitPageTwo,
+    TaskBetaPage,
+    HoldWaitPageThree,
+    TaskGammaPage,
+    HoldWaitPageFour,
+    TaskDeltaPage,
+    HoldWaitPageFive,
+    TaskEpsilonPage,
+    HoldWaitPageSix,
+    TaskZetaPage,
+    HoldWaitPageSeven,
+    TaskEtaPage,
+    HoldWaitPageEight,
+    TaskThetaPage,
 ]
