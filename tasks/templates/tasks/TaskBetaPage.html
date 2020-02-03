@@ -36,8 +36,35 @@
     </table>
   </div>
     <div>
-    <p>For each of the cases below, you must choose between <b>Your Lottery</b> and the lottery
-    presented to the right of it.</p>
+    <p>Task 2 is similar to task 1. In this task you are given a lottery in which there is a probability of p of
+    receiving the high prize and a probability of (1-p) of receiving the low prize. There are no mazes to solve here,
+    however, the probability of receiving the high prize simply depends on chance. If you get the high prize you get $8
+    and if you ge the low prize you get $4. Call this "Your Lottery". One key feature of this lottery is that you will
+    not be told what p, the probability of receiving the high prize, is. It can be any number between 0% and 100%
+     and hence the probability of receiving the low prize  can also be any number between 0% and 100% depending on what
+      p is. In each of the cases below you must choose between "Your Lottery" and a lottery where the probabilities of
+      receiving the high prize is know and decreases systematically from being 100% in row 1 to 0% in row 11.</p>
+    <p>Your payoff in this task will be determined as follows: we randomly select one of the 11 cases. If in the selected
+      case you chose Your Lottery, you will be given that lottery, the probability associated with it will be determined,
+      and you will either get the $8 high prize or the $4 low prize. If you choose the Lottery option on the right,
+      you will get either the high or the low prize with the probability stated.
+    </p>
+      <p>
+        As you look down the column of lottery options you will see that the probability associated with winning the $8
+        prize systematically decreases while that of winning the $4 prize increases. Your task is to find that row in the
+        table such that for all options above that row you prefer to select, say, the maze option to the lottery but
+        after all rows below you prefer the lottery. By clicking that row you will execute your choice.
+      </p>
+      <p>
+        For example, say that for cases 1, 2, and 3 you prefer the lottery to the maze option, but for cases (rows)
+        4 to 11 you prefer the maze. If you click the lottery option in case 3, then the computer will fill the table for
+        you and designate a choice of lottery over maze for cases (rows) 1 to 3 and maze over lottery for cases (rows)
+        4 to 11 . If you click the maze option in row 7, then that will mean that you prefer the maze option to the lottery
+        for cases (rows) 1 to 7 but the lottery over the maze for cases (rows) 8 to 11. If you always want the maze option,
+        then click the maze option in row 11 and all choices above that will designate the maze option over the lottery. If
+        you always prefer the lottery option, click that option in row 11. To change your choice just click on an option
+        in a different row.
+      </p>
     </div>
   <div>
       <table class="table table-bordered">
