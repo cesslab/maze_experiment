@@ -1,16 +1,16 @@
 import random
-import argparse
 import time
 import os
 import glob
 from os import environ
 
-from selenium import webdriver
+from argparse import ArgumentParser
+
+from selenium.webdriver import Chrome, ChromeOptions
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 
 def instructions(driver):
     print("Clicking through instruction screen...")
@@ -37,6 +37,11 @@ def single_entry_task(browser, browser_tab, task_id):
 
     browser.find_element(By.XPATH, '//button').click()
 
+
+def hold_wait_page(driver, pass_code):
+    input_field = driver.find_element_by_id('pass_code')
+    input_field.send_keys(pass_code)
+    driver.find_element(By.XPATH, '//button').click()
 
 def choose_lottery(driver, pair_id, browser_tab):
     preference = random.randint(0, 2)
@@ -90,15 +95,17 @@ def task_one(browser, browser_tab):
     browser.find_element(By.XPATH, '//button').click()
 
 
-def task_two(browser, browser_tab):
+def task_alpha(browser):
     cases = 10
     choice_labels = ['A', 'B']
-    choice_ids = ['a_row_{}', 'b_row_{}']
-    for case_id in range(1, cases + 1):
-        random_choice = random.randint(0, 1)
-        choice = choice_ids[random_choice]
-        print('Browser Tab {}: For task 2 Case {}, option {} was chosen.'.format(browser_tab, case_id, choice_labels[random_choice]))
-        element = browser.find_element_by_id(choice.format(case_id))
+    choice_id_templates = ['{}_maze_{}', '{}_lottery_{}']
+    choices = [
+        choice_id_templates[random.randint(0, 1)].format('a', str(random.randint(1, 11))),
+        choice_id_templates[random.randint(0, 1)].format('b', str(random.randint(1, 11))),
+        choice_id_templates[random.randint(0, 1)].format('c', str(random.randint(1, 11)))
+    ]
+    for choice_id in choices:
+        element = browser.find_element_by_id(choice_id)
         element.click()
     browser.find_element(By.XPATH, '//button').click()
 
@@ -174,91 +181,149 @@ def bet_case_select_task(browser, browser_tab, task_id):
     browser.find_element(By.XPATH, '//button').click()
 
 
+
+
+class Game:
+    def __init__(self):
+        self.simulator = Simulator()
+
+    def run(self):
+        (self.part, self.quit) = Game.command_line_args()
+
+        self.simulator.open_url(environ.get('EXPERIMENT_URL'))
+        link_elements = self.simulator.get_link_elements("InitializeParticipant")
+        self.simulator.open_links(link_elements)
+
+        # num_players = len(player_links)
+        # print(f'{num_players} player links were found.')
+
+        # create a new tab for each player
+        # for player in range(1, num_players + 1):
+        #     driver.switch_to.window(driver.window_handles[0])
+        #     player_links[player-1].send_keys(Keys.COMMAND + Keys.ENTER)
+        #     time.sleep(1)
+        #     print(f'Created player tab {player}.')
+
+    @staticmethod
+    def command_line_args():
+        parser = ArgumentParser(description='Parse arguments to the selenium simulator')
+        parser.add_argument('part', metavar='N', type=int, help='list of experiment parts to run')
+        parser.add_argument('--quit', action='store_true', help='Do not quit at end')
+        args = parser.parse_args()
+        return (args.part, args.quit)
+
+
+class Simulator:
+    chrome_options = ['--disable-infobars', '--window-size=1200,900', '--disable-device-discovery-notifications']
+
+    def __init__(self):
+        self.driver = Chrome(options=self.options())
+        self.driver.implicitly_wait(30)
+
+    def get_link_elements(self, txt):
+        return self.driver.find_elements_by_partial_link_text(txt)
+
+    def open_url(self, url):
+        self.driver.get(url)
+
+    def open_links(self, link_elements):
+        for index, link_element in enumerate(link_elements):
+            self.go_to_browser_tab(1)
+            link_element.send_keys(Keys.COMMAND + Keys.ENTER)
+            WebDriverWait(self.driver, 10).until(lambda driver: len(driver.window_handles) != index + 1)
+
+    def go_to_browser_tab(self, number):
+        self.driver.switch_to.window(self.driver.window_handles[number - 1])
+
+    def options(self):
+        chrome_options = ChromeOptions()
+        for option in self.chrome_options:
+            chrome_options.add_argument(option)
+        return chrome_options
+
+
+
 # Run with python -m selenium.simulator
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Parse arguments to the selenium simulator')
-    parser.add_argument('part', metavar='N', type=int, help='list of experiment parts to run')
-    parser.add_argument('--quit', action='store_true', help='Do not quit at end')
-    args = parser.parse_args()
-    part = args.part
-    quit_at_end = args.quit
-    print(part)
-
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--disable-infobars")
-    chrome_options.add_argument('--window-size=1200,900')
-    chrome_options.add_argument("--disable-device-discovery-notifications")
-    driver = webdriver.Chrome(options=chrome_options)
-    driver.implicitly_wait(30)
-
-    driver.get(environ.get('EXPERIMENT_URL'))
-    time.sleep(.5)
-    player_links = driver.find_elements_by_partial_link_text("InitializeParticipant")
-
-    num_players = len(player_links)
-    print(f'{num_players} player links were found.')
-
-    # create a new tab for each player
-    for player in range(1, num_players + 1):
-        driver.switch_to.window(driver.window_handles[0])
-        player_links[player-1].send_keys(Keys.COMMAND + Keys.ENTER)
-        time.sleep(.5)
-        print(f'Created player tab {player}.')
-
-    # Part 1: Preference selection phase
-    lottery_pairs = 8
-    if 1 <= part:
-        for round_id in range(1, lottery_pairs + 1):
-            for player in range(1, num_players + 1):
-                # switch to new tab
-                print("window handles: {}".format(len(driver.window_handles)))
-                driver.switch_to.window(driver.window_handles[player])
-                instructions(driver)
-                time.sleep(.5)
-                choose_lottery(driver, round_id, player)
-                time.sleep(.5)
-
-    if 2 <= part:
-        for round_id in range(1, lottery_pairs + 1):
-            for player in range(1, num_players + 1):
-                # switch to new tab
-                if num_players > 1:
-                    driver.switch_to.window(driver.window_handles[player])
-                instructions(driver)
-                time.sleep(.5)
-                allocate_lottery_pair_time(driver, round_id, player)
-                time.sleep(.5)
-
-    if 3 <= part:
-        for round_id in range(1, lottery_pairs + 1):
-            for player in range(1, num_players + 1):
-                # switch to new tab
-                if num_players > 1:
-                    driver.switch_to.window(driver.window_handles[player])
-                instructions(driver)
-                task_one(driver, player)
-                task_two(driver, player)
-                bet_case_select_task(driver, player, 3)
-                # Task 4 is the same as three
-                bet_case_select_task(driver, player, 4)
-                task_five(driver, player, 5)
-                # Task 6
-                task_five(driver, player, 6)
-                # Task 7
-                task_seven(driver, player, 7)
-                # Task 8
-                task_eight(driver, player)
-                # Task 9
-                task_nine(driver, player)
-
-    if 4 <= part:
-        for round_id in range(1, lottery_pairs + 1):
-            for player in range(1, num_players + 1):
-                # switch to new tab
-                if num_players > 1:
-                    driver.switch_to.window(driver.window_handles[player])
-                instructions(driver)
-                practice_maze(driver)
-
-    if quit_at_end:
-        driver.quit()
+    game = Game()
+    game.run()
+    #
+    # args = command_line_args()
+    # part = args.part
+    # quit_at_end = args.quit
+    #
+    # driver = init_driver()
+    # open_player_tabs(driver)
+    #
+    # # create a new tab for each player
+    # for player in range(1, num_players + 1):
+    #     driver.switch_to.window(driver.window_handles[0])
+    #     player_links[player-1].send_keys(Keys.COMMAND + Keys.ENTER)
+    #     time.sleep(1)
+    #     print(f'Created player tab {player}.')
+    #
+    # # Part 1: Preference selection phase
+    # lottery_pairs = 8
+    # if 1 <= part:
+    #     for round_id in range(1, lottery_pairs + 1):
+    #         for player in range(1, num_players + 1):
+    #             # switch to new tab
+    #             print("window handles: {}".format(len(driver.window_handles)))
+    #             driver.switch_to.window(driver.window_handles[player])
+    #             instructions(driver)
+    #             time.sleep(.5)
+    #             choose_lottery(driver, round_id, player)
+    #             time.sleep(.5)
+    #
+    # if 2 <= part:
+    #     for round_id in range(1, lottery_pairs + 1):
+    #         for player in range(1, num_players + 1):
+    #             # switch to new tab
+    #             if num_players > 1:
+    #                 driver.switch_to.window(driver.window_handles[player])
+    #             instructions(driver)
+    #             time.sleep(.5)
+    #             allocate_lottery_pair_time(driver, round_id, player)
+    #             time.sleep(.5)
+    #
+    # if 3 <= part:
+    #     for round_id in range(1, lottery_pairs + 1):
+    #         for player in range(1, num_players + 1):
+    #             # switch to new tab
+    #             if num_players > 1:
+    #                 driver.switch_to.window(driver.window_handles[player])
+    #             instructions(driver)
+    #             hold_wait_page(driver, 1984)
+    #             task_alpha(driver)
+    #             # hold_wait_page(driver, HoldWaitPageTwo.pass_code)
+    #             # task_two(driver, player)
+    #             # hold_wait_page(driver, HoldWaitPageThree.pass_code)
+    #             # bet_case_select_task(driver, player, 3)
+    #             # # Task 4 is the same as three
+    #             # hold_wait_page(driver, HoldWaitPageFour.pass_code)
+    #             # bet_case_select_task(driver, player, 4)
+    #             # hold_wait_page(driver, HoldWaitPageFive.pass_code)
+    #             # task_five(driver, player, 5)
+    #             # # Task 6
+    #             # hold_wait_page(driver, HoldWaitPageSix.pass_code)
+    #             # task_five(driver, player, 6)
+    #             # # Task 7
+    #             # hold_wait_page(driver, HoldWaitPageSeven.pass_code)
+    #             # task_seven(driver, player, 7)
+    #             # # Task 8
+    #             # hold_wait_page(driver, HoldWaitPageEight.pass_code)
+    #             # task_eight(driver, player)
+    #             # # Task 9
+    #             # task_nine(driver, player)
+    #
+    # if 4 <= part:
+    #     for round_id in range(1, lottery_pairs + 1):
+    #         for player in range(1, num_players + 1):
+    #             # switch to new tab
+    #             if num_players > 1:
+    #                 driver.switch_to.window(driver.window_handles[player])
+    #             instructions(driver)
+    #             practice_maze(driver)
+    #
+    # if quit_at_end:
+    #     driver.quit()
