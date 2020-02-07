@@ -3,6 +3,7 @@ import time
 import os
 import glob
 from os import environ
+from contextlib import contextmanager
 
 from argparse import ArgumentParser
 
@@ -11,20 +12,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
-def instructions(driver):
-    print("Clicking through instruction screen...")
-    driver.find_element(By.XPATH, '//button').click()
-    # try:
-    #     btn = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//button')))
-    #     btn.click()
-    # finally:
-    #     print("Unable to find instructions button.")
-    #     driver.quit()
 
 
 def practice_maze(browser):
-    print("Clicking through practice maze...")
+    print('Clicking through practice maze...')
     browser.find_element(By.XPATH, '//button').click()
 
 
@@ -43,45 +36,8 @@ def hold_wait_page(driver, pass_code):
     input_field.send_keys(pass_code)
     driver.find_element(By.XPATH, '//button').click()
 
-def choose_lottery(driver, pair_id, browser_tab):
-    preference = random.randint(0, 2)
-    preference_text = {0: "Option V", 1: "Option W", 2: "Either"}
-    print('Browser Tab {}: Preferred lottery for pair {} was {}'.format(browser_tab, pair_id, preference_text[preference]))
-
-    element = driver.find_element_by_id('id-preference-{}'.format(preference))
-    element.click()
-    driver.find_element(By.XPATH, '//button').click()
 
 
-def allocate_lottery_pair_time(browser, pair_id, browser_tab):
-    random_side = random.randint(1, 2)
-    # Left
-    if random_side == 1:
-        left_lottery_input = browser.find_element_by_id('left_lottery_time')
-
-        max_value = int(left_lottery_input.get_attribute('max'))
-        left_lottery_allocation = random.randint(0, max_value)
-        print('Browser Tab {}: For pair {}: Left lottery allocated {} seconds, Right lottery allocated {} seconds.'.format(
-            browser_tab, pair_id, left_lottery_allocation, max_value - left_lottery_allocation
-        ))
-
-        left_lottery_input.send_keys(str(left_lottery_allocation))
-    # Right
-    else:
-        right_lottery_input = browser.find_element_by_id('right_lottery_time')
-
-        max_value = int(right_lottery_input.get_attribute('max'))
-        right_lottery_allocation = random.randint(0, max_value)
-
-        right_lottery_input.__setattr__('value', right_lottery_allocation)
-
-        print('Browser Tab {}: For pair {}: Left lottery allocated {} seconds, Right lottery allocated {} seconds.'.format(
-            browser_tab, pair_id, max_value - right_lottery_allocation, right_lottery_allocation
-        ))
-
-        right_lottery_input.send_keys(str(right_lottery_allocation))
-
-    browser.find_element(By.XPATH, '//button').click()
 
 
 def task_one(browser, browser_tab):
@@ -190,19 +146,71 @@ class Game:
     def run(self):
         (self.part, self.quit) = Game.command_line_args()
 
-        self.simulator.open_url(environ.get('EXPERIMENT_URL'))
-        link_elements = self.simulator.get_link_elements("InitializeParticipant")
-        self.simulator.open_links(link_elements)
+        self.simulator.open_url(environ.get('EXPERIMENT_URL'), 'Maze Experiment')
+        self.simulator.open_links('InitializeParticipant')
 
-        # num_players = len(player_links)
-        # print(f'{num_players} player links were found.')
+        if self.part >= 1:
+            self.play_part_one()
 
-        # create a new tab for each player
-        # for player in range(1, num_players + 1):
-        #     driver.switch_to.window(driver.window_handles[0])
-        #     player_links[player-1].send_keys(Keys.COMMAND + Keys.ENTER)
-        #     time.sleep(1)
-        #     print(f'Created player tab {player}.')
+        if self.part >= 2:
+            self.play_part_two()
+
+    def play_part_one(self):
+        lottery_pairs = 8
+        self.simulator.go_to_tab(1)
+        for round_id in range(1, lottery_pairs + 1):
+            self.instructions()
+            self.choose_lottery()
+
+    def play_part_two(self):
+        lottery_pairs = 8
+        for round_id in range(1, lottery_pairs + 1):
+            self.instructions()
+            self.allocate_time()
+
+    def allocate_time(self):
+        random_side = random.randint(1, 2)
+        # Left
+        if random_side == 1:
+            left_lottery_input = browser.find_element_by_id('left_lottery_time')
+
+            max_value = int(left_lottery_input.get_attribute('max'))
+            left_lottery_allocation = random.randint(0, max_value)
+            print(
+                'Browser Tab {}: For pair {}: Left lottery allocated {} seconds, Right lottery allocated {} seconds.'.format(
+                    browser_tab, pair_id, left_lottery_allocation, max_value - left_lottery_allocation
+                ))
+
+            left_lottery_input.send_keys(str(left_lottery_allocation))
+        # Right
+        else:
+            right_lottery_input = browser.find_element_by_id('right_lottery_time')
+
+            max_value = int(right_lottery_input.get_attribute('max'))
+            right_lottery_allocation = random.randint(0, max_value)
+
+            right_lottery_input.__setattr__('value', right_lottery_allocation)
+
+            print(
+                'Browser Tab {}: For pair {}: Left lottery allocated {} seconds, Right lottery allocated {} seconds.'.format(
+                    browser_tab, pair_id, max_value - right_lottery_allocation, right_lottery_allocation
+                ))
+
+            right_lottery_input.send_keys(str(right_lottery_allocation))
+
+        browser.find_element(By.XPATH, '//button').click()
+
+    def instructions(self):
+        self.simulator.wait_for_continue_button('instructions-next-button')
+        print('Clicking through instruction screen...')
+        self.simulator.click_continue_button('instructions-next-button')
+
+    def choose_lottery(self):
+        self.simulator.wait_for_continue_button('choice-next-button')
+        print('Choosing a lottery...')
+        id_key = 'id-preference-{}'.format(random.randint(0, 2))
+        self.simulator.click_element_by_id(id_key)
+        self.simulator.click_continue_button('choice-next-button')
 
     @staticmethod
     def command_line_args():
@@ -218,22 +226,50 @@ class Simulator:
 
     def __init__(self):
         self.driver = Chrome(options=self.options())
-        self.driver.implicitly_wait(30)
+        self.driver.implicitly_wait(10)
 
-    def get_link_elements(self, txt):
-        return self.driver.find_elements_by_partial_link_text(txt)
+    def click_element_by_id(self, element_id):
+        element = self.driver.find_element_by_id(element_id)
+        element.click()
 
-    def open_url(self, url):
+    def click_continue_button(self, element_id):
+        self.driver.find_element(By.ID, element_id).click()
+
+    def wait_for_page_with_title(self, title, max_wait_time=10):
+        try:
+            WebDriverWait(self.driver, max_wait_time).until(EC.title_contains(title))
+        except TimeoutException:
+            print(f"Failed waiting for page tile {title}")
+            self.driver.quit()
+
+    def wait_for_continue_button(self, button_id, max_wait_time=10):
+        try:
+            WebDriverWait(self.driver, max_wait_time).until(EC.element_to_be_clickable((By.ID, button_id)))
+        except TimeoutException:
+            print(f"Failed waiting for continue button with id {button_id}")
+            self.driver.quit()
+
+    def open_url(self, url, title):
         self.driver.get(url)
+        self.wait_for_page_with_title(title)
 
-    def open_links(self, link_elements):
-        for index, link_element in enumerate(link_elements):
-            self.go_to_browser_tab(1)
-            link_element.send_keys(Keys.COMMAND + Keys.ENTER)
-            WebDriverWait(self.driver, 10).until(lambda driver: len(driver.window_handles) != index + 1)
+    def go_to_tab(self, number):
+        self.driver.switch_to.window(self.driver.window_handles[number])
 
-    def go_to_browser_tab(self, number):
-        self.driver.switch_to.window(self.driver.window_handles[number - 1])
+    def open_links(self, link_text):
+        try:
+            WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, link_text)))
+        except TimeoutException:
+            print(f"Failed waiting for link with text '{link_text}'")
+            self.driver.quit()
+
+        links = self.driver.find_elements_by_partial_link_text(link_text)
+        for index, link_element in enumerate(links):
+            self.go_to_tab(0)
+
+            with self.wait_for_new_tab():
+                open_tab_js = 'window.open("{}","_blank");'.format(link_element.get_attribute('href'))
+                self.driver.execute_script(open_tab_js)
 
     def options(self):
         chrome_options = ChromeOptions()
@@ -241,10 +277,18 @@ class Simulator:
             chrome_options.add_argument(option)
         return chrome_options
 
+    @contextmanager
+    def wait_for_new_tab(self, timeout=10):
+        handles_before = len(self.driver.window_handles)
+        yield
+        WebDriverWait(self.driver, timeout).until(
+            lambda driver: handles_before != len(self.driver.window_handles)
+        )
+
 
 
 # Run with python -m selenium.simulator
-if __name__ == "__main__":
+if __name__ == '__main__':
     game = Game()
     game.run()
     #
@@ -268,7 +312,7 @@ if __name__ == "__main__":
     #     for round_id in range(1, lottery_pairs + 1):
     #         for player in range(1, num_players + 1):
     #             # switch to new tab
-    #             print("window handles: {}".format(len(driver.window_handles)))
+    #             print('window handles: {}'.format(len(driver.window_handles)))
     #             driver.switch_to.window(driver.window_handles[player])
     #             instructions(driver)
     #             time.sleep(.5)
