@@ -1,142 +1,15 @@
 import random
 import time
-import os
-import glob
 from os import environ
 from contextlib import contextmanager
 
 from argparse import ArgumentParser
 
 from selenium.webdriver import Chrome, ChromeOptions
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-
-
-
-def practice_maze(browser):
-    print('Clicking through practice maze...')
-    browser.find_element(By.XPATH, '//button').click()
-
-
-def single_entry_task(browser, browser_tab, task_id):
-    task_input = browser.find_element_by_id('task_input')
-    max_value = int(task_input.get_attribute('max'))
-    entry = random.randint(0, max_value)
-    print('Browser Tab {}: For task {}, value {} was entered.'.format(browser_tab, task_id, entry))
-    task_input.send_keys(str(entry))
-
-    browser.find_element(By.XPATH, '//button').click()
-
-
-def hold_wait_page(driver, pass_code):
-    input_field = driver.find_element_by_id('pass_code')
-    input_field.send_keys(pass_code)
-    driver.find_element(By.XPATH, '//button').click()
-
-
-
-
-
-def task_one(browser, browser_tab):
-    choice_ids = ['left_label', 'middle_label', 'right_label']
-    options = ['A', 'B', 'C']
-    choice = random.randint(0, 2)
-    print('Browser Tab {}: Option {} was chosen for task 1.'.format(browser_tab, options[choice]))
-
-    element = browser.find_element_by_id(choice_ids[choice])
-    element.click()
-    browser.find_element(By.XPATH, '//button').click()
-
-
-def task_alpha(browser):
-    cases = 10
-    choice_labels = ['A', 'B']
-    choice_id_templates = ['{}_maze_{}', '{}_lottery_{}']
-    choices = [
-        choice_id_templates[random.randint(0, 1)].format('a', str(random.randint(1, 11))),
-        choice_id_templates[random.randint(0, 1)].format('b', str(random.randint(1, 11))),
-        choice_id_templates[random.randint(0, 1)].format('c', str(random.randint(1, 11)))
-    ]
-    for choice_id in choices:
-        element = browser.find_element_by_id(choice_id)
-        element.click()
-    browser.find_element(By.XPATH, '//button').click()
-
-
-def task_eight(browser, browser_tab):
-    cases = 11
-    choice_labels = ['A', 'B']
-    choice_ids = ['a_row_{}', 'b_row_{}']
-    for case_id in range(1, cases + 1):
-        random_choice = random.randint(0, 1)
-        choice = choice_ids[random_choice]
-        print('Browser Tab {}: For task 8 Case {}, option {} was chosen.'.format(browser_tab, case_id, choice_labels[random_choice]))
-        element = browser.find_element_by_id(choice.format(case_id))
-        element.click()
-    browser.find_element(By.XPATH, '//button').click()
-
-
-def task_nine(browser, browser_tab):
-    cases = 11
-    choice_labels = ['A', 'B']
-    choice_ids = ['a_row_{}', 'b_row_{}']
-    for case_id in range(1, cases + 1):
-        random_choice = random.randint(0, 1)
-        choice = choice_ids[random_choice]
-        print('Browser Tab {}: For task 9 Case {}, option {} was chosen.'.format(browser_tab, case_id, choice_labels[random_choice]))
-        element = browser.find_element_by_id(choice.format(case_id))
-        element.click()
-    browser.find_element(By.XPATH, '//button').click()
-
-
-def task_five(browser, browser_tab, task_id):
-    input_field = browser.find_element_by_id('task_input')
-    max_value = int(input_field.get_attribute('max'))
-    entry = random.randint(0, max_value)
-    input_field.send_keys(str(entry))
-    print('Browser Tab {}: For task {}, value {} was entered.'.format(browser_tab, task_id, entry))
-    browser.find_element(By.XPATH, '//button').click()
-
-
-def task_seven(browser, browser_tab, task_id):
-    distance_input_field = browser.find_element_by_id('task_input')
-    distance = random.randint(0, 500)
-    distance_input_field.send_keys(str(distance))
-    print('Browser Tab {}: For task {}, value {} was entered.'.format(browser_tab, task_id, distance))
-
-    browser.find_element_by_id('inlineRadio1').click()
-
-    confidence_input_field = browser.find_element_by_id('confidence_input')
-    confidence = random.randint(0, 100)
-    confidence_input_field.send_keys(str(confidence))
-
-    browser.find_element(By.XPATH, '//button').click()
-
-
-def bet_case_select_task(browser, browser_tab, task_id):
-    cases = 10
-    button_ids = ['left_button', 'right_button']
-    random_choice = random.randint(0, 1)
-    button = browser.find_element_by_id(button_ids[random_choice])
-
-    choice_labels = ['A', 'B']
-    print('Browser Tab {}: For task {} color {} was chosen.'.format(browser_tab, task_id, choice_labels[random_choice]))
-    button.click()
-
-    choice_labels = ['A', 'B']
-    choice_ids = ['a_row_{}', 'b_row_{}']
-    for case_id in range(1, cases + 1):
-        random_choice = random.randint(0, 1)
-        choice = choice_ids[random_choice]
-        print('Browser Tab {}: For task {} Case {}, option {} was chosen.'.format(browser_tab, task_id, case_id, choice_labels[random_choice]))
-        element = browser.find_element_by_id(choice.format(case_id))
-        element.click()
-    browser.find_element(By.XPATH, '//button').click()
-
-
 
 
 class Game:
@@ -144,73 +17,201 @@ class Game:
         self.simulator = Simulator()
 
     def run(self):
-        (self.part, self.quit) = Game.command_line_args()
+        (part, quit_game) = Game.command_line_args()
 
         self.simulator.open_url(environ.get('EXPERIMENT_URL'), 'Maze Experiment')
         self.simulator.open_links('InitializeParticipant')
 
-        if self.part >= 1:
+        if part >= 1:
             self.play_part_one()
 
-        if self.part >= 2:
+        if part >= 2:
             self.play_part_two()
 
+        if part >= 3:
+            self.play_part_three()
+
+        if part >= 4:
+            self.play_part_four()
+
+        if part >= 5:
+            self.play_part_five()
+
+        if part >= 6:
+            self.play_part_six()
+
+        if quit_game:
+            self.quit()
+
     def play_part_one(self):
+        print("Playing part 1")
         lottery_pairs = 8
         self.simulator.go_to_tab(1)
         for round_id in range(1, lottery_pairs + 1):
+            print(f"round {round_id}")
             self.instructions()
             self.choose_lottery()
 
     def play_part_two(self):
+        print("Playing part 2")
         lottery_pairs = 8
         for round_id in range(1, lottery_pairs + 1):
+            print(f"round {round_id}")
             self.instructions()
             self.allocate_time()
+
+    def play_part_three(self):
+        print("Playing part 3")
+        self.instructions()
+        self.enter_pass_code('1984')
+        self.task_one()
+        self.enter_pass_code('1959')
+        self.task_two()
+        self.enter_pass_code('1914')
+        self.task_three()
+        self.enter_pass_code('1929')
+        self.task_four()
+        self.enter_pass_code('1945')
+        self.task_five()
+        self.enter_pass_code('1492')
+        self.task_six()
+        self.enter_pass_code('1776')
+        self.task_seven()
+        self.enter_pass_code('2020')
+        self.task_eight()
+
+    def play_part_four(self):
+        self.instructions()
+        self.practice_maze()
+        self.part_one_outcome()
+        self.maze_prompt()
+        self.maze()
+
+    def play_part_five(self):
+        self.instructions()
+        self.maze_prompt()
+        self.maze()
+        self.maze_prompt()
+        self.maze()
+
+    def play_part_six(self):
+        self.next_button('next-button')
+
+    def task_one(self):
+        self.sub_task('a')
+        self.sub_task('b')
+        self.sub_task('c')
+        self.next_button('task-next-button')
+
+    def task_two(self):
+        self.sub_task('a')
+        self.sub_task('b')
+        self.next_button('task-next-button')
+
+    def task_three(self):
+        self.enter_input('id_task_gamma_1', random.randint(0, 100))
+        self.enter_input('id_task_gamma_2', random.randint(0, 100))
+        self.enter_input('id_task_gamma_3', random.randint(0, 100))
+        self.enter_input('id_task_gamma_4', random.randint(0, 100))
+        self.next_button('task-next-button')
+
+    def task_four(self):
+        self.click(['left_label', 'middle_label', 'right_label'][random.randint(0, 2)])
+        self.next_button('task-next-button')
+
+    def task_five(self):
+        self.sub_task('a')
+        self.next_button('task-next-button')
+
+    def task_six(self):
+        self.enter_input('task_input', random.randint(1, 100))
+        self.click(['inlineRadio1', 'inlineRadio2'][random.randint(0, 1)])
+        self.enter_input('confidence_input', random.randint(0, 100))
+        self.next_button('task-next-button')
+
+    def task_seven(self):
+        self.enter_input('task_input', random.randint(0, 100))
+        self.next_button('task-next-button')
+
+    def task_eight(self):
+        self.enter_input('task_input', random.randint(0, 100))
+        self.next_button('task-next-button')
+
+    def practice_maze(self):
+        self.next_button('next-button')
+
+    def part_one_outcome(self):
+        self.next_button('next-button')
+
+    def maze_prompt(self):
+        self.next_button('next-button')
+
+    def maze(self):
+        seconds_to_solve = int(self.js_var_value('secondsToSolve'))
+        print(f"seconds to solve {seconds_to_solve}")
+        if seconds_to_solve > 0:
+            time.sleep(seconds_to_solve+2)
+
+        solved = random.randint(0, 1)
+        print('Did not solved maze' if solved == 0 else 'Solved maze')
+        if solved == 0:
+            self.enter_hidden_input('solved', 0)
+            self.enter_hidden_input('solve_time_seconds', seconds_to_solve)
+        else:
+            self.enter_hidden_input('solved', 1)
+            self.enter_hidden_input('solve_time_seconds', random.randint(1, seconds_to_solve - 1))
+
+        self.next_button('next-button')
+
+    def js_var_value(self, var_name):
+        return self.simulator.get_js_var_value(var_name)
+
+    def sub_task(self, sub_task_id):
+        option = ['lottery', 'maze'][random.randint(0, 1)]
+        case = random.randint(1, 11)
+        self.click(f"{sub_task_id}_{option}_{case}")
+
+    def enter_pass_code(self, pass_code):
+        self.enter_input('pass_code', pass_code)
+        self.next_button('next-button')
 
     def allocate_time(self):
         random_side = random.randint(1, 2)
         # Left
         if random_side == 1:
-            left_lottery_input = browser.find_element_by_id('left_lottery_time')
-
-            max_value = int(left_lottery_input.get_attribute('max'))
-            left_lottery_allocation = random.randint(0, max_value)
-            print(
-                'Browser Tab {}: For pair {}: Left lottery allocated {} seconds, Right lottery allocated {} seconds.'.format(
-                    browser_tab, pair_id, left_lottery_allocation, max_value - left_lottery_allocation
-                ))
-
-            left_lottery_input.send_keys(str(left_lottery_allocation))
+            self.enter_input('left_lottery_time', random.randint(0, 120))
         # Right
         else:
-            right_lottery_input = browser.find_element_by_id('right_lottery_time')
+            self.enter_input('right_lottery_time', random.randint(0, 120))
 
-            max_value = int(right_lottery_input.get_attribute('max'))
-            right_lottery_allocation = random.randint(0, max_value)
-
-            right_lottery_input.__setattr__('value', right_lottery_allocation)
-
-            print(
-                'Browser Tab {}: For pair {}: Left lottery allocated {} seconds, Right lottery allocated {} seconds.'.format(
-                    browser_tab, pair_id, max_value - right_lottery_allocation, right_lottery_allocation
-                ))
-
-            right_lottery_input.send_keys(str(right_lottery_allocation))
-
-        browser.find_element(By.XPATH, '//button').click()
+        self.next_button('allocation-next-button')
 
     def instructions(self):
-        self.simulator.wait_for_continue_button('instructions-next-button')
-        print('Clicking through instruction screen...')
-        self.simulator.click_continue_button('instructions-next-button')
+        self.next_button('instructions-next-button')
 
     def choose_lottery(self):
-        self.simulator.wait_for_continue_button('choice-next-button')
-        print('Choosing a lottery...')
-        id_key = 'id-preference-{}'.format(random.randint(0, 2))
-        self.simulator.click_element_by_id(id_key)
-        self.simulator.click_continue_button('choice-next-button')
+        self.click(f"id-preference-{random.randint(0, 2)}")
+        self.next_button('choice-next-button')
+
+    def next_button(self, element_id):
+        time.sleep(.5)
+        self.simulator.click_continue_button(element_id)
+        time.sleep(.5)
+
+    def enter_input(self, element_id, value):
+        e = self.simulator.get_element_by_id(element_id)
+        e.clear()
+        e.send_keys(str(value))
+
+    def enter_hidden_input(self, element_id, value):
+        self.simulator.hidden_input_to_text_input(element_id)
+        self.enter_input(element_id, value)
+
+    def click(self, element_id):
+        self.simulator.click_element_by_id(element_id)
+
+    def quit(self):
+        self.simulator.quit()
 
     @staticmethod
     def command_line_args():
@@ -218,7 +219,7 @@ class Game:
         parser.add_argument('part', metavar='N', type=int, help='list of experiment parts to run')
         parser.add_argument('--quit', action='store_true', help='Do not quit at end')
         args = parser.parse_args()
-        return (args.part, args.quit)
+        return args.part, args.quit
 
 
 class Simulator:
@@ -228,26 +229,47 @@ class Simulator:
         self.driver = Chrome(options=self.options())
         self.driver.implicitly_wait(10)
 
+    def quit(self):
+        self.driver.quit()
+
+    def hidden_input_to_text_input(self, element_id):
+        js = f"document.getElementById('{element_id}').setAttribute('type', 'text');"
+        self.driver.execute_script(js)
+        time.sleep(.2)
+
     def click_element_by_id(self, element_id):
+        self.wait_for_continue_button(element_id)
         element = self.driver.find_element_by_id(element_id)
         element.click()
 
     def click_continue_button(self, element_id):
+        self.wait_for_continue_button(element_id)
         self.driver.find_element(By.ID, element_id).click()
+
+    def get_element_by_id(self, element_id):
+        self.wait_for_element(element_id)
+        return self.driver.find_element_by_id(element_id)
 
     def wait_for_page_with_title(self, title, max_wait_time=10):
         try:
             WebDriverWait(self.driver, max_wait_time).until(EC.title_contains(title))
         except TimeoutException:
             print(f"Failed waiting for page tile {title}")
-            self.driver.quit()
+            self.quit()
+
+    def wait_for_element(self, element_id, max_wait_time=10):
+        try:
+            WebDriverWait(self.driver, max_wait_time).until(EC.presence_of_element_located((By.ID, element_id)))
+        except TimeoutException:
+            print(f"Failed waiting for page element with id={element_id}")
+            self.quit()
 
     def wait_for_continue_button(self, button_id, max_wait_time=10):
         try:
             WebDriverWait(self.driver, max_wait_time).until(EC.element_to_be_clickable((By.ID, button_id)))
         except TimeoutException:
             print(f"Failed waiting for continue button with id {button_id}")
-            self.driver.quit()
+            self.quit()
 
     def open_url(self, url, title):
         self.driver.get(url)
@@ -261,7 +283,7 @@ class Simulator:
             WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, link_text)))
         except TimeoutException:
             print(f"Failed waiting for link with text '{link_text}'")
-            self.driver.quit()
+            self.quit()
 
         links = self.driver.find_elements_by_partial_link_text(link_text)
         for index, link_element in enumerate(links):
@@ -270,6 +292,9 @@ class Simulator:
             with self.wait_for_new_tab():
                 open_tab_js = 'window.open("{}","_blank");'.format(link_element.get_attribute('href'))
                 self.driver.execute_script(open_tab_js)
+
+    def get_js_var_value(self, var_name):
+        return self.driver.execute_script(f"return {var_name}")
 
     def options(self):
         chrome_options = ChromeOptions()
@@ -286,88 +311,7 @@ class Simulator:
         )
 
 
-
 # Run with python -m selenium.simulator
 if __name__ == '__main__':
     game = Game()
     game.run()
-    #
-    # args = command_line_args()
-    # part = args.part
-    # quit_at_end = args.quit
-    #
-    # driver = init_driver()
-    # open_player_tabs(driver)
-    #
-    # # create a new tab for each player
-    # for player in range(1, num_players + 1):
-    #     driver.switch_to.window(driver.window_handles[0])
-    #     player_links[player-1].send_keys(Keys.COMMAND + Keys.ENTER)
-    #     time.sleep(1)
-    #     print(f'Created player tab {player}.')
-    #
-    # # Part 1: Preference selection phase
-    # lottery_pairs = 8
-    # if 1 <= part:
-    #     for round_id in range(1, lottery_pairs + 1):
-    #         for player in range(1, num_players + 1):
-    #             # switch to new tab
-    #             print('window handles: {}'.format(len(driver.window_handles)))
-    #             driver.switch_to.window(driver.window_handles[player])
-    #             instructions(driver)
-    #             time.sleep(.5)
-    #             choose_lottery(driver, round_id, player)
-    #             time.sleep(.5)
-    #
-    # if 2 <= part:
-    #     for round_id in range(1, lottery_pairs + 1):
-    #         for player in range(1, num_players + 1):
-    #             # switch to new tab
-    #             if num_players > 1:
-    #                 driver.switch_to.window(driver.window_handles[player])
-    #             instructions(driver)
-    #             time.sleep(.5)
-    #             allocate_lottery_pair_time(driver, round_id, player)
-    #             time.sleep(.5)
-    #
-    # if 3 <= part:
-    #     for round_id in range(1, lottery_pairs + 1):
-    #         for player in range(1, num_players + 1):
-    #             # switch to new tab
-    #             if num_players > 1:
-    #                 driver.switch_to.window(driver.window_handles[player])
-    #             instructions(driver)
-    #             hold_wait_page(driver, 1984)
-    #             task_alpha(driver)
-    #             # hold_wait_page(driver, HoldWaitPageTwo.pass_code)
-    #             # task_two(driver, player)
-    #             # hold_wait_page(driver, HoldWaitPageThree.pass_code)
-    #             # bet_case_select_task(driver, player, 3)
-    #             # # Task 4 is the same as three
-    #             # hold_wait_page(driver, HoldWaitPageFour.pass_code)
-    #             # bet_case_select_task(driver, player, 4)
-    #             # hold_wait_page(driver, HoldWaitPageFive.pass_code)
-    #             # task_five(driver, player, 5)
-    #             # # Task 6
-    #             # hold_wait_page(driver, HoldWaitPageSix.pass_code)
-    #             # task_five(driver, player, 6)
-    #             # # Task 7
-    #             # hold_wait_page(driver, HoldWaitPageSeven.pass_code)
-    #             # task_seven(driver, player, 7)
-    #             # # Task 8
-    #             # hold_wait_page(driver, HoldWaitPageEight.pass_code)
-    #             # task_eight(driver, player)
-    #             # # Task 9
-    #             # task_nine(driver, player)
-    #
-    # if 4 <= part:
-    #     for round_id in range(1, lottery_pairs + 1):
-    #         for player in range(1, num_players + 1):
-    #             # switch to new tab
-    #             if num_players > 1:
-    #                 driver.switch_to.window(driver.window_handles[player])
-    #             instructions(driver)
-    #             practice_maze(driver)
-    #
-    # if quit_at_end:
-    #     driver.quit()
