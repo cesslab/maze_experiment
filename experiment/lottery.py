@@ -129,7 +129,8 @@ class LotteryCollection:
     7, L3' 800, 400, [40, 60], 60, 40
     8, L4' 1200, 0, 50, 60, 40
     """
-    def __init__(self):
+    def __init__(self, selected_pair_index):
+        self.selected_pair_index = selected_pair_index
         self.collection = [
             # 1: L1 vs L2
             LotteryPreferencePair(
@@ -148,7 +149,7 @@ class LotteryCollection:
             ),
             # 4: L1 vs L3
             LotteryPreferencePair(
-                Lottery(7, Currency(8), Currency(4), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(7, Currency(8), Currency(4), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314)),
                 Lottery(8, Currency(8), Currency(4), [0, 100], 60, 40, Maze('50_50_2', 147, 2, 169, 314))
             ),
             # 5: L1 vs L3'
@@ -172,11 +173,11 @@ class LotteryCollection:
                 Lottery(16, Currency(8), Currency(4), [50], 100, 0, Maze('60_40_1', 147, 2, 169, 314))
             ),
         ]
-        random.shuffle(self.collection)
-        self.selected_pair_index = random.randrange(len(self.collection))
+        self.order = random.shuffle(list(range(0, len(self.collection) + 1)))
+        random.shuffle(self.order)
 
     def round_pair(self, round_number):
-        return self.collection[round_number-1]
+        return self.collection[self.order[round_number-1]]
 
     def selected_lottery_pair(self):
         return self.collection[self.selected_pair_index]
@@ -189,9 +190,11 @@ class LotteryCollection:
 
 
 class PreferredLotteryPairCollection(LotteryCollection):
-    pass
+    def __init__(self):
+        super(PreferredLotteryPairCollection, self).__init__(3)
 
 
 class TimedLotteryPairCollection(LotteryCollection):
-    pass
+    def __init__(self):
+        super(TimedLotteryPairCollection, self).__init__(4)
 
