@@ -34,7 +34,6 @@ LANGUAGE_CODE = 'en'
 REAL_WORLD_CURRENCY_CODE = 'USD'
 USE_POINTS = False
 
-ROOMS = []
 
 
 # AUTH_LEVEL:
@@ -65,3 +64,11 @@ SECRET_KEY = 'venu4rku=1fzh+ai&m@gq+0bc0lnw9%+exx#up(v(nm3c8b%f_'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = ['otree']
+
+ROOMS = [
+    {
+        'name': 'cess_lab',
+        'display_name': 'CESS Lab',
+    },
+]
+
