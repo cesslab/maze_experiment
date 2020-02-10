@@ -173,7 +173,7 @@ class LotteryCollection:
                 Lottery(16, Currency(8), Currency(4), [50], 100, 0, Maze('60_40_1', 147, 2, 169, 314))
             ),
         ]
-        self.order = random.shuffle(list(range(0, len(self.collection) + 1)))
+        self.order = list(range(0, len(self.collection)))
         random.shuffle(self.order)
 
     def round_pair(self, round_number):
