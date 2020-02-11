@@ -66,6 +66,8 @@ class MazePage(Page):
         lottery: Lottery = lottery_pair.realized_lottery
         maze: Maze = lottery.maze
 
+        self.player.lottery_id = lottery.id_number
+
         maze.solved = self.player.solved
         maze.solve_time = self.player.solve_time_seconds
 

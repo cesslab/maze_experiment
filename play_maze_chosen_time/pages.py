@@ -27,7 +27,7 @@ class LeftMazePrompt(Page):
         lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
         lottery_pair: LotteryTimedPair = lottery_collection.selected_lottery_pair()
 
-        return lottery_pair.left_time_seconds > 0
+        return lottery_pair.left_time_seconds > 0 and self.round_number == 1
 
 
 class RightMazePrompt(Page):
@@ -35,7 +35,7 @@ class RightMazePrompt(Page):
         lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
         lottery_pair: LotteryTimedPair = lottery_collection.selected_lottery_pair()
 
-        return lottery_pair.right_time_seconds > 0
+        return lottery_pair.right_time_seconds > 0 and self.round_number == 2
 
 
 class LeftMazePage(Page):
@@ -43,16 +43,19 @@ class LeftMazePage(Page):
     form_fields = ['solved', 'solve_time_seconds', 'maze_id']
 
     def is_displayed(self):
-        lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
-        lottery_pair: LotteryTimedPair = lottery_collection.selected_lottery_pair()
+        if self.round_number == 1:
+            lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
+            lottery_pair: LotteryTimedPair = lottery_collection.selected_lottery_pair()
 
-        if lottery_pair.left_time_seconds == 0:
-            self.player.solved = False
-            self.player.solve_time_seconds = 0
-            self.player.maze_id = lottery_pair.left_lottery.maze.name
-            return False
+            if lottery_pair.left_time_seconds == 0:
+                self.player.solved = False
+                self.player.solve_time_seconds = 0
+                self.player.maze_id = lottery_pair.left_lottery.maze.name
+                return False
+            else:
+                return True
         else:
-            return True
+            return False
 
     def vars_for_template(self):
         lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
@@ -78,6 +81,7 @@ class LeftMazePage(Page):
 
         lottery: Lottery = lottery_pair.left_lottery
         maze: Maze = lottery.maze
+        self.player.lottery_id = lottery.id_number
 
         maze.solved = self.player.solved
         maze.solve_time = self.player.solve_time_seconds
@@ -91,16 +95,19 @@ class RightMazePage(Page):
     form_fields = ['solved', 'solve_time_seconds', 'maze_id']
 
     def is_displayed(self):
-        lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
-        lottery_pair: LotteryTimedPair = lottery_collection.selected_lottery_pair()
+        if self.round_number == 2:
+            lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
+            lottery_pair: LotteryTimedPair = lottery_collection.selected_lottery_pair()
 
-        if lottery_pair.right_time_seconds == 0:
-            self.player.solved = False
-            self.player.solve_time_seconds = 0
-            self.player.maze_id = lottery_pair.right_lottery.maze.name
-            return False
+            if lottery_pair.right_time_seconds == 0:
+                self.player.solved = False
+                self.player.solve_time_seconds = 0
+                self.player.maze_id = lottery_pair.right_lottery.maze.name
+                return False
+            else:
+                return True
         else:
-            return True
+            return False
 
     def vars_for_template(self):
         lottery_collection: TimedLotteryPairCollection = self.participant.vars['time_lottery_pair_collection']
@@ -129,6 +136,7 @@ class RightMazePage(Page):
 
         maze.solved = self.player.solved
         maze.solve_time = self.player.solve_time_seconds
+        self.player.lottery_id = lottery.id_number
 
         lottery.determine_payoff()
         self.player.payoff = lottery.payoff + self.player.payoff

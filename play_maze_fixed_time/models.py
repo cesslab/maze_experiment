@@ -22,4 +22,5 @@ class Player(BasePlayer):
     maze_id = models.CharField(max_length=255, blank=False)
     solved = models.IntegerField(choices=[0, 1], default=0)
     solve_time_seconds = models.IntegerField(blank=False)
+    lottery_id = models.IntegerField(blank=False)
 
