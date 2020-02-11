@@ -9,7 +9,7 @@ doc = """Allocate Time to Lottery Mazes"""
 class Constants(BaseConstants):
     name_in_url = 'time_allocation'
     players_per_group = None
-    num_rounds = 8
+    num_rounds = 7
 
 
 class Subsession(BaseSubsession):
