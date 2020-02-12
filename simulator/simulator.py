@@ -17,7 +17,7 @@ class Game:
         self.simulator = Simulator()
 
     def run(self):
-        (part, quit_game) = Game.command_line_args()
+        (part, quit_game, tasks) = Game.command_line_args()
 
         self.simulator.open_url(environ.get('EXPERIMENT_URL'), 'Maze Experiment')
         self.simulator.open_links('InitializeParticipant')
@@ -29,7 +29,7 @@ class Game:
             self.play_part_two()
 
         if part >= 3:
-            self.play_part_three()
+            self.play_part_three(tasks)
 
         if part >= 4:
             self.play_part_four()
@@ -45,7 +45,7 @@ class Game:
 
     def play_part_one(self):
         print("Playing part 1")
-        lottery_pairs = 8
+        lottery_pairs = 7
         self.simulator.go_to_tab(1)
         for round_id in range(1, lottery_pairs + 1):
             print(f"round {round_id}")
@@ -54,31 +54,39 @@ class Game:
 
     def play_part_two(self):
         print("Playing part 2")
-        lottery_pairs = 8
+        lottery_pairs = 7
         for round_id in range(1, lottery_pairs + 1):
             print(f"round {round_id}")
             self.instructions()
             self.allocate_time()
 
-    def play_part_three(self):
+    def play_part_three(self, tasks):
         print("Playing part 3")
         self.instructions()
-        self.enter_pass_code('1984')
-        self.task_one()
-        self.enter_pass_code('1959')
-        self.task_two()
-        self.enter_pass_code('1914')
-        self.task_three()
-        self.enter_pass_code('1929')
-        self.task_four()
-        self.enter_pass_code('1945')
-        self.task_five()
-        self.enter_pass_code('1492')
-        self.task_six()
-        self.enter_pass_code('1776')
-        self.task_seven()
-        self.enter_pass_code('2020')
-        self.task_eight()
+        if tasks >= 1:
+            self.enter_pass_code('1984')
+            self.task_one()
+        if tasks >= 2:
+            self.enter_pass_code('1959')
+            self.task_two()
+        if tasks >= 3:
+            self.enter_pass_code('1914')
+            self.task_three()
+        if tasks >= 4:
+            self.enter_pass_code('1929')
+            self.task_four()
+        if tasks >= 5:
+            self.enter_pass_code('1945')
+            self.task_five()
+        if tasks >= 6:
+            self.enter_pass_code('1492')
+            self.task_six()
+        if tasks >= 7:
+            self.enter_pass_code('1776')
+            self.task_seven()
+        if tasks >= 8:
+            self.enter_pass_code('2020')
+            self.task_eight()
 
     def play_part_four(self):
         self.instructions()
@@ -216,10 +224,11 @@ class Game:
     @staticmethod
     def command_line_args():
         parser = ArgumentParser(description='Parse arguments to the selenium simulator')
-        parser.add_argument('part', metavar='N', type=int, help='list of experiment parts to run')
-        parser.add_argument('--quit', action='store_true', help='Do not quit at end')
+        parser.add_argument('part', metavar='N', type=int, default=6, help='list of experiment parts to run')
+        parser.add_argument('tasks', metavar='N', type=int, default=8, help='Tasks to complete in part 3')
+        parser.add_argument('--quit', action='store_true', default=False, help='Do not quit at end')
         args = parser.parse_args()
-        return args.part, args.quit
+        return args.part, args.quit, args.tasks
 
 
 class Simulator:
