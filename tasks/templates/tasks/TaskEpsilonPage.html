@@ -14,24 +14,25 @@
       <p>
       Task {{ task_number }} again is again similar to tasks 1 and 2 except that here you have lotteries on the left and
         the right with identical known probabilities defined over different prizes. As you move down the table from row
-      1 to row 11 the probability of getting the big prize increases in an identical manner of each left-side and
+      1 to row 11 the probability of getting the big prize increases in an identical manner for each left-side and
         right-side lottery. For each row you will need to decide if you prefer the option on the right or the one on
         the left.
       <p>
       <p>
-        As you look down the column of lottery options you will see that the probability associated with winning the $8
-        prize systematically decreases while that of winning the $4 prize increases. Your task is to find that row in the
-        table such that for all options above that row you prefer to select, say, the maze option to the lottery but
-        after all rows below you prefer the lottery. By clicking that row you will execute your choice.
+        As you look down the columns of lottery options you will see that the probability associated with winning the
+        big prize (either $2.00 for lottery option A or $3.85 for lottery option B)
+        systematically decreases while that of winning the  prize increases. Your task is to find that row in the
+        table such that for all options above that row you prefer to select, say, the lottery option A to the lottery option B but
+        after all rows below you prefer the lottery option B. By clicking that row you will execute your choice.
       </p>
       <p>
-        For example, say that for cases 1, 2, and 3 you prefer the lottery to the maze option, but for cases (rows)
-        4 to 11 you prefer the maze. If you click the lottery option in case 3, then the computer will fill the table for
-        you and designate a choice of lottery over maze for cases (rows) 1 to 3 and maze over lottery for cases (rows)
-        4 to 11 . If you click the maze option in row 7, then that will mean that you prefer the maze option to the lottery
-        for cases (rows) 1 to 7 but the lottery over the maze for cases (rows) 8 to 11. If you always want the maze option,
-        then click the maze option in row 11 and all choices above that will designate the maze option over the lottery. If
-        you always prefer the lottery option, click that option in row 11. To change your choice just click on an option
+        For example, say that for cases 1, 2, and 3 you prefer the lottery option B to the lottery option A, but for cases (rows)
+        4 to 11 you prefer the lottery option A. If you click the lottery option B option in case 3, then the computer will fill the table for
+        you and designate a choice of lottery option B over lottery option A for cases (rows) 1 to 3 and lottery option A over lottery option B for cases (rows)
+        4 to 11 . If you click the lottery option A in row 7, then that will mean that you prefer the lottery option A to the lottery option B
+        for cases (rows) 1 to 7 but the lottery option B over the lottery option A for cases (rows) 8 to 11. If you always want the lottery option A,
+        then click the lottery option A in row 11 and all choices above that will designate the lottery option A over the lottery option B. If
+        you always prefer the lottery option B, click that option in row 11. To change your choice just click on an option
         in a different row.
       </p>
     </div>
@@ -201,8 +202,8 @@
                 <td>10</td>
                 <td>
                     <label style="margin-right: 5px;" for="a_maze_10">
-                        {{ cases.9.option_b.prob_high }}% probability you win {{ cases.9.option_b.payoff_high|c }} and
-                        {{ cases.9.option_b.prob_low }}% probability you win {{ cases.9.option_b.payoff_low|c }}
+                        {{ cases.9.option_a.prob_high }}% probability you win {{ cases.9.option_a.payoff_high|c }} and
+                        {{ cases.9.option_a.prob_low }}% probability you win {{ cases.9.option_a.payoff_low|c }}
                     </label>
                     <input type="radio" value="1" class="maze" data-type="maze" data-task="a" data-case="10" id="a_maze_10" name="task_epsilon_10" autocomplete="off">
                 </td>
