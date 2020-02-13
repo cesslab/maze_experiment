@@ -71,7 +71,11 @@ class LotteryPreferencePair(LotteryPair):
     def __init__(self, a: Lottery, b: Lottery):
         super(LotteryPreferencePair, self).__init__(a, b)
         self._lottery_label = None
+        # The player's preferred lottery, or the randomly selected lottery if the player's preference is either, chosen
+        # from this pair of lotteries.
         self.realized_lottery = None
+        # The label for the preferred lottery selected by the player.
+        # Possible values are: is Left = 0, Right = 1, or Either = 2
         self.realized_lottery_label = None
 
     def maze_names(self):
@@ -92,7 +96,8 @@ class LotteryPreferencePair(LotteryPair):
     @lottery_label.setter
     def lottery_label(self, label: int):
         """
-        Sets both the preference number and the realized lottery
+        This function sets the realized lottery, which is the player's preferred lottery chosen from this lottery pair,
+        or if the player preferred either of the lotteries one is chosen at random.
         :param label:
         :return:
         """
