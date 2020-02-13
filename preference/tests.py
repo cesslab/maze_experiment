@@ -7,67 +7,43 @@ from experiment.lottery import LotteryPreferencePair, PreferredLotteryPairCollec
 
 class PlayerBot(Bot):
 
-    def play_round(self):
+    def test_round_where_lottery_chosen(self, lottery_choice, round_number):
+        yield Instructions
+        yield ChoicePage, dict(preference=lottery_choice)
+        expect(self.player.preference, lottery_choice)
 
-        if self.round_number == 1:
-            yield(Instructions)
-            # Choose left lottery
-            yield(ChoicePage, dict(preference=LotteryPreferencePair.LEFT))
-            expect(self.player.preference, LotteryPreferencePair.LEFT)
+        lotteries: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
+        lottery_pair: LotteryPreferencePair = lotteries.round_pair(round_number)
 
-            # Get the lottery pair for the round
-            lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
-            lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
-
-            self.test_preferred_lottery_label_returned(LotteryPreferencePair.LEFT, lottery_pair)
-            self.test_realized_lottery_matches_preference(lottery_pair, lottery_pair.left_lottery)
-
-        elif self.round_number == 2:
-            yield(NextNotification)
-
-            # Choose right lottery
-            yield(ChoicePage, dict(preference=LotteryPreferencePair.RIGHT))
-
-            # Get the lottery pair for the round
-            lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
-            lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
-
-            self.test_preferred_lottery_label_returned(LotteryPreferencePair.RIGHT, lottery_pair)
-            self.test_realized_lottery_matches_preference(lottery_pair, lottery_pair.right_lottery)
-
-        else:
-            yield(NextNotification)
-
-            yield(ChoicePage, dict(preference=LotteryPreferencePair.EITHER))
-
-            lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
-            lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
-
-            self.test_preferred_lottery_label_returned(LotteryPreferencePair.EITHER, lottery_pair)
-            self.test_realized_lottery_label_when_either_lottery_is_preferred(lottery_pair)
+        self.test_player_preference_is_set(lottery_choice, lottery_pair)
+        if lottery_choice == LotteryPreferencePair.EITHER:
+            self.test_random_lottery_chosen(lottery_pair.realized_lottery_label)
             self.test_correct_realized_lottery_number_returned_when_either_is_preference(lottery_pair)
+        else:
+            self.test_player_preferred_lottery_matches_selected(lottery_pair, lottery_pair.left_lottery)
 
-        lottery_collection: PreferredLotteryPairCollection = self.participant.vars['preferred_lottery_pair_collection']
-        lottery_pair: LotteryPreferencePair = lottery_collection.round_pair(self.round_number)
+    def play_round(self):
+        if self.round_number == 1:
+            self.test_round_where_lottery_chosen(LotteryPreferencePair.LEFT, self.round_number)
+        elif self.round_number == 2:
+            self.test_round_where_lottery_chosen(LotteryPreferencePair.RIGHT, self.round_number)
+        else:
+            self.test_round_where_lottery_chosen(LotteryPreferencePair.EITHER, self.round_number)
 
-        self.test_lottery_maze_names(lottery_pair)
 
     @staticmethod
-    def test_preferred_lottery_label_returned(lottery_label, lottery_pair: LotteryPreferencePair):
-        expect(lottery_pair.lottery_label, lottery_label)
+    def test_player_preference_is_set(preference, lottery_pair: LotteryPreferencePair):
+        expect(lottery_pair.lottery_label, preference)
 
     @staticmethod
-    def test_realized_lottery_matches_preference(lottery_pair: LotteryPreferencePair, preferred_lottery: Lottery):
+    def test_player_preferred_lottery_matches_selected(lottery_pair: LotteryPreferencePair, preferred_lottery: Lottery):
         expect(lottery_pair.realized_lottery.id_number, preferred_lottery.id_number)
 
     @staticmethod
-    def test_realized_lottery_label_when_either_lottery_is_preferred(lottery_pair: LotteryPreferencePair):
-        assert(lottery_pair.realized_lottery_label in [LotteryPreferencePair.LEFT, LotteryPreferencePair.RIGHT])
+    def test_random_lottery_chosen(randomly_chosen_lottery_label):
+        assert(randomly_chosen_lottery_label in [LotteryPreferencePair.LEFT, LotteryPreferencePair.RIGHT])
 
     @staticmethod
     def test_correct_realized_lottery_number_returned_when_either_is_preference(lottery_pair: LotteryPreferencePair):
         assert(lottery_pair.realized_lottery.id_number in [lottery_pair.left_lottery.id_number, lottery_pair.right_lottery.id_number])
 
-    @staticmethod
-    def test_lottery_maze_names(lottery_pairs: LotteryPreferencePair):
-        assert(len(lottery_pairs.maze_names()) == 2)
