@@ -15,7 +15,7 @@ class Instructions(Page):
 
         return {
             'maze_ids': lottery_pair.maze_names(),
-            'lottery_pair_number': lottery_collection.selected_pair_number(),
+            'lottery_pair_number': lottery_collection.selected_lottery_pair_round_number(),
             'lp': lottery_pair,
             'l': lottery_pair.left_lottery,
             'r': lottery_pair.right_lottery,
@@ -72,7 +72,7 @@ class LeftMazePage(Page):
             'start_y': maze.start_y,
             'end_x': maze.end_x,
             'end_y': maze.end_y,
-            'round': lottery_collection.selected_pair_number(),
+            'round': lottery_collection.selected_lottery_pair_round_number(),
         }
 
     def before_next_page(self):
@@ -124,7 +124,7 @@ class RightMazePage(Page):
             'start_y': maze.start_y,
             'end_x': maze.end_x,
             'end_y': maze.end_y,
-            'round': lottery_collection.selected_pair_number(),
+            'round': lottery_collection.selected_lottery_pair_round_number(),
         }
 
     def before_next_page(self):

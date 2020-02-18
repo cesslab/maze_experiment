@@ -19,7 +19,7 @@ class Instructions(Page):
             'realized_lottery': lottery_pair.realized_lottery,
             'preference_number': lottery_pair.lottery_label,
             'realized_preference_number': lottery_pair.realized_lottery_label,
-            'lottery_pair_number': lottery_collection.selected_pair_number(),
+            'lottery_pair_number': lottery_collection.selected_lottery_pair_round_number(),
             'l': lottery_pair.left_lottery,
             'r': lottery_pair.right_lottery,
             'l_rate_length': len(lottery_pair.left_lottery.completion_rate),
@@ -49,7 +49,7 @@ class MazePage(Page):
         maze: Maze = lottery_pair.realized_lottery.maze
         return {
             'label': lottery_pair.realized_lottery_label,
-            'lottery_pair_number': lottery_collection.selected_pair_number(),
+            'lottery_pair_number': lottery_collection.selected_lottery_pair_round_number(),
             'seconds_to_solve': self.session.config['max_maze_solve_time'],
             'maze_img': 'play_maze_fixed_time/img/'+maze.name+'.png',
             'maze_id': maze.name,
