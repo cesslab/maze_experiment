@@ -30,7 +30,6 @@ class PlayerBot(Bot):
         else:
             self.test_round_where_lottery_chosen(LotteryPreferencePair.EITHER, self.round_number)
 
-
     @staticmethod
     def test_player_preference_is_set(preference, lottery_pair: LotteryPreferencePair):
         expect(lottery_pair.lottery_label, preference)
