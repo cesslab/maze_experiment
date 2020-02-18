@@ -1,0 +1,40 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+  Part 5
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'preference/preference.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div>
+    <p>Consider the following personal lottery.</p>
+  <div class="grid-container">
+    <div>
+      {% include 'global/lottery_template.html' with op="A" high=l.high_prize low=l.low_prize rate=l.completion_rate p_complete=l.prob_completed p_incomplete=l.prob_incomplete %}
+    </div>
+  </div>
+  <div>
+    <p>
+      Here the high prize is $9 and the completion rate is 50%.
+    </p>
+  </div>
+  <div>
+  <ol>
+    <li>{% formfield player.q1 label="When you look at a lottery of this type, which feature do you look at first?" %}</li>
+    <li>{% formfield player.q2 label="Describe the rule you used to allocate your time across the lotteries you faced." %}</li>
+    <li>{% formfield player.q3 label="If I were to raise the high prize to $18, how much would you be willing to lower the completion rate so as to make you indifferent between the current lottery and the new lottery with the $18 high prize." %}</li>
+    <li>{% formfield player.q4 label="If I were to raise the completion rate 75%, how much would you be willing to lower the high prize so as to make you indifferent between the current lottery and the new lottery with the 75% completion rate. " %}</li>
+    <li>{% formfield player.q5 label="If I were to tell you that I was thinking of changing the lottery by not letting you know the completion rate was 50% but instead that it was completely unknown, how much would you be willing to pay me to leave the lottery the way it was with a known 50% completion rate." %}</li>
+    <li>{% formfield player.q6 label="If I were to tell you that I was thinking of changing the lottery by reducing the probability of getting the high prize if you do not solve the maze to 0% instead of the current 40%, how much would you be willing to pay me to leave the lottery the way it was with a known 50% completion rate." %}</li>
+    <li>{% formfield player.q7 label="If I were going to make one of the details of this lottery worse (i.e., lower the high prize, lower the low prize, lower the completion rates or the other probabilities) by an unknown amount (could be a lot or a little) , which feature would you prefer that I change." %}</li>
+  </ol>
+  </div>
+  <p>
+    {% next_button %}
+  </p>
+{% endblock %}
+
