@@ -224,8 +224,8 @@ class Game:
     @staticmethod
     def command_line_args():
         parser = ArgumentParser(description='Parse arguments to the selenium simulator')
-        parser.add_argument('part', metavar='N', type=int, default=6, help='list of experiment parts to run')
-        parser.add_argument('tasks', metavar='N', type=int, default=8, help='Tasks to complete in part 3')
+        parser.add_argument('--part', metavar='P', type=int, default=6, help='list of experiment parts to run')
+        parser.add_argument('--tasks', metavar='T', type=int, default=8, help='Tasks to complete in part 3')
         parser.add_argument('--quit', action='store_true', default=False, help='Do not quit at end')
         args = parser.parse_args()
         return args.part, args.quit, args.tasks
