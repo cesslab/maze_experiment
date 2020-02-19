@@ -1,6 +1,7 @@
 import random
+import math
 import time
-from os import environ
+import os
 from contextlib import contextmanager
 
 from argparse import ArgumentParser
@@ -15,39 +16,49 @@ from selenium.common.exceptions import TimeoutException
 class Game:
     def __init__(self):
         self.simulator = Simulator()
+        (self.part, self.quit_game, self.tasks, self.heroku, self.pics) = Game.command_line_args()
 
     def run(self):
-        (part, quit_game, tasks, heroku) = Game.command_line_args()
 
-        print(heroku)
-        if heroku:
-            self.simulator.open_url(environ.get('HEROKU_URL'))
-            self.login(environ.get('HEROKU_LOGIN'), environ.get('HEROKU_PASS'))
+        print(self.heroku)
+        if self.heroku:
+            self.simulator.open_url(os.environ.get('HEROKU_URL'))
+            self.login(os.environ.get('HEROKU_LOGIN'), os.environ.get('HEROKU_PASS'))
             self.simulator.open_link_in_current_tab('Maze Experiment')
             self.simulator.open_links('InitializeParticipant')
         else:
-            self.simulator.open_url(environ.get('EXPERIMENT_URL'))
+            self.simulator.open_url(os.environ.get('EXPERIMENT_URL'))
             self.simulator.open_links('InitializeParticipant')
 
-        if part >= 1:
+        # Select preferred lottery from each pair
+        if self.part >= 1:
             self.play_part_one()
 
-        if part >= 2:
+        # Enter time to solve maze in each pair
+        if self.part >= 2:
             self.play_part_two()
 
-        if part >= 3:
-            self.play_part_three(tasks)
+        # Tasks
+        if self.part >= 3:
+            self.play_part_three(self.tasks)
 
-        if part >= 4:
+        # Solve maze for part 1
+        if self.part >= 4:
             self.play_part_four()
 
-        if part >= 5:
+        # Solve maze for part 2
+        if self.part >= 5:
             self.play_part_five()
 
-        if part >= 6:
+        # Payoffs
+        if self.part >= 6:
             self.play_part_six()
 
-        if quit_game:
+        # Questionnaire
+        if self.part >= 7:
+            self.play_part_seven()
+
+        if self.quit_game:
             self.quit()
 
     def login(self, login, password):
@@ -61,7 +72,9 @@ class Game:
         self.simulator.go_to_tab(1)
         for round_id in range(1, lottery_pairs + 1):
             print(f"round {round_id}")
+            self.screenshot(f'part_1_round_{round_id}_instructions')
             self.instructions()
+            self.screenshot(f'part_1_round_{round_id}_lottery_selection')
             self.choose_lottery()
 
     def play_part_two(self):
@@ -69,7 +82,9 @@ class Game:
         lottery_pairs = 7
         for round_id in range(1, lottery_pairs + 1):
             print(f"round {round_id}")
+            self.screenshot(f'part_2_round_{round_id}_instructions')
             self.instructions()
+            self.screenshot(f'part_2_round_{round_id}_time_allocation')
             self.allocate_time()
 
     def play_part_three(self, tasks):
@@ -77,45 +92,68 @@ class Game:
         self.instructions()
         if tasks >= 1:
             self.enter_pass_code('1984')
+            self.screenshot(f'part_3_task_1')
             self.task_one()
         if tasks >= 2:
             self.enter_pass_code('1959')
+            self.screenshot(f'part_3_task_2')
             self.task_two()
         if tasks >= 3:
             self.enter_pass_code('1914')
+            self.screenshot(f'part_3_task_3')
             self.task_three()
         if tasks >= 4:
             self.enter_pass_code('1929')
+            self.screenshot(f'part_3_task_4')
             self.task_four()
         if tasks >= 5:
             self.enter_pass_code('1945')
+            self.screenshot(f'part_3_task_5')
             self.task_five()
         if tasks >= 6:
             self.enter_pass_code('1492')
+            self.screenshot(f'part_3_task_6')
             self.task_six()
         if tasks >= 7:
             self.enter_pass_code('1776')
+            self.screenshot(f'part_3_task_7')
             self.task_seven()
         if tasks >= 8:
             self.enter_pass_code('2020')
+            self.screenshot(f'part_3_task_8')
             self.task_eight()
 
     def play_part_four(self):
+        self.screenshot(f'part_4_instructions')
         self.instructions()
+        self.screenshot(f'part_4_practice_maze')
         self.practice_maze()
+        self.screenshot(f'part_4_outcome')
         self.part_one_outcome()
+        self.screenshot(f'part_4_maze_prompt')
         self.maze_prompt()
+        self.screenshot(f'part_4_maze_play')
         self.maze()
 
     def play_part_five(self):
+        self.screenshot(f'part_5_instructions')
         self.instructions()
+        self.screenshot(f'part_5_left_lottery_maze_prompt')
         self.maze_prompt()
+        self.screenshot(f'part_5_left_lottery_maze')
         self.maze()
+        self.screenshot(f'part_5_right_lottery_maze_prompt')
         self.maze_prompt()
+        self.screenshot(f'part_5_right_lottery_maze')
         self.maze()
 
     def play_part_six(self):
+        self.screenshot(f'part_6_payoff_screen')
         self.next_button('next-button')
+
+    def play_part_seven(self):
+        self.demographic()
+        self.questionnaire()
 
     def task_one(self):
         self.sub_task('a')
@@ -157,6 +195,34 @@ class Game:
         self.enter_input('task_input', random.randint(0, 100))
         self.next_button('task-next-button')
 
+    def demographic(self):
+        self.enter_input('id_gender', ['male', 'female'][random.randint(0, 1)])
+        self.enter_input('id_age', random.randint(18, 70))
+        self.enter_input('id_major', ['CS', 'Math', 'Econ', 'English Lit', 'Philosophy'][random.randint(0, 4)])
+        self.enter_input('id_year_in_college', [1, 2, 3, 4, 5][random.randint(0, 4)])
+        self.next_button('task-next-button')
+
+    def questionnaire(self):
+        lorem = """
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sollicitudin molestie nunc at posuere.
+        Vestibulum ac suscipit lorem. Praesent lobortis tempus quam vitae fermentum. Etiam et lacinia ex.
+        Donec laoreet interdum felis, sit amet rutrum augue euismod non. Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit. Nulla facilisi. Aliquam non ultrices odio. Nulla interdum arcu sed justo mollis,
+        sit amet facilisis justo efficitur. Pellentesque habitant morbi tristique senectus et netus et malesuada
+        fames ac turpis egestas. Maecenas vitae odio nulla. Duis efficitur sapien at nibh dapibus, in ullamcorper leo
+        porta. Proin eget massa sit amet dolor ullamcorper dignissim eu eleifend massa. Phasellus mattis gravida
+        placerat. Vestibulum at molestie mauris. Ut viverra porta tellus a fermentum. Sed tempus varius venenatis.
+        Ut at neque sed purus semper rhoncus. Pellentesque eu maximus orci. Sed sit amet nisl orci. Curabitur ut
+        ultrices nulla. Etiam faucibus lacus pulvinar dui pellentesque porttitor. Donec tempor velit a leo lacinia,
+        eget egestas erat tempus. Integer magna arcu, fringilla nec iaculis vel, interdum et quam. Praesent a mauris
+        ex.
+        """
+        for i in range(1, 5):
+            start = math.floor(random.randint(0, len(lorem))/4)
+            end = math.ceil(3*random.randint(start + 8, len(lorem)/4))
+            self.enter_input(f'id_q{i}', lorem[start:end])
+        self.next_button('task-next-button')
+
     def practice_maze(self):
         self.next_button('next-button')
 
@@ -194,6 +260,11 @@ class Game:
     def enter_pass_code(self, pass_code):
         self.enter_input('pass_code', pass_code)
         self.next_button('next-button')
+
+    def screenshot(self, screen_name):
+        screenshot_directory = os.path.join(os.path.dirname(os.path.dirname(__file__)), os.environ.get('SCREENSHOT_DIR'))
+        img = os.path.join(screenshot_directory, screen_name + '.png')
+        self.simulator.driver.save_screenshot(img)
 
     def allocate_time(self):
         random_side = random.randint(1, 2)
@@ -236,12 +307,13 @@ class Game:
     @staticmethod
     def command_line_args():
         parser = ArgumentParser(description='Parse arguments to the selenium simulator')
-        parser.add_argument('--part', metavar='P', type=int, default=6, help='list of experiment parts to run')
+        parser.add_argument('--part', metavar='P', type=int, default=7, help='list of experiment parts to run')
         parser.add_argument('--tasks', metavar='T', type=int, default=8, help='Tasks to complete in part 3')
         parser.add_argument('--quit', action='store_true', default=False, help='Do not quit at end')
         parser.add_argument('--heroku', action='store_true', default=False, help='Login to Heroku')
+        parser.add_argument('--pics', action='store_true', default=False, help='Take screenshots')
         args = parser.parse_args()
-        return args.part, args.quit, args.tasks, args.heroku
+        return args.part, args.quit, args.tasks, args.heroku, args.pics
 
 
 class Simulator:
