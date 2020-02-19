@@ -158,7 +158,7 @@ class HoldWaitPage(Page):
         return True
 
     def error_message(self, values):
-        if 'pass_code' not in values:
+        if 'pass_code' not in values or values['pass_code'] is None:
             return ' You must wait for the researcher to provide you with the correct password'
         elif not (int(values['pass_code']) == self.pass_code):
             return ' You must wait for the researcher to provide you with the correct password'
