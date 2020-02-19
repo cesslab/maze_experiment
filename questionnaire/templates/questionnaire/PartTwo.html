@@ -22,15 +22,13 @@
     </p>
   </div>
   <div>
-  <ol>
-    <li>{% formfield player.q1 label="When you look at a lottery of this type, which feature do you look at first?" %}</li>
-    <li>{% formfield player.q2 label="Describe the rule you used to allocate your time across the lotteries you faced." %}</li>
-    <li>{% formfield player.q3 label="If I were to raise the high prize to $18, how much would you be willing to lower the completion rate so as to make you indifferent between the current lottery and the new lottery with the $18 high prize." %}</li>
-    <li>{% formfield player.q4 label="If I were to raise the completion rate 75%, how much would you be willing to lower the high prize so as to make you indifferent between the current lottery and the new lottery with the 75% completion rate. " %}</li>
-    <li>{% formfield player.q5 label="If I were to tell you that I was thinking of changing the lottery by not letting you know the completion rate was 50% but instead that it was completely unknown, how much would you be willing to pay me to leave the lottery the way it was with a known 50% completion rate." %}</li>
-    <li>{% formfield player.q6 label="If I were to tell you that I was thinking of changing the lottery by reducing the probability of getting the high prize if you do not solve the maze to 0% instead of the current 40%, how much would you be willing to pay me to leave the lottery the way it was with a known 50% completion rate." %}</li>
-    <li>{% formfield player.q7 label="If I were going to make one of the details of this lottery worse (i.e., lower the high prize, lower the low prize, lower the completion rates or the other probabilities) by an unknown amount (could be a lot or a little) , which feature would you prefer that I change." %}</li>
-  </ol>
+    <p>{% formfield player.q1 label="1. When you look at a lottery of this type, which feature do you look at first?" %}</p>
+    <p>{% formfield player.q2 label="2. Describe the rule you used to allocate your time across the lotteries you faced." %}</p>
+    <p>{% formfield player.q3 label="3. If I were to raise the high prize to $18, how much would you be willing to lower the completion rate so as to make you indifferent between the current lottery and the new lottery with the $18 high prize." %}</p>
+    <p>{% formfield player.q4 label="4. If I were to raise the completion rate 75%, how much would you be willing to lower the high prize so as to make you indifferent between the current lottery and the new lottery with the 75% completion rate. " %}</p>
+    <p>{% formfield player.q5 label="5. If I were to tell you that I was thinking of changing the lottery by not letting you know the completion rate was 50% but instead that it was completely unknown, how much would you be willing to pay me to leave the lottery the way it was with a known 50% completion rate." %}</p>
+    <p>{% formfield player.q6 label="6. If I were to tell you that I was thinking of changing the lottery by reducing the probability of getting the high prize if you do not solve the maze to 0% instead of the current 40%, how much would you be willing to pay me to leave the lottery the way it was with a known 50% completion rate." %}</p>
+    <p>{% formfield player.q7 label="7. If I were going to make one of the details of this lottery worse (i.e., lower the high prize, lower the low prize, lower the completion rates or the other probabilities) by an unknown amount (could be a lot or a little) , which feature would you prefer that I change." %}</p>
   </div>
   <p>
     {% next_button %}
