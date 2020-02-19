@@ -17,10 +17,17 @@ class Game:
         self.simulator = Simulator()
 
     def run(self):
-        (part, quit_game, tasks) = Game.command_line_args()
+        (part, quit_game, tasks, heroku) = Game.command_line_args()
 
-        self.simulator.open_url(environ.get('EXPERIMENT_URL'), 'Maze Experiment')
-        self.simulator.open_links('InitializeParticipant')
+        print(heroku)
+        if heroku:
+            self.simulator.open_url(environ.get('HEROKU_URL'))
+            self.login(environ.get('HEROKU_LOGIN'), environ.get('HEROKU_PASS'))
+            self.simulator.open_link_in_current_tab('Maze Experiment')
+            self.simulator.open_links('InitializeParticipant')
+        else:
+            self.simulator.open_url(environ.get('EXPERIMENT_URL'))
+            self.simulator.open_links('InitializeParticipant')
 
         if part >= 1:
             self.play_part_one()
@@ -42,6 +49,11 @@ class Game:
 
         if quit_game:
             self.quit()
+
+    def login(self, login, password):
+        self.enter_input('id_username', login)
+        self.enter_input('id_password', password)
+        self.next_button('btn-login')
 
     def play_part_one(self):
         print("Playing part 1")
@@ -227,8 +239,9 @@ class Game:
         parser.add_argument('--part', metavar='P', type=int, default=6, help='list of experiment parts to run')
         parser.add_argument('--tasks', metavar='T', type=int, default=8, help='Tasks to complete in part 3')
         parser.add_argument('--quit', action='store_true', default=False, help='Do not quit at end')
+        parser.add_argument('--heroku', action='store_true', default=False, help='Login to Heroku')
         args = parser.parse_args()
-        return args.part, args.quit, args.tasks
+        return args.part, args.quit, args.tasks, args.heroku
 
 
 class Simulator:
@@ -280,19 +293,38 @@ class Simulator:
             print(f"Failed waiting for continue button with id {button_id}")
             self.quit()
 
-    def open_url(self, url, title):
+    def open_url(self, url):
         self.driver.get(url)
-        self.wait_for_page_with_title(title)
+        time.sleep(.5)
 
     def go_to_tab(self, number):
         self.driver.switch_to.window(self.driver.window_handles[number])
 
-    def open_links(self, link_text):
+    def open_link_in_current_tab(self, link_text):
+        link = self.driver.find_element_by_partial_link_text(link_text)
+        self.open_url(link.get_attribute('href'))
+        time.sleep(.5)
+
+    def open_link(self, link_text):
         try:
             WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, link_text)))
         except TimeoutException:
             print(f"Failed waiting for link with text '{link_text}'")
             self.quit()
+
+        link = self.driver.find_element_by_link_text(link_text)
+        link.click()
+        time.sleep(1)
+
+
+    def open_links(self, link_text):
+        # try:
+        #     WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, link_text)))
+        # except TimeoutException:
+        #     print(f"Failed waiting for link with text '{link_text}'")
+        #     self.quit()
+
+        print(f'opening link with text {link_text}')
 
         links = self.driver.find_elements_by_partial_link_text(link_text)
         for index, link_element in enumerate(links):
