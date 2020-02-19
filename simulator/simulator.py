@@ -217,7 +217,7 @@ class Game:
         eget egestas erat tempus. Integer magna arcu, fringilla nec iaculis vel, interdum et quam. Praesent a mauris
         ex.
         """
-        for i in range(1, 5):
+        for i in range(1, 8):
             start = random.randint(0, math.floor(len(lorem)/4))
             end = math.ceil(random.randint(start + 8, math.ceil(3*len(lorem)/4)))
             self.enter_input(f'id_q{i}', lorem[start:end])
