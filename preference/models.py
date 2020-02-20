@@ -8,7 +8,7 @@ doc = """Chose Preferred Lotteries"""
 class Constants(BaseConstants):
     name_in_url = 'preference'
     players_per_group = None
-    num_rounds = 7
+    num_rounds = 8
 
 
 class Subsession(BaseSubsession):

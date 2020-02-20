@@ -171,6 +171,11 @@ class LotteryCollection:
                 Lottery(13, Currency(8), Currency(4), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
                 Lottery(14, Currency(12), Currency(0), [50], 60, 40, Maze('60_40_1', 147, 2, 169, 314))
             ),
+            # 7: Added by Mauricio
+            LotteryPreferencePair(
+                Lottery(15, Currency(8), Currency(4), [50], 60, 40, Maze('40_40_1', 147, 2, 169, 314)),
+                Lottery(16, Currency(8), Currency(4), [50], 100, 0, Maze('60_40_1', 147, 2, 169, 314))
+            ),
         ]
         self.selected_pair_index = selected_pair_index
         self._order = list(range(0, len(self.collection)))
