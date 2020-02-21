@@ -114,10 +114,10 @@
         },
         "channels-redis": {
             "hashes": [
-                "sha256:ddfa0c067085fdce24fb80d9c0b848638cbdbf0e1167f14eb2e99d635ad216e6",
-                "sha256:de3ecced30b43df61bc944b84d45ebbaf008fdf1a4154fc8ee7c9c6e78f00a4c"
+                "sha256:62d2b5301cd0fc421e4284afa8e7ed5cadadc9738ec43fa2b3c92b5cc76926dc",
+                "sha256:72ab784887a9c519b334487db26aa24287f3d0561901edb52cd14f32017999dd"
             ],
-            "version": "==2.4.1"
+            "version": "==2.4.2"
         },
         "colorama": {
             "hashes": [
